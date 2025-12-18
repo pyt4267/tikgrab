@@ -1,0 +1,765 @@
+/* ========================================
+   TikGrab - ネオンサイバーパンクスタイル
+   ======================================== */
+
+/* カスタムプロパティ */
+:root {
+    /* カラーパレット */
+    --bg-primary: #0a0a0f;
+    --bg-secondary: #12121a;
+    --bg-card: rgba(20, 20, 30, 0.8);
+
+    --neon-cyan: #00f5ff;
+    --neon-magenta: #ff00e5;
+    --neon-purple: #7c3aed;
+    --neon-green: #22c55e;
+    --neon-green-light: #10b981;
+
+    --text-primary: #ffffff;
+    --text-secondary: rgba(255, 255, 255, 0.7);
+    --text-muted: rgba(255, 255, 255, 0.5);
+
+    /* フォント */
+    --font-main: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
+
+    /* スペーシング */
+    --space-xs: 0.5rem;
+    --space-sm: 1rem;
+    --space-md: 1.5rem;
+    --space-lg: 2rem;
+    --space-xl: 3rem;
+    --space-2xl: 5rem;
+
+    /* ボーダー */
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 20px;
+    --radius-full: 9999px;
+
+    /* トランジション */
+    --transition-fast: 0.2s ease;
+    --transition-normal: 0.3s ease;
+    --transition-slow: 0.5s ease;
+}
+
+/* リセット */
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: var(--font-main);
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    line-height: 1.6;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+/* ========================================
+   ヘッダー
+   ======================================== */
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    padding: var(--space-sm) var(--space-lg);
+    background: rgba(10, 10, 15, 0.8);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.header-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: var(--space-xs);
+    text-decoration: none;
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.logo-icon {
+    font-size: 1.8rem;
+    filter: drop-shadow(0 0 10px var(--neon-cyan));
+}
+
+.logo-text {
+    color: var(--text-primary);
+}
+
+.logo-accent {
+    background: linear-gradient(135deg, var(--neon-cyan), var(--neon-magenta));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.nav {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+}
+
+.nav-link {
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-weight: 500;
+    padding: var(--space-xs) var(--space-sm);
+    border-radius: var(--radius-full);
+    transition: var(--transition-fast);
+}
+
+.nav-link:hover {
+    color: var(--neon-cyan);
+    background: rgba(0, 245, 255, 0.1);
+}
+
+.theme-toggle {
+    background: var(--bg-card);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: var(--radius-full);
+    padding: var(--space-xs) var(--space-sm);
+    cursor: pointer;
+    transition: var(--transition-fast);
+}
+
+.theme-toggle:hover {
+    border-color: var(--neon-cyan);
+    box-shadow: 0 0 15px rgba(0, 245, 255, 0.3);
+}
+
+.theme-icon {
+    font-size: 1.2rem;
+}
+
+/* ========================================
+   ヒーローセクション
+   ======================================== */
+.hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: calc(80px + var(--space-xl)) var(--space-lg) var(--space-xl);
+    overflow: hidden;
+}
+
+/* 背景グロー効果 */
+.hero-bg {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+}
+
+.glow {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(100px);
+    opacity: 0.4;
+    animation: pulse 8s ease-in-out infinite;
+}
+
+.glow-1 {
+    top: 10%;
+    left: 20%;
+    width: 400px;
+    height: 400px;
+    background: var(--neon-cyan);
+}
+
+.glow-2 {
+    top: 50%;
+    right: 10%;
+    width: 300px;
+    height: 300px;
+    background: var(--neon-magenta);
+    animation-delay: -3s;
+}
+
+.glow-3 {
+    bottom: 10%;
+    left: 40%;
+    width: 350px;
+    height: 350px;
+    background: var(--neon-purple);
+    animation-delay: -5s;
+}
+
+@keyframes pulse {
+
+    0%,
+    100% {
+        transform: scale(1);
+        opacity: 0.4;
+    }
+
+    50% {
+        transform: scale(1.1);
+        opacity: 0.6;
+    }
+}
+
+.hero-content {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    max-width: 700px;
+    width: 100%;
+}
+
+.hero-title {
+    margin-bottom: var(--space-md);
+}
+
+.title-main {
+    display: block;
+    font-size: clamp(1.5rem, 5vw, 2.5rem);
+    font-weight: 500;
+    color: var(--text-secondary);
+    margin-bottom: var(--space-xs);
+}
+
+.title-highlight {
+    display: block;
+    font-size: clamp(2rem, 8vw, 4rem);
+    font-weight: 800;
+    background: linear-gradient(135deg, var(--neon-cyan), var(--neon-magenta), var(--neon-purple));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-shadow: 0 0 40px rgba(0, 245, 255, 0.3);
+}
+
+.hero-subtitle {
+    font-size: clamp(1rem, 2.5vw, 1.25rem);
+    color: var(--text-muted);
+    margin-bottom: var(--space-xl);
+}
+
+/* ========================================
+   モードタブ
+   ======================================== */
+.mode-tabs {
+    display: flex;
+    justify-content: center;
+    gap: var(--space-xs);
+    margin-bottom: var(--space-lg);
+}
+
+.mode-tab {
+    display: flex;
+    align-items: center;
+    gap: var(--space-xs);
+    padding: var(--space-xs) var(--space-md);
+    background: var(--bg-card);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: var(--radius-full);
+    color: var(--text-secondary);
+    font-family: var(--font-main);
+    font-size: 0.95rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: var(--transition-fast);
+}
+
+.mode-tab:hover {
+    border-color: var(--neon-cyan);
+    color: var(--text-primary);
+}
+
+.mode-tab.active {
+    background: linear-gradient(135deg, rgba(0, 245, 255, 0.2), rgba(255, 0, 229, 0.2));
+    border-color: var(--neon-cyan);
+    color: var(--text-primary);
+    box-shadow: 0 0 20px rgba(0, 245, 255, 0.2);
+}
+
+.tab-icon {
+    font-size: 1.1rem;
+}
+
+/* ========================================
+   ダウンロードカード
+   ======================================== */
+.download-card {
+    background: var(--bg-card);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: var(--radius-lg);
+    padding: var(--space-md);
+    backdrop-filter: blur(20px);
+    box-shadow:
+        0 20px 50px rgba(0, 0, 0, 0.5),
+        inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+.input-wrapper {
+    display: flex;
+    gap: var(--space-xs);
+    margin-bottom: var(--space-sm);
+}
+
+.url-input {
+    flex: 1;
+    padding: var(--space-sm) var(--space-md);
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: var(--radius-md);
+    color: var(--text-primary);
+    font-family: var(--font-main);
+    font-size: 1rem;
+    transition: var(--transition-fast);
+}
+
+.url-input::placeholder {
+    color: var(--text-muted);
+}
+
+.url-input:focus {
+    outline: none;
+    border-color: var(--neon-cyan);
+    box-shadow: 0 0 20px rgba(0, 245, 255, 0.2);
+}
+
+.paste-btn {
+    padding: var(--space-sm) var(--space-md);
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: var(--radius-md);
+    color: var(--text-secondary);
+    font-family: var(--font-main);
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: var(--transition-fast);
+    white-space: nowrap;
+}
+
+.paste-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--text-primary);
+}
+
+.download-btn {
+    width: 100%;
+    padding: var(--space-md);
+    background: linear-gradient(135deg, var(--neon-green), var(--neon-green-light));
+    border: none;
+    border-radius: var(--radius-md);
+    color: #000;
+    font-family: var(--font-main);
+    font-size: 1.1rem;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-xs);
+    transition: var(--transition-fast);
+    position: relative;
+    overflow: hidden;
+}
+
+.download-btn::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transform: translateX(-100%);
+    transition: transform 0.5s ease;
+}
+
+.download-btn:hover::before {
+    transform: translateX(100%);
+}
+
+.download-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(34, 197, 94, 0.4);
+}
+
+.download-btn:active {
+    transform: translateY(0);
+}
+
+.btn-icon {
+    transition: transform var(--transition-fast);
+}
+
+.download-btn:hover .btn-icon {
+    transform: translateX(5px);
+}
+
+/* ========================================
+   ステップ
+   ======================================== */
+.steps {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-sm);
+    margin-top: var(--space-xl);
+    flex-wrap: wrap;
+}
+
+.step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-xs);
+}
+
+.step-number {
+    width: 40px;
+    height: 40px;
+    background: linear-gradient(135deg, var(--neon-cyan), var(--neon-purple));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 1.1rem;
+}
+
+.step p {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+}
+
+.step-arrow {
+    color: var(--neon-cyan);
+    font-size: 1.5rem;
+    opacity: 0.5;
+}
+
+/* ========================================
+   機能セクション
+   ======================================== */
+.features {
+    padding: var(--space-2xl) var(--space-lg);
+    background: var(--bg-secondary);
+}
+
+.section-title {
+    text-align: center;
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
+    font-weight: 700;
+    margin-bottom: var(--space-xl);
+    background: linear-gradient(135deg, var(--neon-cyan), var(--neon-magenta));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: var(--space-lg);
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.feature-card {
+    background: var(--bg-card);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: var(--radius-lg);
+    padding: var(--space-lg);
+    text-align: center;
+    transition: var(--transition-normal);
+}
+
+.feature-card:hover {
+    border-color: var(--neon-cyan);
+    transform: translateY(-5px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
+
+.feature-icon {
+    font-size: 2.5rem;
+    margin-bottom: var(--space-sm);
+    filter: drop-shadow(0 0 10px rgba(0, 245, 255, 0.5));
+}
+
+.feature-card h3 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: var(--space-xs);
+    color: var(--text-primary);
+}
+
+.feature-card p {
+    font-size: 0.95rem;
+    color: var(--text-muted);
+}
+
+/* ========================================
+   フッター
+   ======================================== */
+.footer {
+    background: var(--bg-primary);
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    padding: var(--space-xl) var(--space-lg);
+}
+
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-md);
+    text-align: center;
+}
+
+.footer-logo {
+    display: flex;
+    align-items: center;
+    gap: var(--space-xs);
+    font-size: 1.3rem;
+    font-weight: 700;
+}
+
+.footer-text {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+}
+
+.footer-links {
+    display: flex;
+    gap: var(--space-lg);
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.footer-links a {
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: var(--transition-fast);
+}
+
+.footer-links a:hover {
+    color: var(--neon-cyan);
+}
+
+/* ========================================
+   レスポンシブ
+   ======================================== */
+@media (max-width: 768px) {
+    .header {
+        padding: var(--space-sm);
+    }
+
+    .hero {
+        padding: calc(70px + var(--space-lg)) var(--space-sm) var(--space-lg);
+    }
+
+    .mode-tabs {
+        flex-wrap: wrap;
+    }
+
+    .mode-tab {
+        padding: var(--space-xs) var(--space-sm);
+        font-size: 0.85rem;
+    }
+
+    .download-card {
+        padding: var(--space-sm);
+    }
+
+    .input-wrapper {
+        flex-direction: column;
+    }
+
+    .paste-btn {
+        width: 100%;
+    }
+
+    .steps {
+        gap: var(--space-xs);
+    }
+
+    .step-arrow {
+        display: none;
+    }
+
+    .glow {
+        opacity: 0.2;
+    }
+
+    .glow-1,
+    .glow-2,
+    .glow-3 {
+        width: 200px;
+        height: 200px;
+    }
+}
+
+/* ========================================
+   アニメーション
+   ======================================== */
+@keyframes float {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+.logo-icon {
+    animation: float 3s ease-in-out infinite;
+}
+
+/* スクロールアニメーション用 */
+.feature-card {
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeInUp 0.6s ease forwards;
+}
+
+.feature-card:nth-child(1) {
+    animation-delay: 0.1s;
+}
+
+.feature-card:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.feature-card:nth-child(3) {
+    animation-delay: 0.3s;
+}
+
+.feature-card:nth-child(4) {
+    animation-delay: 0.4s;
+}
+
+.feature-card:nth-child(5) {
+    animation-delay: 0.5s;
+}
+
+.feature-card:nth-child(6) {
+    animation-delay: 0.6s;
+}
+
+@keyframes fadeInUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ========================================
+   ライトモード
+   ======================================== */
+body.light-mode {
+    --bg-primary: #f5f7fa;
+    --bg-secondary: #e8ecf1;
+    --bg-card: rgba(255, 255, 255, 0.9);
+
+    --text-primary: #1a1a2e;
+    --text-secondary: rgba(26, 26, 46, 0.7);
+    --text-muted: rgba(26, 26, 46, 0.5);
+}
+
+body.light-mode .header {
+    background: rgba(245, 247, 250, 0.9);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+body.light-mode .theme-toggle {
+    background: rgba(0, 0, 0, 0.05);
+    border-color: rgba(0, 0, 0, 0.1);
+}
+
+body.light-mode .logo-text {
+    color: var(--text-primary);
+}
+
+body.light-mode .glow {
+    opacity: 0.15;
+}
+
+body.light-mode .download-card {
+    background: var(--bg-card);
+    border-color: rgba(0, 0, 0, 0.1);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
+}
+
+body.light-mode .url-input {
+    background: rgba(0, 0, 0, 0.05);
+    border-color: rgba(0, 0, 0, 0.1);
+    color: var(--text-primary);
+}
+
+body.light-mode .url-input::placeholder {
+    color: var(--text-muted);
+}
+
+body.light-mode .paste-btn {
+    background: rgba(0, 0, 0, 0.05);
+    border-color: rgba(0, 0, 0, 0.1);
+    color: var(--text-secondary);
+}
+
+body.light-mode .mode-tab {
+    background: rgba(255, 255, 255, 0.8);
+    border-color: rgba(0, 0, 0, 0.1);
+    color: var(--text-secondary);
+}
+
+body.light-mode .mode-tab.active {
+    background: linear-gradient(135deg, rgba(0, 245, 255, 0.3), rgba(255, 0, 229, 0.3));
+}
+
+body.light-mode .feature-card {
+    background: var(--bg-card);
+    border-color: rgba(0, 0, 0, 0.05);
+}
+
+body.light-mode .feature-card h3 {
+    color: var(--text-primary);
+}
+
+body.light-mode .footer {
+    background: var(--bg-primary);
+    border-top-color: rgba(0, 0, 0, 0.1);
+}
+
+body.light-mode .step-number {
+    color: #fff;
+}
+
+/* ライトモード用のトランジション */
+body {
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.header,
+.download-card,
+.url-input,
+.mode-tab,
+.feature-card,
+.footer {
+    transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+}

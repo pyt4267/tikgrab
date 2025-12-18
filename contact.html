@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact - TikGrab</title>
+    <meta name="description" content="Contact TikGrab. Send us your questions or feedback.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="pages.css">
+</head>
+
+<body>
+    <header class="header">
+        <div class="header-container">
+            <a href="index.html" class="logo">
+                <span class="logo-icon">📥</span>
+                <span class="logo-text">Tik<span class="logo-accent">Grab</span></span>
+            </a>
+            <nav class="nav">
+                <a href="faq.html" class="nav-link">FAQ</a>
+                <button class="theme-toggle" id="themeToggle">
+                    <span class="theme-icon">🌙</span>
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <main class="page-content">
+        <div class="page-container">
+            <h1 class="page-title">Contact Us</h1>
+            <p class="page-subtitle">Have questions or feedback? We'd love to hear from you.</p>
+
+            <div class="contact-grid">
+                <div class="contact-info">
+                    <div class="contact-card">
+                        <span class="contact-icon">📧</span>
+                        <h3>Email</h3>
+                        <p>support@tikgrab.com</p>
+                    </div>
+                    <div class="contact-card">
+                        <span class="contact-icon">⏰</span>
+                        <h3>Response Time</h3>
+                        <p>Monday - Friday, 10:00 AM - 6:00 PM</p>
+                        <p class="small">※ Responses may take 2-3 business days</p>
+                    </div>
+                    <div class="contact-card">
+                        <span class="contact-icon">❓</span>
+                        <h3>FAQ</h3>
+                        <p>Check our <a href="faq.html">FAQ</a> first - many questions are answered there.</p>
+                    </div>
+                </div>
+
+                <form class="contact-form" id="contactForm">
+                    <div class="form-group">
+                        <label for="name">Name <span class="required">*</span></label>
+                        <input type="text" id="name" name="name" required placeholder="John Doe">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email <span class="required">*</span></label>
+                        <input type="email" id="email" name="email" required placeholder="example@email.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="subject">Subject <span class="required">*</span></label>
+                        <select id="subject" name="subject" required>
+                            <option value="">Please select</option>
+                            <option value="question">Question about the service</option>
+                            <option value="bug">Bug report</option>
+                            <option value="feedback">Feedback & Suggestions</option>
+                            <option value="copyright">Copyright inquiry</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Message <span class="required">*</span></label>
+                        <textarea id="message" name="message" rows="6" required
+                            placeholder="Please describe your inquiry..."></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn">
+                        <span>Send Message</span>
+                        <span class="btn-icon">→</span>
+                    </button>
+                </form>
+            </div>
+
+            <section class="dmca-section">
+                <h2>DMCA / Copyright Takedown</h2>
+                <p>For copyright-related inquiries, please provide the following information:</p>
+                <ul>
+                    <li>Identification of the copyrighted content</li>
+                    <li>Proof that you are the copyright owner</li>
+                    <li>Your contact information</li>
+                    <li>A good faith statement</li>
+                </ul>
+            </section>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-logo">
+                <span>📥</span>
+                <span>TikGrab</span>
+            </div>
+            <p class="footer-text">© 2024 TikGrab. All rights reserved.</p>
+            <div class="footer-links">
+                <a href="privacy.html">Privacy Policy</a>
+                <a href="terms.html">Terms of Service</a>
+                <a href="contact.html">Contact</a>
+                <a href="faq.html">FAQ</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="theme.js"></script>
+    <script>
+        document.getElementById('contactForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+            alert('Thank you for your message. The email function is currently under development.');
+        });
+    </script>
+</body>
+
+</html>

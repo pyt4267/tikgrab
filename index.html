@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="TikGrab - Download TikTok videos in HD quality. Save without watermark for free.">
+    <title>TikGrab - TikTok Video Downloader</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-container">
+            <a href="index.html" class="logo">
+                <span class="logo-icon">⚡</span>
+                <span class="logo-text">Tik<span class="logo-accent">Grab</span></span>
+            </a>
+            <nav class="nav">
+                <a href="faq.html" class="nav-link">FAQ</a>
+                <button class="theme-toggle" id="themeToggle" aria-label="Toggle Theme">
+                    <span class="theme-icon">🌙</span>
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <main>
+        <section class="hero">
+            <div class="hero-bg">
+                <div class="glow glow-1"></div>
+                <div class="glow glow-2"></div>
+                <div class="glow glow-3"></div>
+            </div>
+
+            <div class="hero-content">
+                <h1 class="hero-title">
+                    <span class="title-main">Download TikTok Videos</span>
+                    <span class="title-highlight">Instantly</span>
+                </h1>
+                <p class="hero-subtitle">
+                    No Watermark • HD Quality • 100% Free
+                </p>
+
+                <!-- Mode Tabs -->
+                <div class="mode-tabs">
+                    <button class="mode-tab active" data-mode="video">
+                        <span class="tab-icon">🎬</span>
+                        <span>Video</span>
+                    </button>
+                    <button class="mode-tab" data-mode="audio">
+                        <span class="tab-icon">🎵</span>
+                        <span>MP3</span>
+                    </button>
+                    <button class="mode-tab" data-mode="slide">
+                        <span class="tab-icon">📸</span>
+                        <span>Slideshow</span>
+                    </button>
+                </div>
+
+                <!-- Download Card -->
+                <div class="download-card">
+                    <div class="input-wrapper">
+                        <input type="text" class="url-input" id="urlInput" placeholder="Paste TikTok URL here..."
+                            autocomplete="off">
+                        <button class="paste-btn" id="pasteBtn">
+                            📋 Paste
+                        </button>
+                    </div>
+                    <button class="download-btn" id="downloadBtn">
+                        <span class="btn-text">Download</span>
+                        <span class="btn-icon">→</span>
+                    </button>
+                </div>
+
+                <!-- Steps -->
+                <div class="steps">
+                    <div class="step">
+                        <div class="step-number">1</div>
+                        <p>Copy URL from TikTok</p>
+                    </div>
+                    <div class="step-arrow">→</div>
+                    <div class="step">
+                        <div class="step-number">2</div>
+                        <p>Paste above</p>
+                    </div>
+                    <div class="step-arrow">→</div>
+                    <div class="step">
+                        <div class="step-number">3</div>
+                        <p>Download</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section class="features">
+            <h2 class="section-title">Why TikGrab?</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">✨</div>
+                    <h3>No Watermark</h3>
+                    <p>Save clean videos as they are</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <h3>Super Fast</h3>
+                    <p>Download in seconds</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🎯</div>
+                    <h3>HD Quality</h3>
+                    <p>HD, Full HD & 4K support</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔒</div>
+                    <h3>Safe & Free</h3>
+                    <p>No registration required</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📱</div>
+                    <h3>All Devices</h3>
+                    <p>Works on PC, iOS & Android</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">♾️</div>
+                    <h3>Unlimited</h3>
+                    <p>No download limits</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-logo">
+                <span class="logo-icon">⚡</span>
+                <span>TikGrab</span>
+            </div>
+            <p class="footer-text">© 2024 TikGrab. All rights reserved.</p>
+            <div class="footer-links">
+                <a href="privacy.html">Privacy Policy</a>
+                <a href="terms.html">Terms of Service</a>
+                <a href="contact.html">Contact</a>
+                <a href="faq.html">FAQ</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
