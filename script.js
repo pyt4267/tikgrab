@@ -293,6 +293,36 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     // ========================================
+    // Download All Slides (Global Function)
+    // ========================================
+    window.downloadAllSlides = async function (urls) {
+        const statusEl = document.getElementById('downloadStatus');
+        if (statusEl) {
+            statusEl.innerHTML = `<p>⏳ Downloading ${urls.length} files...</p>`;
+        }
+
+        for (let i = 0; i < urls.length; i++) {
+            const isImage = urls[i].includes('.jpg') || urls[i].includes('.jpeg') || urls[i].includes('.png') || urls[i].includes('.webp');
+            const ext = isImage ? 'jpg' : 'mp4';
+            const filename = `tiktok_${i + 1}.${ext}`;
+
+            // Download with delay to prevent browser blocking
+            await new Promise(resolve => setTimeout(resolve, 500));
+            downloadWithProxy(urls[i], filename);
+
+            if (statusEl) {
+                statusEl.innerHTML = `<p>⏳ Downloading ${i + 1}/${urls.length}...</p>`;
+            }
+        }
+
+        setTimeout(() => {
+            if (statusEl) {
+                statusEl.innerHTML = `<p>✅ All ${urls.length} files downloaded!</p>`;
+            }
+        }, 2000);
+    };
+
+    // ========================================
     // Download Result Display (SnapTik style)
     // ========================================
     function showDownloadResult(result) {
@@ -304,23 +334,33 @@ document.addEventListener('DOMContentLoaded', () => {
         resultDiv.className = 'download-result';
 
         if (result.isMultiple && result.picker) {
-            // Multiple options
+            // Multiple options (Slideshow)
+            const isImage = result.picker[0]?.url?.includes('.jpg') || result.picker[0]?.url?.includes('.jpeg') || result.picker[0]?.url?.includes('.png') || result.picker[0]?.url?.includes('.webp');
+            const ext = isImage ? 'jpg' : 'mp4';
+
             resultDiv.innerHTML = `
                 <div class="result-preview">
-                    <div class="result-thumb-large">📥</div>
-                    <p class="result-title">Multiple files found</p>
+                    <div class="result-thumb-large">📸</div>
+                    <p class="result-title">${result.picker.length} files found</p>
                 </div>
                 <div class="result-buttons">
                     ${result.picker.map((item, i) => `
-                        <a href="${item.url}" class="result-btn primary" download="tiktok_${i + 1}.mp4">
+                        <button class="result-btn primary" onclick="downloadWithProxy('${item.url}', 'tiktok_${i + 1}.${ext}')">
                             <span class="btn-icon-left">⬇️</span>
                             Download ${i + 1}
-                        </a>
+                        </button>
                     `).join('')}
+                    <button class="result-btn secondary" onclick="downloadAllSlides(${JSON.stringify(result.picker.map(p => p.url)).replace(/"/g, '&quot;')})">
+                        <span class="btn-icon-left">📦</span>
+                        Download All
+                    </button>
                     <button class="result-btn reset" onclick="this.closest('.download-result').remove()">
                         <span class="btn-icon-left">🔄</span>
-                        Download Another Video
+                        Download Another
                     </button>
+                </div>
+                <div class="save-tip" id="downloadStatus">
+                    <p>Click a button to download</p>
                 </div>
             `;
         } else {
