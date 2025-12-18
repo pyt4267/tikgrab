@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Download TikTok videos without watermark in HD quality. Free TikTok video downloader - save videos, slideshows, and audio.">
+    <meta name="keywords"
+        content="TikTok downloader, download TikTok videos, TikTok video saver, no watermark, TikTok MP4">
+    <meta name="author" content="TikGrab">
+    <meta property="og:title" content="TikTok Video Downloader - Download Without Watermark | TikGrab">
+    <meta property="og:description"
+        content="Download TikTok videos in HD quality without watermark. Free and easy to use.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://tikgrab.net/download-tiktok-videos.html">
+    <link rel="canonical" href="https://tikgrab.net/download-tiktok-videos.html">
+    <title>TikTok Video Downloader - Download Without Watermark | TikGrab</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="pages.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        /* TikTok Page Specific Styles */
+        .tiktok-hero {
+            padding: calc(80px + 3rem) 1.5rem 3rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tiktok-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background:
+                radial-gradient(ellipse at 30% 20%, rgba(0, 242, 234, 0.15) 0%, transparent 50%),
+                radial-gradient(ellipse at 70% 80%, rgba(255, 0, 80, 0.15) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .tiktok-hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .tiktok-logo-wrapper {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 1.5rem;
+            background: linear-gradient(135deg, #00f2ea, #ff0050);
+            border-radius: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow:
+                0 0 60px rgba(0, 242, 234, 0.4),
+                0 0 100px rgba(255, 0, 80, 0.3);
+            animation: pulse 3s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                transform: scale(1);
+                box-shadow: 0 0 60px rgba(0, 242, 234, 0.4), 0 0 100px rgba(255, 0, 80, 0.3);
+            }
+
+            50% {
+                transform: scale(1.05);
+                box-shadow: 0 0 80px rgba(0, 242, 234, 0.5), 0 0 120px rgba(255, 0, 80, 0.4);
+            }
+        }
+
+        .tiktok-logo-wrapper svg {
+            width: 50px;
+            height: 50px;
+            color: white;
+        }
+
+        .tiktok-hero h1 {
+            font-size: clamp(2rem, 6vw, 3.5rem);
+            font-weight: 800;
+            margin-bottom: 0.75rem;
+            background: linear-gradient(135deg, #00f2ea, #ff0050);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .tiktok-hero .subtitle {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            margin-bottom: 2.5rem;
+        }
+
+        /* Download Card Premium */
+        .download-card-premium {
+            background: rgba(20, 20, 30, 0.9);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 2rem;
+            backdrop-filter: blur(20px);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+        }
+
+        .input-row {
+            display: flex;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+        }
+
+        .url-input-premium {
+            flex: 1;
+            padding: 1.25rem 1.5rem;
+            background: rgba(0, 0, 0, 0.4);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 14px;
+            color: #fff;
+            font-size: 1.1rem;
+            font-family: var(--font-main);
+            transition: all 0.3s ease;
+        }
+
+        .url-input-premium:focus {
+            outline: none;
+            border-color: #00f2ea;
+            box-shadow: 0 0 30px rgba(0, 242, 234, 0.3);
+        }
+
+        .url-input-premium::placeholder {
+            color: rgba(255, 255, 255, 0.4);
+        }
+
+        .paste-btn-premium {
+            padding: 1.25rem 1.5rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 14px;
+            color: #fff;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .paste-btn-premium:hover {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+
+        .download-btn-premium {
+            width: 100%;
+            padding: 1.25rem;
+            background: linear-gradient(135deg, #00f2ea, #ff0050);
+            border: none;
+            border-radius: 14px;
+            color: #fff;
+            font-size: 1.2rem;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 40px rgba(255, 0, 80, 0.3);
+        }
+
+        .download-btn-premium:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 50px rgba(255, 0, 80, 0.4);
+        }
+
+        .download-btn-premium svg {
+            width: 24px;
+            height: 24px;
+        }
+
+        /* Mode Toggle */
+        .mode-toggle {
+            display: flex;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+        }
+
+        .mode-btn {
+            flex: 1;
+            padding: 0.875rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .mode-btn.active {
+            background: rgba(0, 242, 234, 0.15);
+            border-color: #00f2ea;
+            color: #00f2ea;
+        }
+
+        .mode-btn:hover:not(.active) {
+            border-color: rgba(255, 255, 255, 0.2);
+            color: var(--text-primary);
+        }
+
+        /* Features Section */
+        .features-premium {
+            padding: 4rem 1.5rem;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .features-premium h2 {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 2.5rem;
+            color: var(--text-primary);
+        }
+
+        .features-grid-premium {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .feature-card-premium {
+            background: var(--bg-card);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .feature-card-premium:hover {
+            border-color: rgba(0, 242, 234, 0.3);
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .feature-icon-premium {
+            width: 56px;
+            height: 56px;
+            background: linear-gradient(135deg, rgba(0, 242, 234, 0.2), rgba(255, 0, 80, 0.2));
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.75rem;
+            margin-bottom: 1rem;
+        }
+
+        .feature-card-premium h3 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .feature-card-premium p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        /* Steps Section */
+        .steps-premium {
+            padding: 4rem 1.5rem;
+            background: linear-gradient(180deg, transparent, rgba(0, 242, 234, 0.03), transparent);
+        }
+
+        .steps-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .steps-premium h2 {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 3rem;
+            color: var(--text-primary);
+        }
+
+        .steps-timeline {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .step-item {
+            display: flex;
+            gap: 1.5rem;
+            align-items: flex-start;
+        }
+
+        .step-number-premium {
+            width: 48px;
+            height: 48px;
+            min-width: 48px;
+            background: linear-gradient(135deg, #00f2ea, #ff0050);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            font-weight: 800;
+            color: #fff;
+            box-shadow: 0 0 30px rgba(0, 242, 234, 0.3);
+        }
+
+        .step-content-premium {
+            flex: 1;
+            background: var(--bg-card);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 14px;
+            padding: 1.5rem;
+        }
+
+        .step-content-premium h3 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .step-content-premium p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        /* Other Platforms Premium */
+        .other-platforms-premium {
+            padding: 4rem 1.5rem;
+            text-align: center;
+        }
+
+        .other-platforms-premium h2 {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            color: var(--text-primary);
+        }
+
+        .platforms-chips {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 0.75rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .platform-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.25rem;
+            background: var(--bg-card);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 100px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .platform-chip:hover {
+            border-color: #00f2ea;
+            color: #00f2ea;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0, 242, 234, 0.2);
+        }
+
+        .platform-chip svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 600px) {
+            .input-row {
+                flex-direction: column;
+            }
+
+            .paste-btn-premium {
+                justify-content: center;
+            }
+
+            .mode-toggle {
+                flex-wrap: wrap;
+            }
+
+            .mode-btn {
+                flex: 1 1 45%;
+            }
+
+            .step-item {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-container">
+            <a href="index.html" class="logo">
+                <span class="logo-icon">⚡</span>
+                <span class="logo-text">Tik<span class="logo-accent">Grab</span></span>
+            </a>
+            <nav class="nav">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="platforms.html" class="nav-link">All Sites</a>
+                <a href="faq.html" class="nav-link">FAQ</a>
+                <button class="theme-toggle" id="themeToggle" aria-label="Toggle Theme">
+                    <span class="theme-icon">🌙</span>
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="tiktok-hero">
+            <div class="tiktok-hero-content">
+                <!-- TikTok Logo -->
+                <div class="tiktok-logo-wrapper">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path
+                            d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43V8.3a8.16 8.16 0 0 0 4.77 1.52V6.35a4.85 4.85 0 0 1-1-.22l-.04.56z" />
+                    </svg>
+                </div>
+
+                <h1>TikTok Video Downloader</h1>
+                <p class="subtitle">Download TikTok videos without watermark in HD quality</p>
+
+                <!-- Download Card -->
+                <div class="download-card-premium">
+                    <!-- Mode Toggle -->
+                    <div class="mode-toggle">
+                        <button class="mode-btn active" data-mode="video">🎬 Video</button>
+                        <button class="mode-btn" data-mode="audio">🎵 Audio Only</button>
+                        <button class="mode-btn" data-mode="slideshow">📸 Slideshow</button>
+                    </div>
+
+                    <!-- Input -->
+                    <div class="input-row">
+                        <input type="text" class="url-input-premium" id="urlInput"
+                            placeholder="Paste TikTok video URL here..." autocomplete="off">
+                        <button class="paste-btn-premium" id="pasteBtn">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                <path
+                                    d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z" />
+                            </svg>
+                            Paste
+                        </button>
+                    </div>
+
+                    <!-- Download Button -->
+                    <button class="download-btn-premium" id="downloadBtn">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z" />
+                        </svg>
+                        Download Now
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features -->
+        <section class="features-premium">
+            <h2>Why Choose TikGrab?</h2>
+            <div class="features-grid-premium">
+                <div class="feature-card-premium">
+                    <div class="feature-icon-premium">🚫</div>
+                    <h3>No Watermark</h3>
+                    <p>Download TikTok videos completely clean, without the annoying TikTok watermark overlay.</p>
+                </div>
+                <div class="feature-card-premium">
+                    <div class="feature-icon-premium">⚡</div>
+                    <h3>Lightning Fast</h3>
+                    <p>Our servers process your download instantly. No waiting, no delays.</p>
+                </div>
+                <div class="feature-card-premium">
+                    <div class="feature-icon-premium">📱</div>
+                    <h3>HD Quality</h3>
+                    <p>Save videos in the highest quality available—up to 1080p Full HD.</p>
+                </div>
+                <div class="feature-card-premium">
+                    <div class="feature-icon-premium">🎵</div>
+                    <h3>Extract Audio</h3>
+                    <p>Download just the audio track as high-quality MP3 for music and sounds.</p>
+                </div>
+                <div class="feature-card-premium">
+                    <div class="feature-icon-premium">📸</div>
+                    <h3>Slideshow Support</h3>
+                    <p>Download all images from photo slideshow posts with a single click.</p>
+                </div>
+                <div class="feature-card-premium">
+                    <div class="feature-icon-premium">🔒</div>
+                    <h3>100% Private</h3>
+                    <p>No registration required. We don't store your data or download history.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- How to Steps -->
+        <section class="steps-premium">
+            <div class="steps-container">
+                <h2>How to Download TikTok Videos</h2>
+                <div class="steps-timeline">
+                    <div class="step-item">
+                        <div class="step-number-premium">1</div>
+                        <div class="step-content-premium">
+                            <h3>Copy the TikTok URL</h3>
+                            <p>Open the TikTok app or website, find the video you want to download, tap the Share
+                                button, and select "Copy Link".</p>
+                        </div>
+                    </div>
+                    <div class="step-item">
+                        <div class="step-number-premium">2</div>
+                        <div class="step-content-premium">
+                            <h3>Paste & Download</h3>
+                            <p>Paste the copied URL into the input box above and click the "Download Now" button. We'll
+                                process your video instantly.</p>
+                        </div>
+                    </div>
+                    <div class="step-item">
+                        <div class="step-number-premium">3</div>
+                        <div class="step-content-premium">
+                            <h3>Save to Your Device</h3>
+                            <p>Choose your preferred quality and format. The video will download directly to your
+                                device—no additional apps needed.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Other Platforms -->
+        <section class="other-platforms-premium">
+            <h2>Also Download From</h2>
+            <div class="platforms-chips">
+                <a href="download-youtube-videos.html" class="platform-chip">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path
+                            d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814z" />
+                        <path fill="#0a0a0f" d="M9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
+                    </svg>
+                    YouTube
+                </a>
+                <a href="download-instagram-videos.html" class="platform-chip">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path
+                            d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+                    </svg>
+                    Instagram
+                </a>
+                <a href="download-twitter-videos.html" class="platform-chip">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path
+                            d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+                    </svg>
+                    X (Twitter)
+                </a>
+                <a href="download-facebook-videos.html" class="platform-chip">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path
+                            d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+                    </svg>
+                    Facebook
+                </a>
+                <a href="platforms.html" class="platform-chip">
+                    🌐 View All 100+ Platforms
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-logo">
+                <span class="logo-icon">⚡</span>
+                <span>TikGrab</span>
+            </div>
+            <p class="footer-text">© 2025 TikGrab. All rights reserved.</p>
+            <div class="footer-links">
+                <a href="privacy.html">Privacy Policy</a>
+                <a href="terms.html">Terms of Service</a>
+                <a href="dmca.html">DMCA</a>
+                <a href="contact.html">Contact</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script src="theme.js"></script>
+    <script>
+        // Mode toggle functionality
+        document.querySelectorAll('.mode-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+            });
+        });
+    </script>
+</body>
+
+</html>

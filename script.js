@@ -10,6 +10,20 @@ document.addEventListener('DOMContentLoaded', () => {
     const modeTabs = document.querySelectorAll('.mode-tab');
     const themeToggle = document.getElementById('themeToggle');
 
+    // ========================================
+    // Bookmarklet URL Parameter Handler
+    // ========================================
+    const urlParams = new URLSearchParams(window.location.search);
+    const sharedUrl = urlParams.get('url');
+    if (sharedUrl && urlInput) {
+        urlInput.value = sharedUrl;
+        urlInput.focus();
+        // Optionally auto-trigger download after a short delay
+        setTimeout(() => {
+            if (downloadBtn) downloadBtn.click();
+        }, 500);
+    }
+
     // 現在のモード
     let currentMode = 'video';
 
@@ -17,9 +31,67 @@ document.addEventListener('DOMContentLoaded', () => {
     const COBALT_API = 'https://api.cobalt.tools';
 
     // Video Proxy (Netlify Function)
-    // Set to '/.netlify/functions/download' when deployed to Netlify
-    // Set to null for local testing without proxy
     const PROXY_URL = '/.netlify/functions/download';
+
+    // Supported platforms (Cobalt API + additional services)
+    const SUPPORTED_PLATFORMS = {
+        // Major Social Media
+        'tiktok.com': { name: 'TikTok', icon: '🎵', color: '#00f2ea' },
+        'youtube.com': { name: 'YouTube', icon: '📺', color: '#ff0000' },
+        'youtu.be': { name: 'YouTube', icon: '📺', color: '#ff0000' },
+        'twitter.com': { name: 'Twitter', icon: '🐦', color: '#1da1f2' },
+        'x.com': { name: 'X', icon: '✖️', color: '#000000' },
+        'instagram.com': { name: 'Instagram', icon: '📷', color: '#e4405f' },
+        'facebook.com': { name: 'Facebook', icon: '👤', color: '#1877f2' },
+        'fb.watch': { name: 'Facebook', icon: '👤', color: '#1877f2' },
+
+        // Video Platforms
+        'vimeo.com': { name: 'Vimeo', icon: '🎬', color: '#1ab7ea' },
+        'dailymotion.com': { name: 'Dailymotion', icon: '🎥', color: '#0066dc' },
+        'twitch.tv': { name: 'Twitch', icon: '🎮', color: '#9146ff' },
+        'bilibili.com': { name: 'Bilibili', icon: '📺', color: '#00a1d6' },
+        'rutube.ru': { name: 'Rutube', icon: '🎬', color: '#00b0ec' },
+        'streamable.com': { name: 'Streamable', icon: '▶️', color: '#0773d8' },
+        'loom.com': { name: 'Loom', icon: '🎥', color: '#625df5' },
+        'ok.ru': { name: 'OK.ru', icon: '🟠', color: '#ee8208' },
+        'vk.com': { name: 'VK', icon: '💙', color: '#4a76a8' },
+
+        // Community & Forums
+        'reddit.com': { name: 'Reddit', icon: '🔴', color: '#ff4500' },
+        'tumblr.com': { name: 'Tumblr', icon: '📝', color: '#35465c' },
+        'pinterest.com': { name: 'Pinterest', icon: '📌', color: '#bd081c' },
+        'pin.it': { name: 'Pinterest', icon: '📌', color: '#bd081c' },
+
+        // Audio
+        'soundcloud.com': { name: 'SoundCloud', icon: '🎧', color: '#ff5500' },
+        'bandcamp.com': { name: 'Bandcamp', icon: '🎸', color: '#629aa9' },
+
+        // New Platforms
+        'threads.net': { name: 'Threads', icon: '🧵', color: '#000000' },
+        'bsky.app': { name: 'Bluesky', icon: '🦋', color: '#0085ff' },
+        'bluesky.social': { name: 'Bluesky', icon: '🦋', color: '#0085ff' },
+        'vine.co': { name: 'Vine', icon: '🍃', color: '#00bf8f' },
+
+        // Asian Platforms
+        'weibo.com': { name: 'Weibo', icon: '🌐', color: '#df2029' },
+        'douyin.com': { name: 'Douyin', icon: '🎵', color: '#000000' },
+        'xiaohongshu.com': { name: 'Xiaohongshu', icon: '📕', color: '#ff2442' },
+
+        // Other
+        'likee.video': { name: 'Likee', icon: '❤️', color: '#00d5b8' },
+        'snapchat.com': { name: 'Snapchat', icon: '👻', color: '#fffc00' },
+        'coub.com': { name: 'Coub', icon: '🔄', color: '#2e8be5' }
+    };
+
+    // Detect platform from URL
+    function detectPlatform(url) {
+        for (const [domain, info] of Object.entries(SUPPORTED_PLATFORMS)) {
+            if (url.includes(domain)) {
+                return { domain, ...info };
+            }
+        }
+        return null;
+    }
 
     // ========================================
     // ペーストボタン
@@ -70,8 +142,9 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        // TikTok URLの簡易バリデーション
-        if (!url.includes('tiktok.com')) {
+        // Multi-platform URL validation
+        const platform = detectPlatform(url);
+        if (!platform) {
             urlInput.style.borderColor = '#ff6b6b';
             urlInput.style.boxShadow = '0 0 20px rgba(255, 107, 107, 0.3)';
 
@@ -80,9 +153,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 urlInput.style.boxShadow = '';
             }, 2000);
 
-            showNotification('Please enter a TikTok URL', 'error');
+            showNotification('Please enter a supported URL (TikTok, YouTube, Instagram, Twitter, etc.)', 'error');
             return;
         }
+
+        // Show detected platform
+        showNotification(`${platform.icon} ${platform.name} detected!`, 'info');
 
         // Start download process
         downloadBtn.innerHTML = '<span class="btn-text">🔄 Processing...</span>';

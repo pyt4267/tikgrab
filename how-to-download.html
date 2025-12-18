@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Learn how to download videos from TikTok, YouTube, Instagram, Twitter, and 100+ platforms. Step-by-step guide with tips and tricks.">
+    <meta name="keywords"
+        content="how to download videos, video download tutorial, TikTok download guide, YouTube download steps">
+    <meta name="author" content="TikGrab">
+    <meta property="og:title" content="How to Download Videos - Complete Tutorial | TikGrab">
+    <meta property="og:description"
+        content="Step-by-step guide to download videos from any platform. Easy tutorial for beginners.">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://tikgrab.net/how-to-download.html">
+    <link rel="canonical" href="https://tikgrab.net/how-to-download.html">
+    <title>How to Download Videos - Step by Step Tutorial | TikGrab</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="pages.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        .how-to-hero {
+            text-align: center;
+            padding: calc(80px + 3rem) 1.5rem 3rem;
+        }
+
+        .how-to-hero h1 {
+            font-size: clamp(2rem, 5vw, 3rem);
+            font-weight: 800;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--neon-cyan), var(--neon-magenta));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .how-to-hero p {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto 2rem;
+        }
+
+        .tutorial-section {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 1.5rem 3rem;
+        }
+
+        .tutorial-section h2 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .main-steps {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .step-item {
+            display: grid;
+            grid-template-columns: 80px 1fr;
+            gap: 1.5rem;
+            align-items: start;
+            background: var(--bg-card);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+            transition: var(--transition-normal);
+        }
+
+        .step-item:hover {
+            border-color: var(--neon-cyan);
+            transform: translateY(-2px);
+        }
+
+        .step-number-large {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--neon-cyan), var(--neon-magenta));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            font-weight: 800;
+            color: white;
+            flex-shrink: 0;
+        }
+
+        .step-content h3 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 0.75rem;
+        }
+
+        .step-content p {
+            color: var(--text-secondary);
+            line-height: 1.7;
+            margin-bottom: 1rem;
+        }
+
+        .step-content .example-box {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: var(--radius-sm);
+            padding: 1rem;
+            font-family: monospace;
+            font-size: 0.85rem;
+            color: var(--neon-cyan);
+            word-break: break-all;
+        }
+
+        .platform-tips {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .tip-card {
+            background: var(--bg-card);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: var(--radius-md);
+            padding: 1.5rem;
+            transition: var(--transition-fast);
+        }
+
+        .tip-card:hover {
+            border-color: var(--neon-cyan);
+        }
+
+        .tip-card-header {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+        }
+
+        .tip-card-icon {
+            font-size: 1.5rem;
+        }
+
+        .tip-card h4 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .tip-card p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        .pro-tips {
+            background: linear-gradient(135deg, rgba(0, 245, 255, 0.1), rgba(255, 0, 229, 0.1));
+            border: 1px solid rgba(0, 245, 255, 0.3);
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+            margin-top: 3rem;
+        }
+
+        .pro-tips h3 {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--neon-cyan);
+            margin-bottom: 1.5rem;
+        }
+
+        .pro-tips ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .pro-tips li {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        .pro-tips li::before {
+            content: "💡";
+            flex-shrink: 0;
+        }
+
+        .cta-section {
+            text-align: center;
+            margin-top: 3rem;
+            padding: 3rem 2rem;
+            background: var(--bg-card);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: var(--radius-lg);
+        }
+
+        .cta-section h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+        }
+
+        .cta-section p {
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+        }
+
+        .cta-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1rem 2rem;
+            background: linear-gradient(135deg, var(--neon-cyan), var(--neon-magenta));
+            border: none;
+            border-radius: var(--radius-full);
+            color: white;
+            font-size: 1.1rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all var(--transition-normal);
+        }
+
+        .cta-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0, 245, 255, 0.3);
+        }
+
+        @media (max-width: 768px) {
+            .step-item {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .step-number-large {
+                margin: 0 auto 1rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header class="header">
+        <div class="header-container">
+            <a href="index.html" class="logo">
+                <span class="logo-icon">⚡</span>
+                <span class="logo-text">Tik<span class="logo-accent">Grab</span></span>
+            </a>
+            <nav class="nav">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="platforms.html" class="nav-link">Platforms</a>
+                <a href="faq.html" class="nav-link">FAQ</a>
+                <button class="theme-toggle" id="themeToggle" aria-label="Toggle Theme">
+                    <span class="theme-icon">🌙</span>
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="how-to-hero">
+            <h1>How to Download Videos</h1>
+            <p>Complete step-by-step tutorial to download videos from TikTok, YouTube, Instagram, and 100+ platforms.
+            </p>
+        </section>
+
+        <section class="tutorial-section">
+            <h2>3 Simple Steps</h2>
+
+            <div class="main-steps">
+                <div class="step-item">
+                    <div class="step-number-large">1</div>
+                    <div class="step-content">
+                        <h3>Copy the Video URL</h3>
+                        <p>Go to the platform and find the video you want to download. Copy the URL from your browser's
+                            address bar or use the "Share" button.</p>
+                        <div class="example-box">Example: https://www.tiktok.com/@username/video/1234567890</div>
+                    </div>
+                </div>
+
+                <div class="step-item">
+                    <div class="step-number-large">2</div>
+                    <div class="step-content">
+                        <h3>Paste & Click Download</h3>
+                        <p>Paste the copied URL into the input box on TikGrab's homepage. Click the "Download" button
+                            and wait a few seconds.</p>
+                        <div class="example-box">Tip: Use the "Paste" button next to the input field for quick pasting!
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step-item">
+                    <div class="step-number-large">3</div>
+                    <div class="step-content">
+                        <h3>Choose Quality & Save</h3>
+                        <p>Select your preferred video quality and click the download link. The video will start
+                            downloading immediately.</p>
+                        <div class="example-box">Formats available: MP4 (Video), MP3 (Audio Only), HD, Full HD, 4K</div>
+                    </div>
+                </div>
+            </div>
+
+            <h2>Platform-Specific Tips</h2>
+            <div class="platform-tips">
+                <div class="tip-card">
+                    <div class="tip-card-header"><span class="tip-card-icon">🎵</span>
+                        <h4>TikTok</h4>
+                    </div>
+                    <p>Click the "Share" arrow on the video, then tap "Copy Link". Our downloader removes the watermark
+                        automatically!</p>
+                </div>
+                <div class="tip-card">
+                    <div class="tip-card-header"><span class="tip-card-icon">▶️</span>
+                        <h4>YouTube</h4>
+                    </div>
+                    <p>Copy the URL from your browser. Works with regular videos, Shorts, and playlists.</p>
+                </div>
+                <div class="tip-card">
+                    <div class="tip-card-header"><span class="tip-card-icon">📷</span>
+                        <h4>Instagram</h4>
+                    </div>
+                    <p>Tap the three dots (⋯) on the post, select "Link", then "Copy Link". Works with Reels, Stories,
+                        and IGTV.</p>
+                </div>
+                <div class="tip-card">
+                    <div class="tip-card-header"><span class="tip-card-icon">🐦</span>
+                        <h4>Twitter / X</h4>
+                    </div>
+                    <p>Click "Share" on the tweet, then "Copy link to Tweet". Both twitter.com and x.com URLs work.</p>
+                </div>
+            </div>
+
+            <div class="pro-tips">
+                <h3>⭐ Pro Tips</h3>
+                <ul>
+                    <li>Use keyboard shortcut <strong>/</strong> to quickly focus on the search bar</li>
+                    <li>Press <strong>Esc</strong> to clear the input and start fresh</li>
+                    <li>Try our <a href="bookmarklet.html">Bookmarklet</a> for one-click downloads</li>
+                    <li>Works on all devices - PC, Mac, iPhone, Android, and tablets</li>
+                </ul>
+            </div>
+
+            <div class="cta-section">
+                <h3>Ready to Download?</h3>
+                <p>Start downloading your favorite videos now - it's completely free!</p>
+                <a href="index.html" class="cta-btn"><span>Start Downloading</span><span>→</span></a>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-logo"><span class="logo-icon">⚡</span><span>TikGrab</span></div>
+            <p class="footer-text">© 2025 TikGrab. All rights reserved.</p>
+            <div class="footer-links">
+                <a href="privacy.html">Privacy Policy</a>
+                <a href="terms.html">Terms of Service</a>
+                <a href="dmca.html">DMCA</a>
+                <a href="contact.html">Contact</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="theme.js"></script>
+</body>
+
+</html>

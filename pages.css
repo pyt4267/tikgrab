@@ -429,3 +429,358 @@ body.light-mode .faq-answer {
         opacity: 1;
     }
 }
+
+/* ========================================
+   Platform-Specific Pages
+   ======================================== */
+
+/* Platform Badge */
+.platform-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 0.5rem 1rem;
+    border-radius: var(--radius-full);
+    margin-bottom: 1rem;
+    font-weight: 600;
+    border: 1px solid var(--platform-color, var(--neon-cyan));
+}
+
+.platform-badge-icon {
+    font-size: 1.2rem;
+}
+
+/* Example URL */
+.example-url {
+    margin-top: 1rem;
+    padding: 0.75rem 1rem;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: var(--radius-sm);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.85rem;
+}
+
+.example-label {
+    color: var(--text-muted);
+}
+
+.example-url code {
+    color: var(--text-secondary);
+    font-family: monospace;
+    font-size: 0.8rem;
+}
+
+/* How To Section */
+.how-to {
+    padding: var(--space-xl) var(--space-lg);
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.steps-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: var(--space-md);
+    margin-top: var(--space-lg);
+}
+
+.step-card {
+    background: var(--bg-card);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: var(--radius-md);
+    padding: var(--space-lg);
+    text-align: center;
+}
+
+.step-card .step-number {
+    width: 40px;
+    height: 40px;
+    margin: 0 auto var(--space-sm);
+    background: linear-gradient(135deg, var(--neon-cyan), var(--neon-magenta));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 1.2rem;
+    color: #fff;
+}
+
+.step-card h3 {
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
+}
+
+.step-card p {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+/* Platform FAQ */
+.platform-faq {
+    padding: var(--space-xl) var(--space-lg);
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.faq-list {
+    margin-top: var(--space-lg);
+}
+
+.platform-faq .faq-item {
+    background: var(--bg-card);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: var(--radius-md);
+    padding: var(--space-md);
+    margin-bottom: var(--space-sm);
+}
+
+.platform-faq .faq-item h3 {
+    color: var(--text-primary);
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+.platform-faq .faq-item p {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    line-height: 1.6;
+    margin: 0;
+}
+
+/* Other Platforms Section */
+.other-platforms {
+    padding: var(--space-xl) var(--space-lg);
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.platforms-mini-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--space-sm);
+    margin-top: var(--space-md);
+}
+
+.platform-mini-card {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    padding: 0.5rem 1rem;
+    background: var(--bg-card);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: var(--radius-full);
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: var(--transition-fast);
+}
+
+.platform-mini-card:hover {
+    border-color: var(--neon-cyan);
+    color: var(--neon-cyan);
+    transform: translateY(-2px);
+}
+
+/* Light Mode for Platform Pages */
+body.light-mode .platform-badge {
+    background: rgba(0, 0, 0, 0.05);
+}
+
+body.light-mode .example-url {
+    background: rgba(0, 0, 0, 0.05);
+}
+
+body.light-mode .step-card,
+body.light-mode .platform-faq .faq-item,
+body.light-mode .platform-mini-card {
+    background: var(--bg-card);
+    border-color: rgba(0, 0, 0, 0.1);
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+    .example-url {
+        flex-direction: column;
+        gap: 0.25rem;
+    }
+
+    .example-url code {
+        word-break: break-all;
+    }
+
+    .platforms-mini-grid {
+        gap: var(--space-xs);
+    }
+
+    .platform-mini-card {
+        font-size: 0.8rem;
+        padding: 0.4rem 0.8rem;
+    }
+}
+
+/* ========================================
+   Legal Pages (DMCA, Terms, Privacy)
+   ======================================== */
+.legal-page {
+    padding: calc(80px + 2rem) 1.5rem 3rem;
+    min-height: 100vh;
+}
+
+.legal-container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.legal-container h1 {
+    font-size: clamp(2rem, 5vw, 2.5rem);
+    font-weight: 800;
+    margin-bottom: 0.5rem;
+    background: linear-gradient(135deg, var(--neon-cyan), var(--neon-magenta));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.last-updated {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    margin-bottom: 2rem;
+}
+
+.legal-section {
+    margin-bottom: 2.5rem;
+}
+
+.legal-section h2 {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--neon-cyan);
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid rgba(0, 245, 255, 0.2);
+}
+
+.legal-section h3 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin: 1rem 0 0.5rem;
+}
+
+.legal-section p {
+    color: var(--text-secondary);
+    line-height: 1.8;
+    margin-bottom: 0.75rem;
+}
+
+.legal-section ul,
+.legal-section ol {
+    color: var(--text-secondary);
+    padding-left: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.legal-section li {
+    margin-bottom: 0.5rem;
+    line-height: 1.6;
+}
+
+.legal-section a {
+    color: var(--neon-cyan);
+    text-decoration: none;
+    border-bottom: 1px dashed var(--neon-cyan);
+}
+
+.legal-section a:hover {
+    border-bottom-style: solid;
+}
+
+.legal-footer {
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    text-align: center;
+    color: var(--text-secondary);
+}
+
+.legal-footer a {
+    color: var(--neon-cyan);
+}
+
+/* DMCA Specific Styles */
+.dmca-notice {
+    background: linear-gradient(135deg, rgba(0, 245, 255, 0.1), rgba(255, 0, 229, 0.1));
+    border: 1px solid rgba(0, 245, 255, 0.3);
+    border-radius: var(--radius-lg);
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+}
+
+.dmca-icon {
+    font-size: 2.5rem;
+    line-height: 1;
+}
+
+.dmca-notice p {
+    margin: 0;
+    color: var(--text-secondary);
+}
+
+.dmca-requirements {
+    background: var(--bg-card);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: var(--radius-md);
+    padding: 1.5rem;
+    margin: 1rem 0;
+}
+
+.dmca-requirements h3 {
+    margin-top: 0;
+    color: var(--neon-cyan);
+}
+
+.contact-box {
+    background: linear-gradient(135deg, rgba(34, 197, 94, 0.1), rgba(16, 185, 129, 0.1));
+    border: 1px solid rgba(34, 197, 94, 0.3);
+    border-radius: var(--radius-md);
+    padding: 1.5rem;
+    margin: 1rem 0;
+}
+
+.contact-box h3 {
+    margin-top: 0;
+    color: var(--neon-green);
+}
+
+.contact-box p {
+    margin-bottom: 0.5rem;
+}
+
+/* Light Mode Legal Pages */
+body.light-mode .dmca-notice {
+    background: linear-gradient(135deg, rgba(0, 100, 200, 0.1), rgba(150, 0, 150, 0.1));
+    border-color: rgba(0, 100, 200, 0.3);
+}
+
+body.light-mode .dmca-requirements {
+    background: rgba(0, 0, 0, 0.02);
+    border-color: rgba(0, 0, 0, 0.1);
+}
+
+body.light-mode .contact-box {
+    background: rgba(34, 197, 94, 0.05);
+    border-color: rgba(34, 197, 94, 0.2);
+}
+
+body.light-mode .legal-footer {
+    border-color: rgba(0, 0, 0, 0.1);
+}

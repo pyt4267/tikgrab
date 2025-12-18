@@ -1,0 +1,9 @@
+# TikGrab - robots.txt
+# https://tikgrab.net
+
+User-agent: *
+Allow: /
+
+Sitemap: https://tikgrab.net/sitemap.xml
+
+Crawl-delay: 1
