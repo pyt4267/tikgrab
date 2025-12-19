@@ -81,29 +81,19 @@
     }
 
     // ========================================
-    // Modal Popup Ad (SnipTik Style)
+    // Modal Popup Ad - DISABLED
     // ========================================
     function createModalAd() {
-        // Check if already shown recently
-        const lastShown = localStorage.getItem('tikgrab_modal_shown');
-        if (lastShown && Date.now() - parseInt(lastShown) < AD_CONFIG.modalCooldown) {
-            return;
-        }
+        // Disabled - using Multitag instead
+        return;
 
         const modal = document.createElement('div');
         modal.id = 'adModal';
         modal.className = 'ad-modal';
         modal.innerHTML = `
             <div class="ad-modal-overlay"></div>
-            <div class="ad-modal-content">
-                <div class="ad-modal-header">
-                    <span class="ad-modal-label">広告</span>
-                    <button class="ad-modal-close" id="closeModalAd">×</button>
-                </div>
-                <div class="ad-modal-body" id="modalAdContent">
-                    <!-- PropellerAds In-Page Push -->
-                    <div id="propellerAdContainer" style="min-height: 250px; display: flex; justify-content: center; align-items: center;"></div>
-                </div>
+            <div class="ad-modal-content" style="padding: 0; background: transparent; border: none; box-shadow: none;">
+                <div id="propellerAdContainer"></div>
             </div>
         `;
 
@@ -113,13 +103,6 @@
         const propellerScript = document.createElement('script');
         propellerScript.innerHTML = "(function(s){s.dataset.zone='10350749',s.src='https://nap5k.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))";
         document.getElementById('propellerAdContainer').appendChild(propellerScript);
-
-        // Close button event
-        document.getElementById('closeModalAd').addEventListener('click', function () {
-            modal.classList.add('closing');
-            setTimeout(() => modal.remove(), 300);
-            localStorage.setItem('tikgrab_modal_shown', Date.now().toString());
-        });
 
         // Close on overlay click
         modal.querySelector('.ad-modal-overlay').addEventListener('click', function () {
