@@ -337,46 +337,47 @@ document.addEventListener('DOMContentLoaded', () => {
     window.downloadWithProxy = function (videoUrl, filename) {
         const statusEl = document.getElementById('downloadStatus');
 
-        if (PROXY_URL) {
-            // Use Cloudflare Worker proxy
-            const proxyLink = `${PROXY_URL}?url=${encodeURIComponent(videoUrl)}&filename=${encodeURIComponent(filename)}`;
-
-            if (statusEl) {
-                statusEl.innerHTML = '<p>⏳ Downloading via proxy...</p>';
-            }
-
-            // Open in new tab/window (will redirect to video)
-            // This triggers the download while keeping user on current page
-            const downloadWindow = window.open(proxyLink, '_blank');
-
-            // Try to close the window after a short delay (may not work in all browsers)
-            setTimeout(() => {
-                try {
-                    if (downloadWindow) downloadWindow.close();
-                } catch (e) {
-                    // Ignore - cross-origin restrictions may prevent closing
-                }
-            }, 3000);
-
-            setTimeout(() => {
-                if (statusEl) {
-                    statusEl.innerHTML = '<p>✅ Download started! Check your downloads folder.</p>';
-                }
-            }, 2000);
-        } else {
-            // Direct download
-            if (statusEl) {
-                statusEl.innerHTML = '<p>⏳ Opening video... Right-click and save if needed.</p>';
-            }
-
-            window.open(videoUrl, '_blank');
-
-            setTimeout(() => {
-                if (statusEl) {
-                    statusEl.innerHTML = `<p><strong>📁 Note:</strong> Filename may be random. Rename to <code>${filename}</code></p>`;
-                }
-            }, 1000);
+        if (statusEl) {
+            statusEl.innerHTML = '<p>⏳ Downloading... Please wait.</p>';
         }
+
+        // Use fetch + blob for proper download
+        fetch(videoUrl, {
+            method: 'GET',
+            mode: 'cors'
+        })
+            .then(response => {
+                if (!response.ok) throw new Error('Download failed');
+                return response.blob();
+            })
+            .then(blob => {
+                // Create download link
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.style.display = 'none';
+                a.href = url;
+                a.download = filename;
+                document.body.appendChild(a);
+                a.click();
+
+                // Cleanup
+                setTimeout(() => {
+                    window.URL.revokeObjectURL(url);
+                    document.body.removeChild(a);
+                }, 100);
+
+                if (statusEl) {
+                    statusEl.innerHTML = '<p>✅ Download complete! Check your downloads folder.</p>';
+                }
+            })
+            .catch(error => {
+                console.error('Download error:', error);
+                // Fallback: open in new tab
+                if (statusEl) {
+                    statusEl.innerHTML = '<p>⚠️ Opening video in new tab. Right-click to save.</p>';
+                }
+                window.open(videoUrl, '_blank');
+            });
     };
 
     // ========================================
