@@ -101,17 +101,18 @@
                     <button class="ad-modal-close" id="closeModalAd">×</button>
                 </div>
                 <div class="ad-modal-body" id="modalAdContent">
-                    <!-- Ad content will be inserted here by Adsterra -->
-                    <div class="ad-placeholder-content">
-                        <div class="ad-placeholder-icon">📢</div>
-                        <p class="ad-placeholder-text">広告スペース</p>
-                        <p class="ad-placeholder-subtext">Adsterra登録後に表示されます</p>
-                    </div>
+                    <!-- PropellerAds In-Page Push -->
+                    <div id="propellerAdContainer" style="min-height: 250px; display: flex; justify-content: center; align-items: center;"></div>
                 </div>
             </div>
         `;
 
         document.body.appendChild(modal);
+
+        // Load PropellerAds In-Page Push
+        const propellerScript = document.createElement('script');
+        propellerScript.innerHTML = "(function(s){s.dataset.zone='10350749',s.src='https://nap5k.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))";
+        document.getElementById('propellerAdContainer').appendChild(propellerScript);
 
         // Close button event
         document.getElementById('closeModalAd').addEventListener('click', function () {
