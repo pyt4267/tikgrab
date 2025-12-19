@@ -345,7 +345,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 statusEl.innerHTML = '<p>⏳ Downloading via proxy...</p>';
             }
 
-            window.location.href = proxyLink;
+            // Use hidden iframe to download (prevents page navigation)
+            let iframe = document.getElementById('downloadFrame');
+            if (!iframe) {
+                iframe = document.createElement('iframe');
+                iframe.id = 'downloadFrame';
+                iframe.style.display = 'none';
+                document.body.appendChild(iframe);
+            }
+            iframe.src = proxyLink;
 
             setTimeout(() => {
                 if (statusEl) {
@@ -358,7 +366,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 statusEl.innerHTML = '<p>⏳ Opening video... Right-click and save if needed.</p>';
             }
 
-            window.open(videoUrl, '_blank');
+            // Use hidden link with download attribute
+            const link = document.createElement('a');
+            link.href = videoUrl;
+            link.download = filename;
+            link.target = '_blank';
+            link.style.display = 'none';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
 
             setTimeout(() => {
                 if (statusEl) {

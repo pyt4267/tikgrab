@@ -121,13 +121,21 @@
 
             if (countdown <= 0) {
                 clearInterval(timer);
-                skipBtn.disabled = false;
-                skipBtn.innerHTML = '✓ ダウンロード開始';
+                skipBtn.innerHTML = '✓ ダウンロード開始中...';
                 skipBtn.classList.add('ready');
+
+                // Auto-start download after countdown
+                setTimeout(() => {
+                    overlay.classList.add('closing');
+                    setTimeout(() => {
+                        overlay.remove();
+                        if (callback) callback();
+                    }, 300);
+                }, 500);
             }
         }, 1000);
 
-        // Skip/Continue button
+        // Skip/Continue button (manual click also works)
         skipBtn.addEventListener('click', function () {
             if (countdown <= 0) {
                 overlay.classList.add('closing');
