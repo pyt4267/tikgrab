@@ -1618,3 +1618,166 @@ body.light-mode .ad-wrapper {
 body.light-mode .ad-label {
     background: rgba(0, 0, 0, 0.05);
 }
+
+/* ========================================
+   Social Share Section
+   ======================================== */
+.social-share-section {
+    padding: 4rem 1.5rem;
+    text-align: center;
+    background: linear-gradient(180deg, transparent, rgba(0, 245, 255, 0.03), transparent);
+}
+
+.share-subtitle {
+    color: var(--text-secondary);
+    font-size: 1.1rem;
+    margin-bottom: 2rem;
+}
+
+.share-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.share-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.875rem 1.5rem;
+    border-radius: var(--radius-full);
+    font-size: 1rem;
+    font-weight: 600;
+    text-decoration: none;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: all var(--transition-normal);
+}
+
+.share-btn svg {
+    width: 20px;
+    height: 20px;
+}
+
+.share-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.share-twitter {
+    background: linear-gradient(135deg, #1da1f2, #0d8ecf);
+}
+
+.share-facebook {
+    background: linear-gradient(135deg, #1877f2, #0d5fc5);
+}
+
+.share-reddit {
+    background: linear-gradient(135deg, #ff4500, #cc3700);
+}
+
+.share-copy {
+    background: linear-gradient(135deg, var(--neon-cyan), var(--neon-magenta));
+}
+
+/* ========================================
+   Reviews Section
+   ======================================== */
+.reviews-section {
+    padding: 4rem 1.5rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.reviews-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.review-card {
+    background: var(--bg-card);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: var(--radius-lg);
+    padding: 2rem;
+    text-align: left;
+    transition: all var(--transition-normal);
+}
+
+.review-card:hover {
+    border-color: rgba(0, 245, 255, 0.3);
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+}
+
+.review-stars {
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+}
+
+.review-text {
+    color: var(--text-primary);
+    font-size: 1.05rem;
+    line-height: 1.6;
+    font-style: italic;
+    margin-bottom: 1.5rem;
+}
+
+.review-author {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.author-name {
+    color: var(--text-primary);
+    font-weight: 600;
+}
+
+.author-platform {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+}
+
+.trust-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1rem 2rem;
+    background: linear-gradient(135deg, rgba(0, 245, 255, 0.1), rgba(255, 0, 229, 0.1));
+    border: 1px solid rgba(0, 245, 255, 0.2);
+    border-radius: var(--radius-full);
+    margin-top: 1rem;
+}
+
+.trust-icon {
+    font-size: 1.5rem;
+}
+
+.trust-text {
+    color: var(--text-secondary);
+    font-size: 1rem;
+}
+
+.trust-text strong {
+    color: var(--neon-cyan);
+}
+
+@media (max-width: 600px) {
+    .share-buttons {
+        flex-direction: column;
+    }
+
+    .share-btn {
+        justify-content: center;
+    }
+
+    .reviews-grid {
+        grid-template-columns: 1fr;
+    }
+}
