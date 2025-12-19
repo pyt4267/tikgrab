@@ -4,20 +4,164 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Download Bandcamp music. Support independent artists.">
-    <meta name="keywords" content="Bandcamp downloader, download Bandcamp videos, Bandcamp video saver, free Bandcamp download">
+    <meta name="description" content="Download Bandcamp music and albums.">
+    <meta name="keywords" content="Bandcamp downloader, download Bandcamp videos, Bandcamp video saver, free download">
     <meta name="author" content="TikGrab">
     <meta property="og:title" content="Bandcamp Video Downloader | TikGrab">
-    <meta property="og:description" content="Download Bandcamp music. Support independent artists.">
+    <meta property="og:description" content="Download Bandcamp music and albums.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://tikgrab.net/download-bandcamp-music.html">
     <link rel="canonical" href="https://tikgrab.net/download-bandcamp-music.html">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
     <title>Bandcamp Video Downloader - Download Free | TikGrab</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="pages.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        .platform-hero-premium {
+            padding: calc(80px + 3rem) 1.5rem 3rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .platform-hero-premium::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: 
+                radial-gradient(ellipse at 30% 20%, #1da0c322 0%, transparent 50%),
+                radial-gradient(ellipse at 70% 80%, #177a9622 0%, transparent 50%);
+            pointer-events: none;
+        }
+        
+        .hero-content { position: relative; z-index: 1; max-width: 700px; margin: 0 auto; }
+        
+        .logo-wrapper {
+            width: 100px; height: 100px; margin: 0 auto 1.5rem;
+            background: linear-gradient(135deg, #1da0c3, #177a96);
+            border-radius: 24px; display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 0 60px #1da0c366, 0 0 100px #177a9644;
+            animation: pulse 3s ease-in-out infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        
+        .logo-wrapper svg { width: 50px; height: 50px; color: white; }
+        
+        .platform-hero-premium h1 {
+            font-size: clamp(2rem, 6vw, 3.5rem); font-weight: 800; margin-bottom: 0.75rem;
+            background: linear-gradient(135deg, #1da0c3, #177a96);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+        }
+        
+        .subtitle { font-size: 1.25rem; color: var(--text-secondary); margin-bottom: 2.5rem; }
+        
+        .download-card-premium {
+            background: rgba(20, 20, 30, 0.9); border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px; padding: 2rem; backdrop-filter: blur(20px);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+        }
+        
+        .input-row { display: flex; gap: 0.75rem; margin-bottom: 1rem; }
+        
+        .url-input-premium {
+            flex: 1; padding: 1.25rem 1.5rem; background: rgba(0, 0, 0, 0.4);
+            border: 2px solid rgba(255, 255, 255, 0.1); border-radius: 14px;
+            color: #fff; font-size: 1.1rem; font-family: var(--font-main); transition: all 0.3s ease;
+        }
+        
+        .url-input-premium:focus { outline: none; border-color: #1da0c3; box-shadow: 0 0 30px #1da0c344; }
+        .url-input-premium::placeholder { color: rgba(255, 255, 255, 0.4); }
+        
+        .paste-btn-premium {
+            padding: 1.25rem 1.5rem; background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.2); border-radius: 14px;
+            color: #fff; font-size: 1rem; font-weight: 600; cursor: pointer;
+            transition: all 0.3s ease; display: flex; align-items: center; gap: 0.5rem;
+        }
+        
+        .paste-btn-premium:hover { background: rgba(255, 255, 255, 0.15); }
+        
+        .download-btn-premium {
+            width: 100%; padding: 1.25rem;
+            background: linear-gradient(135deg, #1da0c3, #177a96);
+            border: none; border-radius: 14px; color: #fff; font-size: 1.2rem; font-weight: 700;
+            cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 0.75rem;
+            transition: all 0.3s ease; box-shadow: 0 10px 40px #1da0c344;
+        }
+        
+        .download-btn-premium:hover { transform: translateY(-3px); box-shadow: 0 15px 50px #1da0c366; }
+        .download-btn-premium svg { width: 24px; height: 24px; }
+        
+        .features-premium { padding: 4rem 1.5rem; max-width: 1100px; margin: 0 auto; }
+        .features-premium h2 { text-align: center; font-size: 2rem; margin-bottom: 2.5rem; color: var(--text-primary); }
+        .features-grid-premium { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; }
+        
+        .feature-card-premium {
+            background: var(--bg-card); border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 16px; padding: 2rem; transition: all 0.3s ease;
+        }
+        
+        .feature-card-premium:hover { border-color: #1da0c344; transform: translateY(-5px); box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2); }
+        
+        .feature-icon-premium {
+            width: 56px; height: 56px;
+            background: linear-gradient(135deg, #1da0c333, #177a9633);
+            border-radius: 14px; display: flex; align-items: center; justify-content: center;
+            font-size: 1.75rem; margin-bottom: 1rem;
+        }
+        
+        .feature-card-premium h3 { font-size: 1.1rem; font-weight: 700; color: var(--text-primary); margin-bottom: 0.5rem; }
+        .feature-card-premium p { color: var(--text-secondary); font-size: 0.95rem; line-height: 1.6; }
+        
+        .steps-premium { padding: 4rem 1.5rem; background: linear-gradient(180deg, transparent, #1da0c308, transparent); }
+        .steps-container { max-width: 900px; margin: 0 auto; }
+        .steps-premium h2 { text-align: center; font-size: 2rem; margin-bottom: 3rem; color: var(--text-primary); }
+        .steps-timeline { display: flex; flex-direction: column; gap: 1.5rem; }
+        .step-item { display: flex; gap: 1.5rem; align-items: flex-start; }
+        
+        .step-number-premium {
+            width: 48px; height: 48px; min-width: 48px;
+            background: linear-gradient(135deg, #1da0c3, #177a96);
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            font-size: 1.25rem; font-weight: 800; color: #fff; box-shadow: 0 0 30px #1da0c344;
+        }
+        
+        .step-content-premium {
+            flex: 1; background: var(--bg-card); border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 14px; padding: 1.5rem;
+        }
+        
+        .step-content-premium h3 { font-size: 1.1rem; font-weight: 700; color: var(--text-primary); margin-bottom: 0.5rem; }
+        .step-content-premium p { color: var(--text-secondary); font-size: 0.95rem; line-height: 1.6; margin: 0; }
+        
+        .other-platforms-premium { padding: 4rem 1.5rem; text-align: center; }
+        .other-platforms-premium h2 { font-size: 1.5rem; margin-bottom: 2rem; color: var(--text-primary); }
+        .platforms-chips { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.75rem; max-width: 800px; margin: 0 auto; }
+        
+        .platform-chip {
+            display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1.25rem;
+            background: var(--bg-card); border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 100px; color: var(--text-secondary); text-decoration: none;
+            font-weight: 500; transition: all 0.3s ease;
+        }
+        
+        .platform-chip:hover { border-color: #1da0c3; color: #1da0c3; transform: translateY(-2px); box-shadow: 0 10px 30px #1da0c333; }
+        .platform-chip svg { width: 20px; height: 20px; }
+        
+        @media (max-width: 600px) {
+            .input-row { flex-direction: column; }
+            .paste-btn-premium { justify-content: center; }
+            .step-item { flex-direction: column; align-items: center; text-align: center; }
+        }
+    </style>
 </head>
 
 <body>
@@ -39,97 +183,66 @@
     </header>
 
     <main>
-        <section class="platform-hero" style="--platform-color: #629aa9;">
-            <div class="platform-badge">
-                <span class="platform-badge-icon">🎸</span>
-                <span>Bandcamp</span>
-            </div>
-            <h1>Bandcamp Video Downloader</h1>
-            <p class="platform-subtitle">Download Bandcamp music. Support independent artists.</p>
-
-            <div class="download-card">
-                <div class="input-wrapper">
-                    <input type="text" class="url-input" id="urlInput" placeholder="Paste Bandcamp video URL here..." autocomplete="off">
-                    <button class="paste-btn" id="pasteBtn">📋 Paste</button>
+        <section class="platform-hero-premium">
+            <div class="hero-content">
+                <div class="logo-wrapper">
+                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M0 18.75l7.437-13.5H24l-7.438 13.5H0z"/></svg>
                 </div>
-                <button class="download-btn" id="downloadBtn">
-                    <span class="btn-text">Download</span>
-                    <span class="btn-icon">⬇</span>
-                </button>
-            </div>
-        </section>
-
-        <section class="platform-features">
-            <h2>Features</h2>
-            <div class="features-grid">
-                <div class="feature-card">
-                    <div class="feature-icon">⚡</div>
-                    <h3>Fast Downloads</h3>
-                    <p>Download Bandcamp videos quickly with our optimized servers.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">📱</div>
-                    <h3>HD Quality</h3>
-                    <p>Save videos in the highest quality available.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">🎵</div>
-                    <h3>Audio Extract</h3>
-                    <p>Download just the audio as MP3.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">🔒</div>
-                    <h3>100% Safe</h3>
-                    <p>No registration required. Your privacy protected.</p>
+                <h1>Bandcamp Video Downloader</h1>
+                <p class="subtitle">Download Bandcamp music and albums.</p>
+                
+                <div class="download-card-premium">
+                    <div class="input-row">
+                        <input type="text" class="url-input-premium" id="urlInput" placeholder="Paste Bandcamp video URL here..." autocomplete="off">
+                        <button class="paste-btn-premium" id="pasteBtn">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>
+                            Paste
+                        </button>
+                    </div>
+                    <button class="download-btn-premium" id="downloadBtn">
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+                        Download Now
+                    </button>
                 </div>
             </div>
         </section>
 
-        <section class="platform-howto">
-            <h2>How to Download Bandcamp Videos</h2>
-            <div class="steps-list">
-                <div class="step">
-                    <span class="step-number">1</span>
-                    <div class="step-content">
-                        <h3>Copy the Bandcamp URL</h3>
-                        <p>Open Bandcamp, find the video, and copy the URL from your browser or the share button.</p>
-                    </div>
-                </div>
-                <div class="step">
-                    <span class="step-number">2</span>
-                    <div class="step-content">
-                        <h3>Paste & Download</h3>
-                        <p>Paste the URL in the box above and click Download.</p>
-                    </div>
-                </div>
-                <div class="step">
-                    <span class="step-number">3</span>
-                    <div class="step-content">
-                        <h3>Save Your Video</h3>
-                        <p>Choose your quality and save the video to your device.</p>
-                    </div>
+        <section class="features-premium">
+            <h2>Why Choose TikGrab?</h2>
+            <div class="features-grid-premium">
+                <div class="feature-card-premium"><div class="feature-icon-premium">⚡</div><h3>Lightning Fast</h3><p>Our servers process your download instantly. No waiting.</p></div>
+                <div class="feature-card-premium"><div class="feature-icon-premium">📱</div><h3>HD Quality</h3><p>Save videos in the highest quality available.</p></div>
+                <div class="feature-card-premium"><div class="feature-icon-premium">🎵</div><h3>Extract Audio</h3><p>Download just the audio track as MP3.</p></div>
+                <div class="feature-card-premium"><div class="feature-icon-premium">🔒</div><h3>100% Private</h3><p>No registration. We don't store your data.</p></div>
+            </div>
+        </section>
+
+        <section class="steps-premium">
+            <div class="steps-container">
+                <h2>How to Download Bandcamp Videos</h2>
+                <div class="steps-timeline">
+                    <div class="step-item"><div class="step-number-premium">1</div><div class="step-content-premium"><h3>Copy the Bandcamp URL</h3><p>Open Bandcamp, find the video and copy the URL from your browser or share button.</p></div></div>
+                    <div class="step-item"><div class="step-number-premium">2</div><div class="step-content-premium"><h3>Paste & Download</h3><p>Paste the URL in the box above and click "Download Now".</p></div></div>
+                    <div class="step-item"><div class="step-number-premium">3</div><div class="step-content-premium"><h3>Save to Your Device</h3><p>Choose your quality and save the video directly to your device.</p></div></div>
                 </div>
             </div>
         </section>
 
-        <section class="other-platforms">
-            <h2>Download from Other Platforms</h2>
-            <div class="platforms-mini-grid">
-                <a href="download-tiktok-videos.html" class="platform-mini-card">🎵 TikTok</a>
-                <a href="download-youtube-videos.html" class="platform-mini-card">▶️ YouTube</a>
-                <a href="download-instagram-videos.html" class="platform-mini-card">📷 Instagram</a>
-                <a href="download-twitter-videos.html" class="platform-mini-card">🐦 Twitter</a>
-                <a href="platforms.html" class="platform-mini-card">🌐 All Platforms</a>
+        <section class="other-platforms-premium">
+            <h2>Also Download From</h2>
+            <div class="platforms-chips">
+                <a href="download-tiktok-videos.html" class="platform-chip">🎵 TikTok</a>
+                <a href="download-youtube-videos.html" class="platform-chip">▶️ YouTube</a>
+                <a href="download-instagram-videos.html" class="platform-chip">📷 Instagram</a>
+                <a href="download-twitter-videos.html" class="platform-chip">🐦 X (Twitter)</a>
+                <a href="platforms.html" class="platform-chip">🌐 All Platforms</a>
             </div>
         </section>
     </main>
 
     <footer class="footer">
         <div class="footer-content">
-            <div class="footer-logo">
-                <span class="logo-icon">⚡</span>
-                <span>TikGrab</span>
-            </div>
+            <div class="footer-logo"><span class="logo-icon">⚡</span><span>TikGrab</span></div>
             <p class="footer-text">© 2025 TikGrab. All rights reserved.</p>
             <div class="footer-links">
                 <a href="privacy.html">Privacy Policy</a>
