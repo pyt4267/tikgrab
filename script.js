@@ -491,11 +491,6 @@ document.addEventListener('DOMContentLoaded', () => {
                             Server 02 (HD)
                         </button>
                     ` : ''}
-                    <!-- Native Ad Space (Between Buttons) -->
-                    <div class="ad-native-inline" id="adNativeInline">
-                        <div class="ad-label-small">Ad</div>
-                        <!-- Adsterra Native Ad will be inserted here -->
-                    </div>
                     ${audioUrl ? `
                         <button class="result-btn audio" onclick="downloadWithProxy('${audioUrl}', 'tiktok_audio.mp3')">
                             <span class="btn-icon-left">🎵</span>
