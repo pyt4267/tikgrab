@@ -1,144 +1,460 @@
 /**
- * TikGrab - Ad Integration Script
- * Supports: PropellerAds, Adsterra, PopAds
- * Reference: TubeOffline ad placement style
+ * TikGrab - Ad Integration Script v2.0
+ * Features:
+ * - Timed Modal Ad (5 seconds after page load)
+ * - Download Click Overlay Ad
+ * - Sticky Footer Ad
+ * - Native Inline Ads
  */
 
 (function () {
     'use strict';
 
-    // Ad Configuration - Replace with your actual ad codes
+    // ========================================
+    // Configuration
+    // ========================================
     const AD_CONFIG = {
-        propellerAds: {
-            enabled: true,
-            zoneId: 'YOUR_PROPELLER_ZONE_ID', // Replace with your PropellerAds zone ID
-            scriptUrl: '//pl20888138.profitablegatecpm.com/YOUR_ID.js' // Replace with your script
-        },
+        // Timing settings
+        modalDelay: 5000, // Show modal 5 seconds after page load
+        modalCooldown: 300000, // Don't show again for 5 minutes
+        downloadAdEnabled: true, // Show ad on download click
+
+        // Ad network settings (replace with your actual codes)
         adsterra: {
-            enabled: true,
-            key: 'YOUR_ADSTERRA_KEY', // Replace with your Adsterra key
-            bannerId: 'YOUR_BANNER_ID'
-        },
-        popAds: {
-            enabled: true,
-            siteId: 'YOUR_POPADS_SITE_ID' // Replace with your PopAds site ID
+            enabled: false, // Set to true when you have Adsterra account
+            key: 'YOUR_ADSTERRA_KEY'
         }
     };
 
-    // Create ad containers
-    function createAdContainer(position, className) {
-        const container = document.createElement('div');
-        container.className = `ad-container ad-${position} ${className || ''}`;
-        container.innerHTML = `
-            <div class="ad-wrapper">
-                <span class="ad-label">Advertisement</span>
-                <div class="ad-content" id="ad-${position}"></div>
-            </div>
-        `;
-        return container;
-    }
-
-    // Insert ad placeholders
-    function insertAdContainers() {
-        // Header Ad (below navigation)
-        const header = document.querySelector('.header');
-        if (header) {
-            const headerAd = createAdContainer('header', 'ad-banner');
-            header.after(headerAd);
-        }
-
-        // Content Ad (between sections)
-        const featuresSection = document.querySelector('.features-premium, .platform-features');
-        if (featuresSection) {
-            const contentAd = createAdContainer('content', 'ad-rectangle');
-            featuresSection.before(contentAd);
-        }
-
-        // Sidebar Ads (for desktop)
-        if (window.innerWidth > 1200) {
-            const main = document.querySelector('main');
-            if (main) {
-                const leftSidebar = createAdContainer('sidebar-left', 'ad-sidebar');
-                const rightSidebar = createAdContainer('sidebar-right', 'ad-sidebar');
-                main.appendChild(leftSidebar);
-                main.appendChild(rightSidebar);
-            }
-        }
-
-        // Footer Ad (above footer)
-        const footer = document.querySelector('.footer');
-        if (footer) {
-            const footerAd = createAdContainer('footer', 'ad-banner');
-            footer.before(footerAd);
-        }
-    }
-
-    // Load PropellerAds
-    function loadPropellerAds() {
-        if (!AD_CONFIG.propellerAds.enabled) return;
-
-        // Native Banner
-        const script = document.createElement('script');
-        script.async = true;
-        script.dataset.cfasync = 'false';
-        script.src = AD_CONFIG.propellerAds.scriptUrl;
-        document.head.appendChild(script);
-    }
-
-    // Load Adsterra
-    function loadAdsterra() {
-        if (!AD_CONFIG.adsterra.enabled) return;
-
-        // Social Bar or Banner
-        const adSlots = document.querySelectorAll('.ad-content');
-        adSlots.forEach((slot, index) => {
-            if (index % 2 === 0) { // Alternate ad networks
-                const script = document.createElement('script');
-                script.async = true;
-                script.src = `//www.topcreativeformat.com/${AD_CONFIG.adsterra.key}/invoke.js`;
-                slot.appendChild(script);
-            }
-        });
-    }
-
-    // Load PopAds (interstitial/popunder)
-    function loadPopAds() {
-        if (!AD_CONFIG.popAds.enabled) return;
-
-        const script = document.createElement('script');
-        script.async = true;
-        script.src = '//c.popads.net/shpop.js';
-        document.head.appendChild(script);
-
-        // PopAds configuration
-        window.popAdsDelay = 3000; // 3 second delay
-    }
-
-    // Initialize Ads
-    function initAds() {
-        // Only load ads on non-localhost
-        if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
-            console.log('Ads disabled on localhost');
-            // Show placeholder ads for development
-            document.querySelectorAll('.ad-content').forEach(slot => {
-                slot.innerHTML = '<div style="background: rgba(255,255,255,0.05); padding: 20px; text-align: center; color: #666; border-radius: 8px;">Ad Space</div>';
-            });
+    // ========================================
+    // Modal Popup Ad (SnipTik Style)
+    // ========================================
+    function createModalAd() {
+        // Check if already shown recently
+        const lastShown = localStorage.getItem('tikgrab_modal_shown');
+        if (lastShown && Date.now() - parseInt(lastShown) < AD_CONFIG.modalCooldown) {
             return;
         }
 
-        loadPropellerAds();
-        loadAdsterra();
-        loadPopAds();
+        const modal = document.createElement('div');
+        modal.id = 'adModal';
+        modal.className = 'ad-modal';
+        modal.innerHTML = `
+            <div class="ad-modal-overlay"></div>
+            <div class="ad-modal-content">
+                <div class="ad-modal-header">
+                    <span class="ad-modal-label">広告</span>
+                    <button class="ad-modal-close" id="closeModalAd">×</button>
+                </div>
+                <div class="ad-modal-body" id="modalAdContent">
+                    <!-- Ad content will be inserted here by Adsterra -->
+                    <div class="ad-placeholder-content">
+                        <div class="ad-placeholder-icon">📢</div>
+                        <p class="ad-placeholder-text">広告スペース</p>
+                        <p class="ad-placeholder-subtext">Adsterra登録後に表示されます</p>
+                    </div>
+                </div>
+            </div>
+        `;
+
+        document.body.appendChild(modal);
+
+        // Close button event
+        document.getElementById('closeModalAd').addEventListener('click', function () {
+            modal.classList.add('closing');
+            setTimeout(() => modal.remove(), 300);
+            localStorage.setItem('tikgrab_modal_shown', Date.now().toString());
+        });
+
+        // Close on overlay click
+        modal.querySelector('.ad-modal-overlay').addEventListener('click', function () {
+            modal.classList.add('closing');
+            setTimeout(() => modal.remove(), 300);
+            localStorage.setItem('tikgrab_modal_shown', Date.now().toString());
+        });
+
+        // Show with animation
+        requestAnimationFrame(() => modal.classList.add('visible'));
+    }
+
+    // ========================================
+    // Download Click Overlay Ad
+    // ========================================
+    function createDownloadOverlayAd(callback) {
+        const overlay = document.createElement('div');
+        overlay.id = 'downloadAdOverlay';
+        overlay.className = 'download-ad-overlay';
+        overlay.innerHTML = `
+            <div class="download-ad-content">
+                <div class="download-ad-header">
+                    <span class="ad-label-small">Sponsored</span>
+                    <div class="download-ad-timer" id="adTimer">
+                        <span id="timerCount">5</span>秒後にダウンロード開始
+                    </div>
+                </div>
+                <div class="download-ad-body" id="downloadAdContent">
+                    <!-- Ad content -->
+                    <div class="ad-placeholder-large">
+                        <div class="ad-placeholder-icon">🎁</div>
+                        <p class="ad-placeholder-text">スポンサー広告</p>
+                        <p class="ad-placeholder-subtext">広告表示後にダウンロードが開始されます</p>
+                    </div>
+                </div>
+                <button class="download-ad-skip" id="skipAdBtn" disabled>
+                    スキップまで <span id="skipTimer">5</span>秒
+                </button>
+            </div>
+        `;
+
+        document.body.appendChild(overlay);
+
+        // Countdown timer
+        let countdown = 5;
+        const timerCount = document.getElementById('timerCount');
+        const skipTimer = document.getElementById('skipTimer');
+        const skipBtn = document.getElementById('skipAdBtn');
+
+        const timer = setInterval(() => {
+            countdown--;
+            timerCount.textContent = countdown;
+            skipTimer.textContent = countdown;
+
+            if (countdown <= 0) {
+                clearInterval(timer);
+                skipBtn.disabled = false;
+                skipBtn.innerHTML = '✓ ダウンロード開始';
+                skipBtn.classList.add('ready');
+            }
+        }, 1000);
+
+        // Skip/Continue button
+        skipBtn.addEventListener('click', function () {
+            if (countdown <= 0) {
+                overlay.classList.add('closing');
+                setTimeout(() => {
+                    overlay.remove();
+                    if (callback) callback();
+                }, 300);
+            }
+        });
+
+        // Show with animation
+        requestAnimationFrame(() => overlay.classList.add('visible'));
+    }
+
+    // ========================================
+    // Add Styles
+    // ========================================
+    function addAdStyles() {
+        if (document.getElementById('adModalStyles')) return;
+
+        const style = document.createElement('style');
+        style.id = 'adModalStyles';
+        style.textContent = `
+            /* Modal Ad Styles */
+            .ad-modal {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                z-index: 10000;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                opacity: 0;
+                visibility: hidden;
+                transition: all 0.3s ease;
+            }
+            
+            .ad-modal.visible {
+                opacity: 1;
+                visibility: visible;
+            }
+            
+            .ad-modal.closing {
+                opacity: 0;
+            }
+            
+            .ad-modal-overlay {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.8);
+                backdrop-filter: blur(5px);
+            }
+            
+            .ad-modal-content {
+                position: relative;
+                background: var(--bg-secondary, #12121a);
+                border: 1px solid rgba(255, 255, 255, 0.1);
+                border-radius: 16px;
+                max-width: 500px;
+                width: 90%;
+                overflow: hidden;
+                transform: scale(0.9);
+                transition: transform 0.3s ease;
+                box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            }
+            
+            .ad-modal.visible .ad-modal-content {
+                transform: scale(1);
+            }
+            
+            .ad-modal-header {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 12px 16px;
+                background: rgba(255, 255, 255, 0.05);
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            }
+            
+            .ad-modal-label {
+                font-size: 12px;
+                color: rgba(255, 255, 255, 0.5);
+                text-transform: uppercase;
+                letter-spacing: 1px;
+            }
+            
+            .ad-modal-close {
+                width: 32px;
+                height: 32px;
+                border: none;
+                background: rgba(255, 255, 255, 0.1);
+                color: white;
+                font-size: 20px;
+                border-radius: 50%;
+                cursor: pointer;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                transition: all 0.2s ease;
+            }
+            
+            .ad-modal-close:hover {
+                background: rgba(255, 255, 255, 0.2);
+                transform: scale(1.1);
+            }
+            
+            .ad-modal-body {
+                padding: 24px;
+                min-height: 280px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+            
+            /* Download Overlay Ad Styles */
+            .download-ad-overlay {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                z-index: 10001;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                background: rgba(0, 0, 0, 0.9);
+                backdrop-filter: blur(10px);
+                opacity: 0;
+                visibility: hidden;
+                transition: all 0.3s ease;
+            }
+            
+            .download-ad-overlay.visible {
+                opacity: 1;
+                visibility: visible;
+            }
+            
+            .download-ad-overlay.closing {
+                opacity: 0;
+            }
+            
+            .download-ad-content {
+                background: var(--bg-secondary, #12121a);
+                border: 1px solid rgba(0, 245, 255, 0.2);
+                border-radius: 20px;
+                max-width: 600px;
+                width: 95%;
+                overflow: hidden;
+                box-shadow: 0 0 60px rgba(0, 245, 255, 0.1);
+            }
+            
+            .download-ad-header {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 16px 20px;
+                background: linear-gradient(135deg, rgba(0, 245, 255, 0.1), rgba(255, 0, 229, 0.1));
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            }
+            
+            .download-ad-timer {
+                color: var(--neon-cyan, #00f5ff);
+                font-weight: 600;
+                font-size: 14px;
+            }
+            
+            .download-ad-timer #timerCount {
+                display: inline-block;
+                width: 20px;
+                height: 20px;
+                background: var(--neon-cyan, #00f5ff);
+                color: #000;
+                border-radius: 50%;
+                text-align: center;
+                line-height: 20px;
+                margin-right: 4px;
+            }
+            
+            .download-ad-body {
+                padding: 32px;
+                min-height: 300px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+            
+            .download-ad-skip {
+                display: block;
+                width: 100%;
+                padding: 16px;
+                border: none;
+                background: rgba(255, 255, 255, 0.1);
+                color: rgba(255, 255, 255, 0.5);
+                font-size: 16px;
+                font-weight: 600;
+                cursor: not-allowed;
+                transition: all 0.3s ease;
+            }
+            
+            .download-ad-skip.ready {
+                background: linear-gradient(135deg, var(--neon-cyan, #00f5ff), var(--neon-green, #22c55e));
+                color: #000;
+                cursor: pointer;
+            }
+            
+            .download-ad-skip.ready:hover {
+                transform: scale(1.02);
+            }
+            
+            /* Ad Placeholder Styles */
+            .ad-placeholder-content,
+            .ad-placeholder-large {
+                text-align: center;
+                padding: 32px;
+            }
+            
+            .ad-placeholder-icon {
+                font-size: 48px;
+                margin-bottom: 16px;
+            }
+            
+            .ad-placeholder-text {
+                font-size: 18px;
+                font-weight: 600;
+                color: var(--text-primary, #fff);
+                margin-bottom: 8px;
+            }
+            
+            .ad-placeholder-subtext {
+                font-size: 14px;
+                color: var(--text-muted, rgba(255, 255, 255, 0.5));
+            }
+            
+            .ad-placeholder-large .ad-placeholder-icon {
+                font-size: 64px;
+            }
+            
+            .ad-placeholder-large .ad-placeholder-text {
+                font-size: 24px;
+            }
+            
+            /* Light mode */
+            body.light-mode .ad-modal-content,
+            body.light-mode .download-ad-content {
+                background: #fff;
+                border-color: rgba(0, 0, 0, 0.1);
+            }
+            
+            body.light-mode .ad-modal-header,
+            body.light-mode .download-ad-header {
+                background: rgba(0, 0, 0, 0.05);
+            }
+            
+            body.light-mode .ad-placeholder-text {
+                color: #000;
+            }
+        `;
+
+        document.head.appendChild(style);
+    }
+
+    // ========================================
+    // Intercept Download Clicks
+    // ========================================
+    function setupDownloadInterception() {
+        if (!AD_CONFIG.downloadAdEnabled) return;
+
+        // Store original download function
+        const originalDownloadWithProxy = window.downloadWithProxy;
+
+        // Override download function
+        window.downloadWithProxy = function (url, filename) {
+            // Check if ad was shown recently
+            const lastDownloadAd = localStorage.getItem('tikgrab_download_ad');
+            const showAd = !lastDownloadAd || Date.now() - parseInt(lastDownloadAd) > 60000; // 1 minute cooldown
+
+            if (showAd) {
+                createDownloadOverlayAd(() => {
+                    localStorage.setItem('tikgrab_download_ad', Date.now().toString());
+                    // Call original function
+                    if (originalDownloadWithProxy) {
+                        originalDownloadWithProxy(url, filename);
+                    } else {
+                        // Fallback: redirect to download URL
+                        window.location.href = `/.netlify/functions/download?url=${encodeURIComponent(url)}&filename=${encodeURIComponent(filename)}`;
+                    }
+                });
+            } else {
+                // No ad, direct download
+                if (originalDownloadWithProxy) {
+                    originalDownloadWithProxy(url, filename);
+                } else {
+                    window.location.href = `/.netlify/functions/download?url=${encodeURIComponent(url)}&filename=${encodeURIComponent(filename)}`;
+                }
+            }
+        };
+    }
+
+    // ========================================
+    // Initialize
+    // ========================================
+    function init() {
+        addAdStyles();
+
+        // Show modal ad after delay
+        setTimeout(() => {
+            // Only show on main page, not on download pages
+            if (window.location.pathname === '/' || window.location.pathname === '/index.html') {
+                createModalAd();
+            }
+        }, AD_CONFIG.modalDelay);
+
+        // Setup download interception
+        setupDownloadInterception();
+
+        console.log('TikGrab Ads v2.0 initialized');
     }
 
     // Run when DOM is ready
     if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', () => {
-            insertAdContainers();
-            initAds();
-        });
+        document.addEventListener('DOMContentLoaded', init);
     } else {
-        insertAdContainers();
-        initAds();
+        init();
     }
 })();
