@@ -23,8 +23,62 @@
         adsterra: {
             enabled: false, // Set to true when you have Adsterra account
             key: 'YOUR_ADSTERRA_KEY'
-        }
+        },
+
+        // Show mock ads on localhost for testing layout
+        showMockAds: window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
     };
+
+    // ========================================
+    // Mock Social Bar Ad for localhost testing
+    // ========================================
+    function createMockSocialBar() {
+        if (!AD_CONFIG.showMockAds) return;
+
+        const mockAd = document.createElement('div');
+        mockAd.id = 'mockSocialBar';
+        mockAd.innerHTML = `
+            <div style="
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+                border-top: 1px solid rgba(0, 245, 255, 0.3);
+                padding: 12px 20px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 15px;
+                z-index: 9998;
+                box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.5);
+            ">
+                <span style="
+                    background: #ff6b6b;
+                    color: white;
+                    padding: 4px 8px;
+                    border-radius: 4px;
+                    font-size: 10px;
+                    font-weight: bold;
+                ">AD</span>
+                <img src="https://via.placeholder.com/40x40/22c55e/ffffff?text=🐸" style="width: 40px; height: 40px; border-radius: 8px;">
+                <div style="flex: 1; max-width: 400px;">
+                    <div style="color: white; font-weight: 600; font-size: 14px;">Mock Ad: Layout Test</div>
+                    <div style="color: rgba(255,255,255,0.6); font-size: 12px;">This is a mock ad for localhost testing</div>
+                </div>
+                <button onclick="this.parentElement.parentElement.remove()" style="
+                    background: rgba(255,255,255,0.1);
+                    border: none;
+                    color: rgba(255,255,255,0.5);
+                    padding: 6px 12px;
+                    border-radius: 4px;
+                    cursor: pointer;
+                    font-size: 12px;
+                ">Hide</button>
+            </div>
+        `;
+        document.body.appendChild(mockAd);
+    }
 
     // ========================================
     // Modal Popup Ad (SnipTik Style)
@@ -444,6 +498,9 @@
     // ========================================
     function init() {
         addAdStyles();
+
+        // Show mock Social Bar on localhost
+        createMockSocialBar();
 
         // Show modal ad after delay
         setTimeout(() => {

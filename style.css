@@ -72,7 +72,7 @@ body {
     top: 0;
     left: 0;
     right: 0;
-    z-index: 100;
+    z-index: 9999;
     padding: var(--space-sm) var(--space-lg);
     background: rgba(10, 10, 15, 0.8);
     backdrop-filter: blur(20px);
@@ -2144,4 +2144,18 @@ body.light-mode .ad-sticky-footer {
 body.light-mode .ad-sticky-footer .close-btn {
     background: rgba(0, 0, 0, 0.1);
     color: rgba(0, 0, 0, 0.5);
+}
+
+/* ========================================
+   Adsterra Social Bar spacing (Global)
+   ======================================== */
+/* Ensure content doesn't overlap with Social Bar */
+.footer {
+    padding-bottom: 80px;
+}
+
+@media (max-width: 768px) {
+    .footer {
+        padding-bottom: 100px;
+    }
 }

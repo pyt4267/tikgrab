@@ -784,3 +784,27 @@ body.light-mode .contact-box {
 body.light-mode .legal-footer {
     border-color: rgba(0, 0, 0, 0.1);
 }
+
+/* ========================================
+   Adsterra Social Bar spacing
+   ======================================== */
+/* Add padding to body for Social Bar ad */
+body {
+    padding-bottom: 80px !important;
+}
+
+/* Ensure footer has margin for ad */
+.footer {
+    margin-bottom: 60px;
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+    body {
+        padding-bottom: 100px !important;
+    }
+
+    .footer {
+        margin-bottom: 80px;
+    }
+}
