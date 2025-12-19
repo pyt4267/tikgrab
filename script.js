@@ -467,8 +467,19 @@ document.addEventListener('DOMContentLoaded', () => {
                         <button class="result-btn secondary" onclick="downloadWithProxy('${hdUrl}', 'tiktok_video_hd.mp4')">
                             <span class="btn-icon-left">⬇️</span>
                             Server 02 (HD)
+                </button>
+                    ` : ''}
+                    ${hdUrl && hdUrl !== videoUrl ? `
+                        <button class="result-btn secondary" onclick="downloadWithProxy('${hdUrl}', 'tiktok_video_hd.mp4')">
+                            <span class="btn-icon-left">⬇️</span>
+                            Server 02 (HD)
                         </button>
                     ` : ''}
+                    <!-- Native Ad Space (Between Buttons) -->
+                    <div class="ad-native-inline" id="adNativeInline">
+                        <div class="ad-label-small">Ad</div>
+                        <!-- Adsterra Native Ad will be inserted here -->
+                    </div>
                     ${audioUrl ? `
                         <button class="result-btn audio" onclick="downloadWithProxy('${audioUrl}', 'tiktok_audio.mp3')">
                             <span class="btn-icon-left">🎵</span>
@@ -479,6 +490,11 @@ document.addEventListener('DOMContentLoaded', () => {
                         <span class="btn-icon-left">🔄</span>
                         Download Another Video
                     </button>
+                </div>
+                <!-- Result Ad Space (300x250) -->
+                <div class="ad-native-result" id="adNativeResult">
+                    <div class="ad-label-small">Advertisement</div>
+                    <!-- Adsterra 300x250 Ad will be inserted here -->
                 </div>
                 <div class="save-tip" id="downloadStatus">
                     <p>Click a button to download</p>

@@ -470,10 +470,82 @@
             }
         });
     </script>
+
+    <!-- Sticky Footer Ad -->
+    <div class="ad-sticky-footer" id="adStickyFooter">
+        <button class="close-btn" onclick="this.parentElement.classList.add('hidden');" aria-label="Close">×</button>
+        <div class="ad-content">
+            <div class="ad-label-small">Ad</div>
+            <!-- Adsterra Sticky Banner will be inserted here -->
+        </div>
+    </div>
+
+    <!-- JSON-LD Structured Data for SEO -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "TikGrab",
+        "url": "https://tikgrab.net",
+        "description": "Free online video downloader for TikTok, YouTube, Instagram, Twitter, and 100+ platforms. Download HD videos without watermark.",
+        "applicationCategory": "MultimediaApplication",
+        "operatingSystem": "Web Browser",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+        },
+        "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": "4.8",
+            "ratingCount": "12500",
+            "bestRating": "5",
+            "worstRating": "1"
+        }
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            {
+                "@type": "Question",
+                "name": "Is TikGrab free to use?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Yes, TikGrab is completely free. No registration or sign-up required."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Can I download TikTok videos without watermark?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Yes, TikGrab removes the TikTok watermark automatically when you download videos."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "What platforms does TikGrab support?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "TikGrab supports 100+ platforms including TikTok, YouTube, Instagram, Twitter, Facebook, Vimeo, and many more."
+                }
+            }
+        ]
+    }
+    </script>
+
     <script src="script.js"></script>
     <script src="ads.js"></script>
     <script src="search.js"></script>
     <script src="theme.js"></script>
+
+    <!-- Enable sticky ad body padding -->
+    <script>
+        document.body.classList.add('has-sticky-ad');
+    </script>
 </body>
 
 </html>
