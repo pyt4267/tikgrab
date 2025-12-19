@@ -33,7 +33,12 @@
                 <span class="logo-icon">⚡</span>
                 <span class="logo-text">Tik<span class="logo-accent">Grab</span></span>
             </a>
-            <nav class="nav">
+            <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Menu">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </button>
+            <nav class="nav" id="mainNav">
                 <a href="how-to-download.html" class="nav-link">How to</a>
                 <a href="platforms.html" class="nav-link">All Sites</a>
                 <a href="faq.html" class="nav-link">FAQ</a>
@@ -41,12 +46,10 @@
         </div>
     </header>
 
-    <!-- Header Ad -->
-    <div class="ad-section">
+    <!-- Header Ad (hidden when empty) -->
+    <div class="ad-section ad-hidden" id="adHeaderSection">
         <div id="ad-header" class="ad-container ad-header">
-            <div class="ad-placeholder">
-                <span class="ad-label">Advertisement</span>
-            </div>
+            <!-- Ad content will be inserted by ads.js -->
         </div>
     </div>
 
@@ -95,6 +98,31 @@
                     <div class="stat-item">
                         <span class="stat-number">Free</span>
                         <span class="stat-label">Forever</span>
+                    </div>
+                </div>
+
+                <!-- How It Works - 3 Steps -->
+                <div class="how-it-works">
+                    <div class="step-card">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <h3>Copy URL</h3>
+                            <p>Copy the video link from TikTok, YouTube, or any platform</p>
+                        </div>
+                    </div>
+                    <div class="step-card">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <h3>Paste Here</h3>
+                            <p>Paste the URL in the input box above</p>
+                        </div>
+                    </div>
+                    <div class="step-card">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <h3>Download</h3>
+                            <p>Click download and save your video in HD!</p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -264,12 +292,10 @@
             </div>
         </section>
 
-        <!-- Content Ad -->
-        <div class="ad-section">
+        <!-- Content Ad (hidden when empty) -->
+        <div class="ad-section ad-hidden" id="adContentSection">
             <div id="ad-content" class="ad-container ad-content">
-                <div class="ad-placeholder">
-                    <span class="ad-label">Advertisement</span>
-                </div>
+                <!-- Ad content will be inserted by ads.js -->
             </div>
         </div>
 
@@ -389,12 +415,10 @@
         </section>
     </main>
 
-    <!-- Footer Ad -->
-    <div class="ad-section">
+    <!-- Footer Ad (hidden when empty) -->
+    <div class="ad-section ad-hidden" id="adFooterSection">
         <div id="ad-footer" class="ad-container ad-footer">
-            <div class="ad-placeholder">
-                <span class="ad-label">Advertisement</span>
-            </div>
+            <!-- Ad content will be inserted by ads.js -->
         </div>
     </div>
 
@@ -416,6 +440,36 @@
         </div>
     </footer>
 
+    <script>
+        // Mobile Menu Toggle
+        document.addEventListener('DOMContentLoaded', function () {
+            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+            const mainNav = document.getElementById('mainNav');
+
+            if (mobileMenuBtn && mainNav) {
+                mobileMenuBtn.addEventListener('click', function () {
+                    mobileMenuBtn.classList.toggle('active');
+                    mainNav.classList.toggle('active');
+                });
+
+                // Close menu when clicking a link
+                mainNav.querySelectorAll('.nav-link').forEach(link => {
+                    link.addEventListener('click', function () {
+                        mobileMenuBtn.classList.remove('active');
+                        mainNav.classList.remove('active');
+                    });
+                });
+
+                // Close menu when clicking outside
+                document.addEventListener('click', function (e) {
+                    if (!mainNav.contains(e.target) && !mobileMenuBtn.contains(e.target)) {
+                        mobileMenuBtn.classList.remove('active');
+                        mainNav.classList.remove('active');
+                    }
+                });
+            }
+        });
+    </script>
     <script src="script.js"></script>
     <script src="ads.js"></script>
     <script src="search.js"></script>
