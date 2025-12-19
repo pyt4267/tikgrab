@@ -345,15 +345,18 @@ document.addEventListener('DOMContentLoaded', () => {
                 statusEl.innerHTML = '<p>⏳ Downloading via proxy...</p>';
             }
 
-            // Use hidden iframe to download (prevents page navigation)
-            let iframe = document.getElementById('downloadFrame');
-            if (!iframe) {
-                iframe = document.createElement('iframe');
-                iframe.id = 'downloadFrame';
-                iframe.style.display = 'none';
-                document.body.appendChild(iframe);
-            }
-            iframe.src = proxyLink;
+            // Open in new tab/window (will redirect to video)
+            // This triggers the download while keeping user on current page
+            const downloadWindow = window.open(proxyLink, '_blank');
+
+            // Try to close the window after a short delay (may not work in all browsers)
+            setTimeout(() => {
+                try {
+                    if (downloadWindow) downloadWindow.close();
+                } catch (e) {
+                    // Ignore - cross-origin restrictions may prevent closing
+                }
+            }, 3000);
 
             setTimeout(() => {
                 if (statusEl) {
@@ -361,20 +364,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             }, 2000);
         } else {
-            // Direct download (filename may be random)
+            // Direct download
             if (statusEl) {
                 statusEl.innerHTML = '<p>⏳ Opening video... Right-click and save if needed.</p>';
             }
 
-            // Use hidden link with download attribute
-            const link = document.createElement('a');
-            link.href = videoUrl;
-            link.download = filename;
-            link.target = '_blank';
-            link.style.display = 'none';
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
+            window.open(videoUrl, '_blank');
 
             setTimeout(() => {
                 if (statusEl) {
