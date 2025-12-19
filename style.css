@@ -1639,15 +1639,17 @@ body.light-mode .ad-label {
     flex-wrap: wrap;
     justify-content: center;
     gap: 1rem;
-    max-width: 600px;
+    max-width: 800px;
     margin: 0 auto;
 }
 
 .share-btn {
     display: inline-flex;
     align-items: center;
+    justify-content: center;
     gap: 0.5rem;
     padding: 0.875rem 1.5rem;
+    min-width: 140px;
     border-radius: var(--radius-full);
     font-size: 1rem;
     font-weight: 600;
