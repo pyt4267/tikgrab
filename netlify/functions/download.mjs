@@ -1,5 +1,5 @@
-// TikGrab Video Proxy - Netlify Function
-// This function proxies video downloads and sets proper filenames
+// TikGrab Video Download - Netlify Function
+// Redirects to direct download URL (avoids 6MB limit)
 
 export async function handler(event, context) {
     // Handle CORS preflight
@@ -27,7 +27,7 @@ export async function handler(event, context) {
     // Get parameters
     const params = event.queryStringParameters || {};
     const videoUrl = params.url;
-    const filename = params.filename || 'tiktok_video.mp4';
+    const filename = params.filename || 'video.mp4';
 
     if (!videoUrl) {
         return {
@@ -41,43 +41,19 @@ export async function handler(event, context) {
     }
 
     try {
-        // Fetch the video from TikTok CDN
-        const response = await fetch(videoUrl, {
-            headers: {
-                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
-                'Referer': 'https://www.tiktok.com/',
-            },
-        });
-
-        if (!response.ok) {
-            return {
-                statusCode: response.status,
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Access-Control-Allow-Origin': '*',
-                },
-                body: JSON.stringify({ error: 'Failed to fetch video' }),
-            };
-        }
-
-        // Get the video as buffer
-        const buffer = await response.arrayBuffer();
-        const base64 = Buffer.from(buffer).toString('base64');
-
-        // Return with proper Content-Disposition header
+        // For large files, redirect directly to the video URL
+        // This avoids the 6MB Netlify response limit
         return {
-            statusCode: 200,
+            statusCode: 302,
             headers: {
-                'Content-Type': response.headers.get('Content-Type') || 'video/mp4',
-                'Content-Disposition': `attachment; filename="${filename}"`,
+                'Location': videoUrl,
                 'Access-Control-Allow-Origin': '*',
-                'Cache-Control': 'public, max-age=3600',
+                'Cache-Control': 'no-cache',
             },
-            body: base64,
-            isBase64Encoded: true,
+            body: '',
         };
     } catch (error) {
-        console.error('Proxy error:', error);
+        console.error('Download error:', error);
         return {
             statusCode: 500,
             headers: {
