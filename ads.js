@@ -11,22 +11,30 @@
     'use strict';
 
     // ========================================
-    // Configuration
+    // Configuration (Optimized - Multitag Only)
     // ========================================
     const AD_CONFIG = {
-        // Timing settings
-        modalDelay: 5000, // Show modal 5 seconds after page load
-        modalCooldown: 300000, // Don't show again for 5 minutes
-        downloadAdEnabled: true, // Show ad on download click
+        // Timing settings - Modal and Download Overlay DISABLED
+        modalDelay: 15000,
+        modalCooldown: 1800000,
+        downloadAdDelay: 3,
 
-        // Ad network settings (replace with your actual codes)
+        // DISABLED - Only Multitag enabled
+        modalAdEnabled: false, // Modal popup disabled
+        downloadAdEnabled: false, // Download overlay disabled
+
+        // Ad network settings
         adsterra: {
-            enabled: false, // Set to true when you have Adsterra account
-            key: 'YOUR_ADSTERRA_KEY'
+            enabled: false, // Adsterra disabled
+            key: ''
+        },
+        propellerads: {
+            enabled: true, // Only Multitag enabled (in HTML)
+            zoneId: '10350749'
         },
 
         // Show mock ads on localhost for testing layout
-        showMockAds: window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+        showMockAds: false // Disabled
     };
 
     // ========================================
@@ -44,37 +52,25 @@
                 left: 0;
                 right: 0;
                 background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-                border-top: 1px solid rgba(0, 245, 255, 0.3);
-                padding: 12px 20px;
+                padding: 15px 20px;
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                gap: 15px;
                 z-index: 9998;
                 box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.5);
             ">
-                <span style="
-                    background: #ff6b6b;
+                <div style="
+                    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                    padding: 12px 30px;
+                    border-radius: 8px;
                     color: white;
-                    padding: 4px 8px;
-                    border-radius: 4px;
-                    font-size: 10px;
-                    font-weight: bold;
-                ">AD</span>
-                <img src="https://via.placeholder.com/40x40/22c55e/ffffff?text=🐸" style="width: 40px; height: 40px; border-radius: 8px;">
-                <div style="flex: 1; max-width: 400px;">
-                    <div style="color: white; font-weight: 600; font-size: 14px;">Mock Ad: Layout Test</div>
-                    <div style="color: rgba(255,255,255,0.6); font-size: 12px;">This is a mock ad for localhost testing</div>
-                </div>
-                <button onclick="this.parentElement.parentElement.remove()" style="
-                    background: rgba(255,255,255,0.1);
-                    border: none;
-                    color: rgba(255,255,255,0.5);
-                    padding: 6px 12px;
-                    border-radius: 4px;
+                    font-weight: 600;
+                    font-size: 14px;
+                    text-align: center;
                     cursor: pointer;
-                    font-size: 12px;
-                ">Hide</button>
+                " onclick="this.parentElement.parentElement.remove()">
+                    🎁 Special Offer - Click Here!
+                </div>
             </div>
         `;
         document.body.appendChild(mockAd);
@@ -119,35 +115,36 @@
     // Download Click Overlay Ad
     // ========================================
     function createDownloadOverlayAd(callback) {
+        const delay = AD_CONFIG.downloadAdDelay;
         const overlay = document.createElement('div');
         overlay.id = 'downloadAdOverlay';
         overlay.className = 'download-ad-overlay';
         overlay.innerHTML = `
             <div class="download-ad-content">
                 <div class="download-ad-header">
-                    <span class="ad-label-small">Sponsored</span>
                     <div class="download-ad-timer" id="adTimer">
-                        <span id="timerCount">5</span>秒後にダウンロード開始
+                        <span id="timerCount">${delay}</span>秒後にダウンロード開始
                     </div>
                 </div>
                 <div class="download-ad-body" id="downloadAdContent">
-                    <!-- Ad content -->
-                    <div class="ad-placeholder-large">
-                        <div class="ad-placeholder-icon">🎁</div>
-                        <p class="ad-placeholder-text">スポンサー広告</p>
-                        <p class="ad-placeholder-subtext">広告表示後にダウンロードが開始されます</p>
-                    </div>
+                    <!-- PropellerAds In-Page Push -->
+                    <div id="downloadPropellerAd"></div>
                 </div>
                 <button class="download-ad-skip" id="skipAdBtn" disabled>
-                    スキップまで <span id="skipTimer">5</span>秒
+                    スキップまで <span id="skipTimer">${delay}</span>秒
                 </button>
             </div>
         `;
 
         document.body.appendChild(overlay);
 
-        // Countdown timer
-        let countdown = 5;
+        // Load PropellerAds In-Page Push for download overlay
+        const propellerScript = document.createElement('script');
+        propellerScript.innerHTML = "(function(s){s.dataset.zone='10350749',s.src='https://nap5k.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))";
+        document.getElementById('downloadPropellerAd').appendChild(propellerScript);
+
+        // Countdown timer (use config value)
+        let countdown = AD_CONFIG.downloadAdDelay;
         const timerCount = document.getElementById('timerCount');
         const skipTimer = document.getElementById('skipTimer');
         const skipBtn = document.getElementById('skipAdBtn');
@@ -483,16 +480,20 @@
     function init() {
         addAdStyles();
 
-        // Show mock Social Bar on localhost
-        createMockSocialBar();
+        // Show mock Social Bar on localhost (if enabled)
+        if (AD_CONFIG.showMockAds) {
+            createMockSocialBar();
+        }
 
-        // Show modal ad after delay
-        setTimeout(() => {
-            // Only show on main page, not on download pages
-            if (window.location.pathname === '/' || window.location.pathname === '/index.html') {
-                createModalAd();
-            }
-        }, AD_CONFIG.modalDelay);
+        // Show modal ad after delay (if enabled)
+        if (AD_CONFIG.modalAdEnabled) {
+            setTimeout(() => {
+                // Only show on main page, not on download pages
+                if (window.location.pathname === '/' || window.location.pathname === '/index.html') {
+                    createModalAd();
+                }
+            }, AD_CONFIG.modalDelay);
+        }
 
         // Setup download interception
         setupDownloadInterception();

@@ -96,97 +96,101 @@ document.addEventListener('DOMContentLoaded', () => {
     // ========================================
     // ペーストボタン
     // ========================================
-    pasteBtn.addEventListener('click', async () => {
-        try {
-            const text = await navigator.clipboard.readText();
-            urlInput.value = text;
-            urlInput.focus();
+    if (pasteBtn) {
+        pasteBtn.addEventListener('click', async () => {
+            try {
+                const text = await navigator.clipboard.readText();
+                urlInput.value = text;
+                urlInput.focus();
 
-            // フィードバックアニメーション
-            pasteBtn.textContent = '✓ ペースト完了';
-            pasteBtn.style.color = '#22c55e';
+                // フィードバックアニメーション
+                pasteBtn.textContent = '✓ ペースト完了';
+                pasteBtn.style.color = '#22c55e';
 
-            setTimeout(() => {
-                pasteBtn.innerHTML = '📋 ペースト';
-                pasteBtn.style.color = '';
-            }, 2000);
-        } catch (err) {
-            console.error('クリップボードからの読み取りに失敗:', err);
-            pasteBtn.textContent = '⚠ 失敗';
-            pasteBtn.style.color = '#ff6b6b';
+                setTimeout(() => {
+                    pasteBtn.innerHTML = '📋 ペースト';
+                    pasteBtn.style.color = '';
+                }, 2000);
+            } catch (err) {
+                console.error('クリップボードからの読み取りに失敗:', err);
+                pasteBtn.textContent = '⚠ 失敗';
+                pasteBtn.style.color = '#ff6b6b';
 
-            setTimeout(() => {
-                pasteBtn.innerHTML = '📋 ペースト';
-                pasteBtn.style.color = '';
-            }, 2000);
-        }
-    });
+                setTimeout(() => {
+                    pasteBtn.innerHTML = '📋 ペースト';
+                    pasteBtn.style.color = '';
+                }, 2000);
+            }
+        });
+    }
 
     // ========================================
     // ダウンロードボタン
     // ========================================
-    downloadBtn.addEventListener('click', async () => {
-        const url = urlInput.value.trim();
+    if (downloadBtn) {
+        downloadBtn.addEventListener('click', async () => {
+            const url = urlInput.value.trim();
 
-        if (!url) {
-            // 空の場合のフィードバック
-            urlInput.style.borderColor = '#ff6b6b';
-            urlInput.style.boxShadow = '0 0 20px rgba(255, 107, 107, 0.3)';
-            urlInput.placeholder = 'URLを入力してください...';
+            if (!url) {
+                // 空の場合のフィードバック
+                urlInput.style.borderColor = '#ff6b6b';
+                urlInput.style.boxShadow = '0 0 20px rgba(255, 107, 107, 0.3)';
+                urlInput.placeholder = 'URLを入力してください...';
 
-            setTimeout(() => {
-                urlInput.style.borderColor = '';
-                urlInput.style.boxShadow = '';
-                urlInput.placeholder = 'TikTokのURLをここに貼り付け...';
-            }, 2000);
-            return;
-        }
-
-        // Multi-platform URL validation
-        const platform = detectPlatform(url);
-        if (!platform) {
-            urlInput.style.borderColor = '#ff6b6b';
-            urlInput.style.boxShadow = '0 0 20px rgba(255, 107, 107, 0.3)';
-
-            setTimeout(() => {
-                urlInput.style.borderColor = '';
-                urlInput.style.boxShadow = '';
-            }, 2000);
-
-            showNotification('Please enter a supported URL (TikTok, YouTube, Instagram, Twitter, etc.)', 'error');
-            return;
-        }
-
-        // Show detected platform
-        showNotification(`${platform.icon} ${platform.name} detected!`, 'info');
-
-        // Start download process
-        downloadBtn.innerHTML = '<span class="btn-text">🔄 Processing...</span>';
-        downloadBtn.disabled = true;
-
-        try {
-            const result = await downloadTikTok(url);
-
-            if (result.success) {
-                downloadBtn.innerHTML = '<span class="btn-text">✓ Ready!</span>';
-                showNotification('Video found! Click the download button below.', 'success');
-
-                // Show download result (no auto-download due to CORS)
-                showDownloadResult(result);
-            } else {
-                throw new Error(result.error || 'Download failed');
+                setTimeout(() => {
+                    urlInput.style.borderColor = '';
+                    urlInput.style.boxShadow = '';
+                    urlInput.placeholder = 'TikTokのURLをここに貼り付け...';
+                }, 2000);
+                return;
             }
-        } catch (error) {
-            console.error('Download error:', error);
-            downloadBtn.innerHTML = '<span class="btn-text">⚠ Error</span>';
-            showNotification(error.message || 'Download failed', 'error');
-        }
 
-        setTimeout(() => {
-            downloadBtn.innerHTML = '<span class="btn-text">Download</span><span class="btn-icon">→</span>';
-            downloadBtn.disabled = false;
-        }, 3000);
-    });
+            // Multi-platform URL validation
+            const platform = detectPlatform(url);
+            if (!platform) {
+                urlInput.style.borderColor = '#ff6b6b';
+                urlInput.style.boxShadow = '0 0 20px rgba(255, 107, 107, 0.3)';
+
+                setTimeout(() => {
+                    urlInput.style.borderColor = '';
+                    urlInput.style.boxShadow = '';
+                }, 2000);
+
+                showNotification('Please enter a supported URL (TikTok, YouTube, Instagram, Twitter, etc.)', 'error');
+                return;
+            }
+
+            // Show detected platform
+            showNotification(`${platform.icon} ${platform.name} detected!`, 'info');
+
+            // Start download process
+            downloadBtn.innerHTML = '<span class="btn-text">🔄 Processing...</span>';
+            downloadBtn.disabled = true;
+
+            try {
+                const result = await downloadTikTok(url);
+
+                if (result.success) {
+                    downloadBtn.innerHTML = '<span class="btn-text">✓ Ready!</span>';
+                    showNotification('Video found! Click the download button below.', 'success');
+
+                    // Show download result (no auto-download due to CORS)
+                    showDownloadResult(result);
+                } else {
+                    throw new Error(result.error || 'Download failed');
+                }
+            } catch (error) {
+                console.error('Download error:', error);
+                downloadBtn.innerHTML = '<span class="btn-text">⚠ Error</span>';
+                showNotification(error.message || 'Download failed', 'error');
+            }
+
+            setTimeout(() => {
+                downloadBtn.innerHTML = '<span class="btn-text">Download</span><span class="btn-icon">→</span>';
+                downloadBtn.disabled = false;
+            }, 3000);
+        });
+    }
 
     // ========================================
     // TikTokダウンロード処理
@@ -503,11 +507,6 @@ document.addEventListener('DOMContentLoaded', () => {
                         Download Another Video
                     </button>
                 </div>
-                <!-- Result Ad Space (300x250) -->
-                <div class="ad-native-result" id="adNativeResult">
-                    <div class="ad-label-small">Advertisement</div>
-                    <!-- Adsterra 300x250 Ad will be inserted here -->
-                </div>
                 <div class="save-tip" id="downloadStatus">
                     <p>Click a button to download</p>
                 </div>
@@ -524,9 +523,14 @@ document.addEventListener('DOMContentLoaded', () => {
             animation: fadeIn 0.3s ease;
         `;
 
-        // ダウンロードカードの後に追加
-        const downloadCard = document.querySelector('.download-card');
-        downloadCard.parentNode.insertBefore(resultDiv, downloadCard.nextSibling);
+        // ダウンロードカードの後に追加 (support both classes)
+        const downloadCard = document.querySelector('.download-card') || document.querySelector('.download-card-premium');
+        if (downloadCard && downloadCard.parentNode) {
+            downloadCard.parentNode.insertBefore(resultDiv, downloadCard.nextSibling);
+        } else {
+            // Fallback: append to body
+            document.body.appendChild(resultDiv);
+        }
 
         // 結果カード用スタイル
         addResultStyles();
@@ -811,10 +815,12 @@ document.addEventListener('DOMContentLoaded', () => {
     // ========================================
     // キーボードショートカット
     // ========================================
-    urlInput.addEventListener('keypress', (e) => {
-        if (e.key === 'Enter') {
-            downloadBtn.click();
-        }
-    });
+    if (urlInput && downloadBtn) {
+        urlInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                downloadBtn.click();
+            }
+        });
+    }
 });
 
