@@ -502,6 +502,28 @@ document.addEventListener('DOMContentLoaded', () => {
             statusEl.innerHTML = '<p>⏳ Downloading... Please wait.</p>';
         }
 
+        // iOS/Safari detection
+        const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || 
+                      (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+        
+        // iOS Safari cannot download blobs directly - open in new tab with instructions
+        if (isIOS) {
+            window.open(videoUrl, '_blank');
+            if (statusEl) {
+                statusEl.innerHTML = `
+                    <div style="text-align: left; padding: 1rem; background: rgba(0,245,255,0.1); border-radius: 12px; margin-top: 1rem;">
+                        <p style="font-weight: 600; margin-bottom: 0.5rem;">📱 iPhoneでの保存方法：</p>
+                        <ol style="margin: 0; padding-left: 1.2rem; line-height: 1.8;">
+                            <li>開いた動画を<strong>長押し</strong></li>
+                            <li>「<strong>写真に保存</strong>」をタップ</li>
+                        </ol>
+                        <p style="margin-top: 0.5rem; font-size: 0.9rem; color: var(--text-secondary);">※ 保存されない場合は「ファイル」アプリに保存されます</p>
+                    </div>
+                `;
+            }
+            return;
+        }
+
         // Determine file type from filename argument
         const isAudio = filename.includes('.mp3') || filename.includes('audio');
         const ext = isAudio ? 'mp3' : 'mp4';
