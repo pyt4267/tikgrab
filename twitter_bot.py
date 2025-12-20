@@ -238,7 +238,7 @@ Free forever: https://tikgrab.net""",
 ✅ YouTube (4K)
 ✅ Instagram Reels
 ✅ Twitter/X
-✅ 100+ platforms
+✅ 20+ platforms
 
 No signup required!
 👉 https://tikgrab.net
@@ -247,14 +247,14 @@ No signup required!
 
             """🔥 Download ANY video in seconds!
 
-TikGrab supports 100+ platforms:
+TikGrab supports 20+ platforms:
 • TikTok • YouTube • Instagram
 • Twitter • Vimeo • Reddit
-• And 94 more!
+• And 14+ more!
 
 Free forever: https://tikgrab.net""",
 
-            """⚡ One tool. 100+ platforms. Zero fees.
+            """⚡ One tool. 20+ platforms. Zero fees.
 
 TikGrab - The ultimate video downloader.
 
@@ -264,7 +264,7 @@ Try it now: https://tikgrab.net
 
             """✨ Why 50,000+ users love TikGrab:
 
-✓ 100+ platforms supported
+✓ 20+ platforms supported
 ✓ HD quality downloads
 ✓ No registration
 ✓ No annoying popups
