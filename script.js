@@ -197,7 +197,15 @@ document.addEventListener('DOMContentLoaded', () => {
     // ========================================
     async function downloadTikTok(url) {
         try {
-            // Cobalt APIを使用
+            // TikTokの場合は最初にTikWM APIを試す（より信頼性が高い）
+            if (url.includes('tiktok.com') || url.includes('douyin.com')) {
+                const tikwmResult = await tryTikWMApi(url);
+                if (tikwmResult.success) {
+                    return tikwmResult;
+                }
+            }
+
+            // その他のプラットフォームはCobalt APIを使用
             const response = await fetch(COBALT_API, {
                 method: 'POST',
                 headers: {
@@ -247,6 +255,33 @@ document.addEventListener('DOMContentLoaded', () => {
             console.error('Cobalt API エラー:', error);
             return await tryAlternativeMethod(url);
         }
+    }
+
+    // ========================================
+    // TikWM API (TikTok専用)
+    // ========================================
+    async function tryTikWMApi(url) {
+        try {
+            const apiUrl = `https://www.tikwm.com/api/?url=${encodeURIComponent(url)}`;
+            const response = await fetch(apiUrl);
+            const data = await response.json();
+
+            if (data.code === 0 && data.data) {
+                const videoData = data.data;
+                return {
+                    success: true,
+                    downloadUrl: videoData.play || videoData.hdplay || videoData.wmplay,
+                    hdUrl: videoData.hdplay,
+                    audioUrl: videoData.music,
+                    thumbnail: videoData.cover,
+                    title: videoData.title,
+                    author: videoData.author?.nickname
+                };
+            }
+        } catch (e) {
+            console.error('TikWM API エラー:', e);
+        }
+        return { success: false };
     }
 
     // ========================================
