@@ -240,7 +240,7 @@ document.addEventListener('DOMContentLoaded', () => {
             console.log('Using external fallback service...');
             return {
                 success: true,
-                externalRedirect: `https://9xbuddy.com/process?url=${encodeURIComponent(url)}`,
+                externalRedirect: `https://en.savefrom.net/?url=${encodeURIComponent(url)}`,
                 message: 'Click below to download via external service.'
             };
 
@@ -248,7 +248,7 @@ document.addEventListener('DOMContentLoaded', () => {
             console.error('Download error:', error);
             return {
                 success: true,
-                externalRedirect: `https://9xbuddy.com/process?url=${encodeURIComponent(url)}`,
+                externalRedirect: `https://en.savefrom.net/?url=${encodeURIComponent(url)}`,
                 message: 'Click below to download via external service.'
             };
         }
@@ -359,11 +359,11 @@ document.addEventListener('DOMContentLoaded', () => {
     // YouTube API (external service)
     async function tryYouTubeApi(url) {
         // YouTube requires server-side processing due to CORS
-        // Redirect to 9xbuddy (more reliable than Y2Mate)
+        // Redirect to SaveFrom.net (mobile-friendly, supports all platforms)
         try {
             return {
                 success: true,
-                externalRedirect: `https://9xbuddy.com/process?url=${encodeURIComponent(url)}`,
+                externalRedirect: `https://en.savefrom.net/?url=${encodeURIComponent(url)}`,
                 message: 'YouTube videos require external service. Click below to proceed.'
             };
         } catch (e) {
@@ -503,9 +503,9 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         // iOS/Safari detection
-        const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || 
-                      (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
-        
+        const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) ||
+            (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+
         // iOS Safari cannot download blobs directly - open in new tab with instructions
         if (isIOS) {
             window.open(videoUrl, '_blank');
