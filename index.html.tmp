@@ -5,17 +5,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description"
-        content="TikGrab - Free online video downloader for TikTok, YouTube, Instagram, Twitter, and 20+ platforms. Download HD videos without watermark.">
+        content="TikGrab - Free TikTok video downloader. Download TikTok videos without watermark in HD quality.">
     <meta name="keywords"
-        content="TikTok downloader, YouTube downloader, Instagram video download, Twitter video saver, video downloader online, free video download">
+        content="TikTok downloader, download TikTok videos, TikTok video saver, no watermark, free TikTok download">
     <meta name="author" content="TikGrab">
-    <meta property="og:title" content="TikGrab - Universal Video Downloader">
-    <meta property="og:description"
-        content="Download videos from TikTok, YouTube, Instagram, Twitter, and 20+ sites for free.">
+    <meta property="og:title" content="TikGrab - TikTok Video Downloader">
+    <meta property="og:description" content="Download TikTok videos without watermark in HD quality for free.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://tikgrab.net/">
     <link rel="canonical" href="https://tikgrab.net/">
-    <title>TikGrab - Universal Video Downloader | TikTok, YouTube, Instagram, Twitter</title>
+    <title>TikGrab - TikTok Video Downloader | Download Without Watermark</title>
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -40,7 +39,6 @@
             </button>
             <nav class="nav" id="mainNav">
                 <a href="how-to-download.html" class="nav-link">How to</a>
-                <a href="platforms.html" class="nav-link">All Sites</a>
                 <a href="faq.html" class="nav-link">FAQ</a>
             </nav>
         </div>
@@ -49,7 +47,6 @@
     <!-- Header Ad (hidden when empty) -->
     <div class="ad-section ad-hidden" id="adHeaderSection">
         <div id="ad-header" class="ad-container ad-header">
-            <!-- Ad content will be inserted by ads.js -->
         </div>
     </div>
 
@@ -63,11 +60,11 @@
 
             <div class="hero-content">
                 <h1 class="hero-title">
-                    <span class="title-main">Download Videos</span>
-                    <span class="title-highlight">from 20+ Platforms</span>
+                    <span class="title-main">Download TikTok Videos</span>
+                    <span class="title-highlight">Without Watermark</span>
                 </h1>
                 <p class="hero-subtitle">
-                    TikTok • YouTube • Instagram • Twitter • Facebook • And More
+                    Fast • Free • HD Quality • No Registration Required
                 </p>
 
                 <!-- Download Card -->
@@ -88,8 +85,8 @@
                 <!-- Stats -->
                 <div class="stats">
                     <div class="stat-item">
-                        <span class="stat-number">20+</span>
-                        <span class="stat-label">Platforms</span>
+                        <span class="stat-number">✓</span>
+                        <span class="stat-label">No Watermark</span>
                     </div>
                     <div class="stat-item">
                         <span class="stat-number">HD</span>
@@ -107,7 +104,7 @@
                         <div class="step-number">1</div>
                         <div class="step-content">
                             <h3>Copy URL</h3>
-                            <p>Copy the video link from TikTok, YouTube, or any platform</p>
+                            <p>Copy the video link from TikTok app or website</p>
                         </div>
                     </div>
                     <div class="step-card">
@@ -128,9 +125,36 @@
             </div>
         </section>
 
-        <!-- Supported Platforms Section (with Search) -->
-        <section class="platforms-section">
-            <h2 class="section-title">Supported Platforms</h2>
+
+        <!-- TikTok Features Section -->
+        <section class="features-section" style="padding: 4rem 1.5rem;">
+            <h2 class="section-title">Why Choose TikGrab?</h2>
+            <div class="features-grid"
+                style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; max-width: 1000px; margin: 0 auto;">
+                <div class="feature-card">
+                    <div class="feature-icon">✓</div>
+                    <h3>No Watermark</h3>
+                    <p>Download TikTok videos without the TikTok watermark</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <h3>Fast Download</h3>
+                    <p>Lightning fast processing with instant downloads</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📱</div>
+                    <h3>HD Quality</h3>
+                    <p>Download in the highest quality available</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔒</div>
+                    <h3>100% Free</h3>
+                    <p>No registration, no fees, completely free forever</p>
+                </div>
+            </div>
+        </section>
+        <!-- Old platforms section content to be deleted -->
+        <div style="display:none;">
 
             <!-- Search & Filter -->
             <div class="platform-search-container">
@@ -284,18 +308,11 @@
                 <p>No platforms found matching your search.</p>
             </div>
 
-            <!-- View All Button -->
-            <div class="view-all-container">
-                <a href="platforms.html" class="view-all-btn">
-                    View All 20+ Platforms →
-                </a>
-            </div>
-        </section>
-
+        </div>
+        <!-- End of hidden old content -->
         <!-- Content Ad (hidden when empty) -->
         <div class="ad-section ad-hidden" id="adContentSection">
             <div id="ad-content" class="ad-container ad-content">
-                <!-- Ad content will be inserted by ads.js -->
             </div>
         </div>
 
@@ -418,7 +435,6 @@
     <!-- Footer Ad (hidden when empty) -->
     <div class="ad-section ad-hidden" id="adFooterSection">
         <div id="ad-footer" class="ad-container ad-footer">
-            <!-- Ad content will be inserted by ads.js -->
         </div>
     </div>
 
@@ -529,7 +545,6 @@
     </script>
 
     <script src="script.js"></script>
-    <script src="ads.js"></script>
     <script src="search.js"></script>
     <script src="theme.js"></script>
 

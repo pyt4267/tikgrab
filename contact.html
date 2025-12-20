@@ -1,8 +1,9 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
+    
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contact - TikGrab</title>
     <meta name="description" content="Contact TikGrab. Send us your questions or feedback.">
@@ -31,7 +32,7 @@
             </button>
             <nav class="nav" id="mainNav">
                 <a href="faq.html" class="nav-link">FAQ</a>
-                </nav>
+            </nav>
         </div>
     </header>
 
@@ -54,7 +55,7 @@
                         <p class="small">※ Responses may take 2-3 business days</p>
                     </div>
                     <div class="contact-card">
-                        <span class="contact-icon">❁E/span>
+                        <span class="contact-icon">❓</span>
                         <h3>FAQ</h3>
                         <p>Check our <a href="faq.html">FAQ</a> first - many questions are answered there.</p>
                     </div>
@@ -87,7 +88,7 @@
                     </div>
                     <button type="submit" class="submit-btn">
                         <span>Send Message</span>
-                        <span class="btn-icon">ↁE/span>
+                        <span class="btn-icon">→</span>
                     </button>
                 </form>
             </div>
@@ -123,26 +124,26 @@
 
     <script>
         // Mobile Menu Toggle
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             const mobileMenuBtn = document.getElementById('mobileMenuBtn');
             const mainNav = document.getElementById('mainNav');
-            
+
             if (mobileMenuBtn && mainNav) {
-                mobileMenuBtn.addEventListener('click', function() {
+                mobileMenuBtn.addEventListener('click', function () {
                     mobileMenuBtn.classList.toggle('active');
                     mainNav.classList.toggle('active');
                 });
-                
+
                 // Close menu when clicking a link
                 mainNav.querySelectorAll('.nav-link').forEach(link => {
-                    link.addEventListener('click', function() {
+                    link.addEventListener('click', function () {
                         mobileMenuBtn.classList.remove('active');
                         mainNav.classList.remove('active');
                     });
                 });
-                
+
                 // Close menu when clicking outside
-                document.addEventListener('click', function(e) {
+                document.addEventListener('click', function (e) {
                     if (!mainNav.contains(e.target) && !mobileMenuBtn.contains(e.target)) {
                         mobileMenuBtn.classList.remove('active');
                         mainNav.classList.remove('active');
@@ -152,7 +153,6 @@
         });
     </script>
     <script src="theme.js"></script>
-    <script src="ads.js"></script>
     <script>
         document.getElementById('contactForm').addEventListener('submit', function (e) {
             e.preventDefault();
@@ -160,9 +160,11 @@
         });
     </script>
 
-    
+
     <!-- PropellerAds Multitag -->
 
 </body>
 
 </html>
+
+

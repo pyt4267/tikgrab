@@ -1,9 +1,8 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
-    
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FAQ - TikGrab</title>
     <meta name="description" content="TikGrab FAQ. Find answers about how to use our service and troubleshooting tips.">
@@ -32,7 +31,7 @@
             </button>
             <nav class="nav" id="mainNav">
                 <a href="faq.html" class="nav-link active">FAQ</a>
-            </nav>
+                </nav>
         </div>
     </header>
 
@@ -77,8 +76,8 @@
                             <span class="faq-toggle">+</span>
                         </button>
                         <div class="faq-answer">
-                            <p>TikGrab works on <strong>PC and Android devices</strong>. Unfortunately, iPhone/iOS is
-                                not supported due to Apple's browser restrictions on file downloads.</p>
+                            <p>Yes, it works on both iPhone and Android. However, some browsers may not support direct
+                                download. In that case, long-press the video and select "Save Link".</p>
                         </div>
                     </div>
 
@@ -231,26 +230,26 @@
 
     <script>
         // Mobile Menu Toggle
-        document.addEventListener('DOMContentLoaded', function () {
+        document.addEventListener('DOMContentLoaded', function() {
             const mobileMenuBtn = document.getElementById('mobileMenuBtn');
             const mainNav = document.getElementById('mainNav');
-
+            
             if (mobileMenuBtn && mainNav) {
-                mobileMenuBtn.addEventListener('click', function () {
+                mobileMenuBtn.addEventListener('click', function() {
                     mobileMenuBtn.classList.toggle('active');
                     mainNav.classList.toggle('active');
                 });
-
+                
                 // Close menu when clicking a link
                 mainNav.querySelectorAll('.nav-link').forEach(link => {
-                    link.addEventListener('click', function () {
+                    link.addEventListener('click', function() {
                         mobileMenuBtn.classList.remove('active');
                         mainNav.classList.remove('active');
                     });
                 });
-
+                
                 // Close menu when clicking outside
-                document.addEventListener('click', function (e) {
+                document.addEventListener('click', function(e) {
                     if (!mainNav.contains(e.target) && !mobileMenuBtn.contains(e.target)) {
                         mobileMenuBtn.classList.remove('active');
                         mainNav.classList.remove('active');
@@ -278,11 +277,9 @@
         });
     </script>
 
-
+    
     <!-- PropellerAds Multitag -->
 
 </body>
 
 </html>
-
-

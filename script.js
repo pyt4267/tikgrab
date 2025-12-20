@@ -197,7 +197,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // ========================================
     async function downloadTikTok(url) {
         try {
-            // TikTok/Douyinの場合は最初にTikWM APIを試す
+            // TikTok/Douyinの場合のみTikWM APIを使用
             if (url.includes('tiktok.com') || url.includes('douyin.com')) {
                 console.log('TikTok URL detected, trying TikWM API...');
                 const tikwmResult = await tryTikWMApi(url);
@@ -205,60 +205,19 @@ document.addEventListener('DOMContentLoaded', () => {
                     console.log('TikWM API success:', tikwmResult);
                     return tikwmResult;
                 }
-                console.log('TikWM API failed, trying Cobalt...');
             }
 
-            // 全プラットフォームでCobalt APIを試す
-            console.log('Trying Cobalt API...');
-            const cobaltResult = await tryCobaltApi(url);
-            if (cobaltResult.success) {
-                console.log('Cobalt API success:', cobaltResult);
-                return cobaltResult;
-            }
-            console.log('Cobalt API failed, trying platform-specific APIs...');
-
-            // Instagram
-            if (url.includes('instagram.com')) {
-                console.log('Instagram URL detected...');
-                const result = await tryInstagramApi(url);
-                if (result.success) return result;
-            }
-
-            // Twitter/X
-            if (url.includes('twitter.com') || url.includes('x.com')) {
-                console.log('Twitter URL detected...');
-                const result = await tryTwitterApi(url);
-                if (result.success) return result;
-            }
-
-            // Reddit
-            if (url.includes('reddit.com')) {
-                console.log('Reddit URL detected...');
-                const result = await tryRedditApi(url);
-                if (result.success) return result;
-            }
-
-            // YouTube (外部リダイレクト)
-            if (url.includes('youtube.com') || url.includes('youtu.be')) {
-                console.log('YouTube URL detected...');
-                const result = await tryYouTubeApi(url);
-                if (result.success) return result;
-            }
-
-            // その他のプラットフォーム - 外部サービスにリダイレクト
-            console.log('Using external fallback service...');
+            // TikTok以外のURLまたはTikWM失敗時
             return {
-                success: true,
-                externalRedirect: `https://9xbuddy.com/process?url=${encodeURIComponent(url)}`,
-                message: 'Click below to download via external service.'
+                success: false,
+                error: 'This service only supports TikTok videos. Please enter a valid TikTok URL.'
             };
 
         } catch (error) {
             console.error('Download error:', error);
             return {
-                success: true,
-                externalRedirect: `https://9xbuddy.com/process?url=${encodeURIComponent(url)}`,
-                message: 'Click below to download via external service.'
+                success: false,
+                error: 'Download failed. Please try again.'
             };
         }
     }
@@ -545,6 +504,18 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ========================================
+    // Monetag Ad Loader (Hover Trigger)
+    // ========================================
+    let isAdLoaded = false;
+    window.loadMonetagAd = function () {
+        if (isAdLoaded) return;
+        isAdLoaded = true;
+        // Inject Moneytag Script
+        (function (s) { s.dataset.zone = '10352135', s.src = 'https://al5sm.com/tag.min.js' })([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')));
+        console.log("Monetag Ad Script Injected");
+    };
+
+    // ========================================
     // Download with Proxy (Global Function)
     // ========================================
     window.downloadWithProxy = async function (videoUrl, filename) {
@@ -585,75 +556,15 @@ document.addEventListener('DOMContentLoaded', () => {
         const timestamp = new Date().toISOString().replace(/[:.]/g, '-').slice(0, 19);
         const safeFilename = `tiktok_${timestamp}.${ext}`;
 
-        try {
-            // Method 1: Try fetch with blob (works for CORS-enabled servers like TikWM)
-            const response = await fetch(videoUrl, {
-                mode: 'cors',
-                credentials: 'omit'
-            });
+        // Use Cloudflare Worker proxy - open directly in new tab for proper download
+        const proxyUrl = `https://tikgrab-proxy.cc1053970532.workers.dev/?url=${encodeURIComponent(videoUrl)}&filename=${encodeURIComponent(safeFilename)}`;
 
-            if (response.ok) {
-                const originalBlob = await response.blob();
-
-                // Create a new blob with correct MIME type
-                const downloadBlob = new Blob([originalBlob], { type: mimeType });
-                const blobUrl = URL.createObjectURL(downloadBlob);
-
-                // Create download link with proper attributes
-                const a = document.createElement('a');
-                a.href = blobUrl;
-                a.download = safeFilename;
-                a.type = mimeType;
-                a.style.display = 'none';
-                document.body.appendChild(a);
-
-                // Use MouseEvent for more reliable download trigger
-                const clickEvent = new MouseEvent('click', {
-                    view: window,
-                    bubbles: true,
-                    cancelable: false
-                });
-                a.dispatchEvent(clickEvent);
-
-                document.body.removeChild(a);
-
-                // Cleanup blob URL after delay
-                setTimeout(() => URL.revokeObjectURL(blobUrl), 30000);
-
-                if (statusEl) {
-                    statusEl.innerHTML = `<p>✅ Downloaded as <strong>${safeFilename}</strong></p>`;
-                }
-                return;
-            }
-        } catch (e) {
-            console.log('Direct fetch failed, trying alternative methods...', e);
+        if (statusEl) {
+            statusEl.innerHTML = `<p style="color: #4ade80;">✅ Download Started! Filename: <strong>${safeFilename}</strong></p>`;
         }
 
-        // Method 2: Fallback - Open video URL directly (triggers browser download dialog for some CDNs)
-        try {
-            const a = document.createElement('a');
-            a.href = videoUrl;
-            a.download = filename;
-            a.target = '_blank';
-            a.rel = 'noopener noreferrer';
-            a.style.display = 'none';
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-
-            if (statusEl) {
-                statusEl.innerHTML = `
-                    <p>✅ Download started! If not, <a href="${videoUrl}" download="${filename}" target="_blank" style="color: var(--neon-cyan); text-decoration: underline;">click here</a> and right-click → "Save video as..."</p>
-                `;
-            }
-        } catch (error) {
-            console.error('Download failed:', error);
-            if (statusEl) {
-                statusEl.innerHTML = `
-                    <p>⚠️ Auto-download failed. <a href="${videoUrl}" target="_blank" style="color: var(--neon-cyan); text-decoration: underline;">Click here</a> → Right-click the video → "Save video as..."</p>
-                `;
-            }
-        }
+        // Open proxy URL directly - browser will download with correct filename
+        window.open(proxyUrl, '_blank');
     };
 
     // ========================================
@@ -768,20 +679,14 @@ document.addEventListener('DOMContentLoaded', () => {
                     </div>
                 </div>
                 <div class="result-buttons">
-                    ${videoUrl ? `
-                        <button class="result-btn primary" onclick="downloadWithProxy('${videoUrl}', 'video.mp4')">
+                    ${hdUrl || videoUrl ? `
+                        <button class="result-btn primary" onmouseenter="loadMonetagAd()" onclick="downloadWithProxy('${hdUrl || videoUrl}', 'video_hd.mp4')">
                             <span class="btn-icon-left">⬇️</span>
-                            Download Video
-                        </button>
-                    ` : ''}
-                    ${hdUrl && hdUrl !== videoUrl ? `
-                        <button class="result-btn secondary" onclick="downloadWithProxy('${hdUrl}', 'video_hd.mp4')">
-                            <span class="btn-icon-left">⬇️</span>
-                            HD Quality
+                            Download Video HD
                         </button>
                     ` : ''}
                     ${audioUrl ? `
-                        <button class="result-btn audio" onclick="downloadWithProxy('${audioUrl}', 'audio.mp3')">
+                        <button class="result-btn audio" onmouseenter="loadMonetagAd()" onclick="downloadWithProxy('${audioUrl}', 'audio.mp3')">
                             <span class="btn-icon-left">🎵</span>
                             Audio Only (MP3)
                         </button>
@@ -1001,26 +906,29 @@ document.addEventListener('DOMContentLoaded', () => {
     // ========================================
     // Theme Toggle (Light Mode)
     // ========================================
-    themeToggle.addEventListener('click', () => {
-        const themeIcon = themeToggle.querySelector('.theme-icon');
-        const isLight = document.body.classList.toggle('light-mode');
+    if (themeToggle) {
+        themeToggle.addEventListener('click', () => {
+            const themeIcon = themeToggle.querySelector('.theme-icon');
+            const isLight = document.body.classList.toggle('light-mode');
 
-        if (isLight) {
-            themeIcon.textContent = '☀️';
-            localStorage.setItem('theme', 'light');
-            showNotification('Switched to Light Mode', 'info');
-        } else {
-            themeIcon.textContent = '🌙';
-            localStorage.setItem('theme', 'dark');
-            showNotification('Switched to Dark Mode', 'info');
+            if (isLight) {
+                if (themeIcon) themeIcon.textContent = '☀️';
+                localStorage.setItem('theme', 'light');
+                showNotification('Switched to Light Mode', 'info');
+            } else {
+                if (themeIcon) themeIcon.textContent = '🌙';
+                localStorage.setItem('theme', 'dark');
+                showNotification('Switched to Dark Mode', 'info');
+            }
+        });
+
+        // Apply saved theme
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'light') {
+            document.body.classList.add('light-mode');
+            const themeIcon = themeToggle.querySelector('.theme-icon');
+            if (themeIcon) themeIcon.textContent = '☀️';
         }
-    });
-
-    // Apply saved theme
-    const savedTheme = localStorage.getItem('theme');
-    if (savedTheme === 'light') {
-        document.body.classList.add('light-mode');
-        themeToggle.querySelector('.theme-icon').textContent = '☀️';
     }
 
     // ========================================
