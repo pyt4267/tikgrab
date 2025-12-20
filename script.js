@@ -197,63 +197,60 @@ document.addEventListener('DOMContentLoaded', () => {
     // ========================================
     async function downloadTikTok(url) {
         try {
-            // TikTokの場合は最初にTikWM APIを試す（より信頼性が高い）
+            // TikTok/Douyinの場合は最初にTikWM APIを試す
             if (url.includes('tiktok.com') || url.includes('douyin.com')) {
+                console.log('TikTok URL detected, trying TikWM API...');
                 const tikwmResult = await tryTikWMApi(url);
                 if (tikwmResult.success) {
+                    console.log('TikWM API success:', tikwmResult);
                     return tikwmResult;
                 }
+                console.log('TikWM API failed, trying fallback...');
             }
 
-            // その他のプラットフォームはCobalt APIを使用
-            const response = await fetch(COBALT_API, {
-                method: 'POST',
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    url: url,
-                    downloadMode: currentMode === 'audio' ? 'audio' : 'auto',
-                    filenameStyle: 'pretty',
-                    videoQuality: '1080'
-                })
-            });
-
-            if (!response.ok) {
-                // Cobalt APIが使えない場合、代替方法を試す
-                return await tryAlternativeMethod(url);
+            // Instagram
+            if (url.includes('instagram.com')) {
+                console.log('Instagram URL detected...');
+                const result = await tryInstagramApi(url);
+                if (result.success) return result;
             }
 
-            const data = await response.json();
-
-            if (data.status === 'error') {
-                return await tryAlternativeMethod(url);
+            // Twitter/X
+            if (url.includes('twitter.com') || url.includes('x.com')) {
+                console.log('Twitter URL detected...');
+                const result = await tryTwitterApi(url);
+                if (result.success) return result;
             }
 
-            // ダウンロードURLを取得
-            if (data.url) {
-                return {
-                    success: true,
-                    downloadUrl: data.url,
-                    filename: data.filename || 'tiktok_video.mp4'
-                };
+            // Reddit
+            if (url.includes('reddit.com')) {
+                console.log('Reddit URL detected...');
+                const result = await tryRedditApi(url);
+                if (result.success) return result;
             }
 
-            // 複数のピッカーがある場合
-            if (data.picker) {
-                return {
-                    success: true,
-                    picker: data.picker,
-                    isMultiple: true
-                };
+            // YouTube (外部リダイレクト)
+            if (url.includes('youtube.com') || url.includes('youtu.be')) {
+                console.log('YouTube URL detected...');
+                const result = await tryYouTubeApi(url);
+                if (result.success) return result;
             }
 
-            return await tryAlternativeMethod(url);
+            // その他のプラットフォーム - 外部サービスにリダイレクト
+            console.log('Using external fallback service...');
+            return {
+                success: true,
+                externalRedirect: `https://9xbuddy.com/process?url=${encodeURIComponent(url)}`,
+                message: 'Click below to download via external service.'
+            };
 
         } catch (error) {
-            console.error('Cobalt API エラー:', error);
-            return await tryAlternativeMethod(url);
+            console.error('Download error:', error);
+            return {
+                success: true,
+                externalRedirect: `https://9xbuddy.com/process?url=${encodeURIComponent(url)}`,
+                message: 'Click below to download via external service.'
+            };
         }
     }
 
@@ -490,46 +487,42 @@ document.addEventListener('DOMContentLoaded', () => {
         const statusEl = document.getElementById('downloadStatus');
 
         if (statusEl) {
-            statusEl.innerHTML = '<p>⏳ Downloading... Please wait.</p>';
+            statusEl.innerHTML = '<p>⏳ Starting download...</p>';
         }
 
-        // Use fetch + blob for proper download
-        fetch(videoUrl, {
-            method: 'GET',
-            mode: 'cors'
-        })
-            .then(response => {
-                if (!response.ok) throw new Error('Download failed');
-                return response.blob();
-            })
-            .then(blob => {
-                // Create download link
-                const url = window.URL.createObjectURL(blob);
-                const a = document.createElement('a');
-                a.style.display = 'none';
-                a.href = url;
-                a.download = filename;
-                document.body.appendChild(a);
+        // Try using Netlify proxy first for proper download
+        const proxyUrl = `/.netlify/functions/download?url=${encodeURIComponent(videoUrl)}&filename=${encodeURIComponent(filename)}`;
+
+        // Create a hidden iframe to trigger download
+        const iframe = document.createElement('iframe');
+        iframe.style.display = 'none';
+        iframe.src = proxyUrl;
+        document.body.appendChild(iframe);
+
+        // Also try direct link as backup
+        setTimeout(() => {
+            const a = document.createElement('a');
+            a.href = videoUrl;
+            a.download = filename;
+            a.target = '_blank';
+            a.rel = 'noopener noreferrer';
+
+            // For TikWM URLs, they usually allow direct download
+            if (videoUrl.includes('tikwm.com') || videoUrl.includes('tikcdn')) {
                 a.click();
+            }
 
-                // Cleanup
-                setTimeout(() => {
-                    window.URL.revokeObjectURL(url);
-                    document.body.removeChild(a);
-                }, 100);
+            if (statusEl) {
+                statusEl.innerHTML = `
+                    <p>✅ Download started! If not, <a href="${videoUrl}" download="${filename}" target="_blank" style="color: var(--neon-cyan);">click here</a></p>
+                `;
+            }
 
-                if (statusEl) {
-                    statusEl.innerHTML = '<p>✅ Download complete! Check your downloads folder.</p>';
-                }
-            })
-            .catch(error => {
-                console.error('Download error:', error);
-                // Fallback: open in new tab
-                if (statusEl) {
-                    statusEl.innerHTML = '<p>⚠️ Opening video in new tab. Right-click to save.</p>';
-                }
-                window.open(videoUrl, '_blank');
-            });
+            // Cleanup iframe after 5 seconds
+            setTimeout(() => {
+                document.body.removeChild(iframe);
+            }, 5000);
+        }, 1000);
     };
 
     // ========================================
