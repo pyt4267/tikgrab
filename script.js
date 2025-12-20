@@ -285,10 +285,122 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ========================================
-    // 代替ダウンロード方法
+    // プラットフォーム別API実装
+    // ========================================
+
+    // Instagram API (iGram)
+    async function tryInstagramApi(url) {
+        try {
+            const apiUrl = `https://api.igram.io/api/convert`;
+            const response = await fetch(apiUrl, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: `url=${encodeURIComponent(url)}`
+            });
+            const data = await response.json();
+            if (data && data.url) {
+                return { success: true, downloadUrl: data.url };
+            }
+        } catch (e) {
+            console.error('Instagram API エラー:', e);
+        }
+        return { success: false };
+    }
+
+    // Twitter/X API (sssTwitter)
+    async function tryTwitterApi(url) {
+        try {
+            const apiUrl = `https://twitsave.com/info?url=${encodeURIComponent(url)}`;
+            // Note: This may require CORS proxy
+            const response = await fetch(apiUrl);
+            const html = await response.text();
+            // Parse for download link
+            const match = html.match(/href="(https:\/\/[^"]+\.mp4[^"]*)"/);
+            if (match && match[1]) {
+                return { success: true, downloadUrl: match[1] };
+            }
+        } catch (e) {
+            console.error('Twitter API エラー:', e);
+        }
+        return { success: false };
+    }
+
+    // Reddit API
+    async function tryRedditApi(url) {
+        try {
+            // Convert to JSON API
+            const jsonUrl = url.replace(/\/$/, '') + '.json';
+            const response = await fetch(jsonUrl, {
+                headers: { 'User-Agent': 'TikGrab/1.0' }
+            });
+            const data = await response.json();
+            if (data[0]?.data?.children[0]?.data?.secure_media?.reddit_video?.fallback_url) {
+                const videoUrl = data[0].data.children[0].data.secure_media.reddit_video.fallback_url;
+                return { success: true, downloadUrl: videoUrl.replace('?source=fallback', '') };
+            }
+        } catch (e) {
+            console.error('Reddit API エラー:', e);
+        }
+        return { success: false };
+    }
+
+    // YouTube API (external service)
+    async function tryYouTubeApi(url) {
+        // YouTube requires server-side processing due to CORS
+        // Redirect to external service
+        try {
+            const videoId = extractYouTubeId(url);
+            if (videoId) {
+                return {
+                    success: true,
+                    externalRedirect: `https://www.y2mate.com/youtube/${videoId}`,
+                    message: 'YouTube videos require external service. Click below to proceed.'
+                };
+            }
+        } catch (e) {
+            console.error('YouTube API エラー:', e);
+        }
+        return { success: false };
+    }
+
+    function extractYouTubeId(url) {
+        const patterns = [
+            /(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([^&\n?#]+)/,
+            /youtube\.com\/shorts\/([^&\n?#]+)/
+        ];
+        for (const pattern of patterns) {
+            const match = url.match(pattern);
+            if (match) return match[1];
+        }
+        return null;
+    }
+
+    // ========================================
+    // 代替ダウンロード方法（プラットフォーム別ルーティング）
     // ========================================
     async function tryAlternativeMethod(url) {
-        // tikwm.com API を試す (代替)
+        // プラットフォーム別にAPIを試す
+        if (url.includes('instagram.com')) {
+            const result = await tryInstagramApi(url);
+            if (result.success) return result;
+        }
+
+        if (url.includes('twitter.com') || url.includes('x.com')) {
+            const result = await tryTwitterApi(url);
+            if (result.success) return result;
+        }
+
+        if (url.includes('reddit.com')) {
+            const result = await tryRedditApi(url);
+            if (result.success) return result;
+        }
+
+        if (url.includes('youtube.com') || url.includes('youtu.be')) {
+            const result = await tryYouTubeApi(url);
+            if (result.success) return result;
+        }
+
+        // TikWM を最後のフォールバックとして試す
         try {
             const apiUrl = `https://www.tikwm.com/api/?url=${encodeURIComponent(url)}`;
             const response = await fetch(apiUrl);
@@ -310,10 +422,11 @@ document.addEventListener('DOMContentLoaded', () => {
             console.error('代替API エラー:', e);
         }
 
-        // 両方失敗した場合
+        // 全て失敗した場合、外部サービスへの誘導
         return {
-            success: false,
-            error: 'ダウンロードサービスに接続できません。しばらく後でお試しください。'
+            success: true,
+            externalRedirect: `https://9xbuddy.com/process?url=${encodeURIComponent(url)}`,
+            message: 'Click below to download via external service.'
         };
     }
 
@@ -460,7 +573,30 @@ document.addEventListener('DOMContentLoaded', () => {
         const resultDiv = document.createElement('div');
         resultDiv.className = 'download-result';
 
-        if (result.isMultiple && result.picker) {
+        // 外部リダイレクトの場合
+        if (result.externalRedirect) {
+            resultDiv.innerHTML = `
+                <div class="result-preview">
+                    <div class="result-thumb-placeholder">🔗</div>
+                    <div class="result-meta">
+                        <p class="result-title">${result.message || 'External download available'}</p>
+                    </div>
+                </div>
+                <div class="result-buttons">
+                    <a href="${result.externalRedirect}" target="_blank" rel="noopener noreferrer" class="result-btn primary">
+                        <span class="btn-icon-left">🌐</span>
+                        Open Download Page
+                    </a>
+                    <button class="result-btn reset" onclick="this.closest('.download-result').remove(); document.getElementById('urlInput').value = ''; document.getElementById('urlInput').focus();">
+                        <span class="btn-icon-left">🔄</span>
+                        Try Another URL
+                    </button>
+                </div>
+                <div class="save-tip">
+                    <p>Click the button to download on the external site</p>
+                </div>
+            `;
+        } else if (result.isMultiple && result.picker) {
             // Multiple options (Slideshow)
             const isImage = result.picker[0]?.url?.includes('.jpg') || result.picker[0]?.url?.includes('.jpeg') || result.picker[0]?.url?.includes('.png') || result.picker[0]?.url?.includes('.webp');
             const ext = isImage ? 'jpg' : 'mp4';
@@ -503,31 +639,25 @@ document.addEventListener('DOMContentLoaded', () => {
                     `<div class="result-thumb-placeholder">🎬</div>`
                 }
                     <div class="result-meta">
-                        ${result.title ? `<p class="result-title">${result.title.substring(0, 80)}${result.title.length > 80 ? '...' : ''}</p>` : '<p class="result-title">TikTok Video</p>'}
+                        ${result.title ? `<p class="result-title">${result.title.substring(0, 80)}${result.title.length > 80 ? '...' : ''}</p>` : '<p class="result-title">Video Ready</p>'}
                         ${result.author ? `<p class="result-author">@${result.author}</p>` : ''}
                     </div>
                 </div>
                 <div class="result-buttons">
                     ${videoUrl ? `
-                        <button class="result-btn primary" onclick="downloadWithProxy('${videoUrl}', 'tiktok_video.mp4')">
+                        <button class="result-btn primary" onclick="downloadWithProxy('${videoUrl}', 'video.mp4')">
                             <span class="btn-icon-left">⬇️</span>
                             Download Video
                         </button>
                     ` : ''}
                     ${hdUrl && hdUrl !== videoUrl ? `
-                        <button class="result-btn secondary" onclick="downloadWithProxy('${hdUrl}', 'tiktok_video_hd.mp4')">
+                        <button class="result-btn secondary" onclick="downloadWithProxy('${hdUrl}', 'video_hd.mp4')">
                             <span class="btn-icon-left">⬇️</span>
-                            Server 02 (HD)
-                </button>
-                    ` : ''}
-                    ${hdUrl && hdUrl !== videoUrl ? `
-                        <button class="result-btn secondary" onclick="downloadWithProxy('${hdUrl}', 'tiktok_video_hd.mp4')">
-                            <span class="btn-icon-left">⬇️</span>
-                            Server 02 (HD)
+                            HD Quality
                         </button>
                     ` : ''}
                     ${audioUrl ? `
-                        <button class="result-btn audio" onclick="downloadWithProxy('${audioUrl}', 'tiktok_audio.mp3')">
+                        <button class="result-btn audio" onclick="downloadWithProxy('${audioUrl}', 'audio.mp3')">
                             <span class="btn-icon-left">🎵</span>
                             Audio Only (MP3)
                         </button>
