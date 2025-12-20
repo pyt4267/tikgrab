@@ -21,7 +21,7 @@
 
         // DISABLED - Only Multitag enabled
         modalAdEnabled: false, // Modal popup disabled
-        downloadAdEnabled: false, // Download overlay disabled
+        downloadAdEnabled: true, // Download overlay enabled
 
         // Ad network settings
         adsterra: {

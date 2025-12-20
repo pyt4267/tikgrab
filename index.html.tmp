@@ -5,16 +5,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description"
-        content="TikGrab - Free TikTok video downloader. Download TikTok videos without watermark in HD quality.">
+        content="TikGrab - Free online video downloader for TikTok, YouTube, Instagram, Twitter, and 20+ platforms. Download HD videos without watermark.">
     <meta name="keywords"
-        content="TikTok downloader, download TikTok videos, TikTok video saver, no watermark, free TikTok download">
+        content="TikTok downloader, YouTube downloader, Instagram video download, Twitter video saver, video downloader online, free video download">
     <meta name="author" content="TikGrab">
-    <meta property="og:title" content="TikGrab - TikTok Video Downloader">
-    <meta property="og:description" content="Download TikTok videos without watermark in HD quality for free.">
+    <meta property="og:title" content="TikGrab - Universal Video Downloader">
+    <meta property="og:description"
+        content="Download videos from TikTok, YouTube, Instagram, Twitter, and 20+ sites for free.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://tikgrab.net/">
     <link rel="canonical" href="https://tikgrab.net/">
-    <title>TikGrab - TikTok Video Downloader | Download Without Watermark</title>
+    <title>TikGrab - Universal Video Downloader | TikTok, YouTube, Instagram, Twitter</title>
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -39,6 +40,7 @@
             </button>
             <nav class="nav" id="mainNav">
                 <a href="how-to-download.html" class="nav-link">How to</a>
+                <a href="platforms.html" class="nav-link">All Sites</a>
                 <a href="faq.html" class="nav-link">FAQ</a>
             </nav>
         </div>
@@ -61,11 +63,11 @@
 
             <div class="hero-content">
                 <h1 class="hero-title">
-                    <span class="title-main">Download TikTok Videos</span>
-                    <span class="title-highlight">Without Watermark</span>
+                    <span class="title-main">Download Videos</span>
+                    <span class="title-highlight">from 20+ Platforms</span>
                 </h1>
                 <p class="hero-subtitle">
-                    Fast • Free • HD Quality • No Registration Required
+                    TikTok • YouTube • Instagram • Twitter • Facebook • And More
                 </p>
 
                 <!-- Download Card -->
@@ -86,8 +88,8 @@
                 <!-- Stats -->
                 <div class="stats">
                     <div class="stat-item">
-                        <span class="stat-number">✓</span>
-                        <span class="stat-label">No Watermark</span>
+                        <span class="stat-number">20+</span>
+                        <span class="stat-label">Platforms</span>
                     </div>
                     <div class="stat-item">
                         <span class="stat-number">HD</span>
@@ -105,7 +107,7 @@
                         <div class="step-number">1</div>
                         <div class="step-content">
                             <h3>Copy URL</h3>
-                            <p>Copy the video link from TikTok app or website</p>
+                            <p>Copy the video link from TikTok, YouTube, or any platform</p>
                         </div>
                     </div>
                     <div class="step-card">
@@ -126,40 +128,9 @@
             </div>
         </section>
 
-
-        <!-- TikTok Features Section -->
-        <section class="features-section" style="padding: 4rem 1.5rem;">
-            <h2 class="section-title">Why Choose TikGrab?</h2>
-            <div class="features-grid"
-                style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; max-width: 1000px; margin: 0 auto;">
-                <div class="feature-card"
-                    style="background: var(--bg-card); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 2rem; text-align: center;">
-                    <div style="font-size: 3rem; margin-bottom: 1rem;">✓</div>
-                    <h3 style="font-size: 1.25rem; margin-bottom: 0.5rem;">No Watermark</h3>
-                    <p style="color: var(--text-secondary);">Download TikTok videos without the TikTok watermark</p>
-                </div>
-                <div class="feature-card"
-                    style="background: var(--bg-card); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 2rem; text-align: center;">
-                    <div style="font-size: 3rem; margin-bottom: 1rem;">⚡</div>
-                    <h3 style="font-size: 1.25rem; margin-bottom: 0.5rem;">Fast Download</h3>
-                    <p style="color: var(--text-secondary);">Lightning fast processing with instant downloads</p>
-                </div>
-                <div class="feature-card"
-                    style="background: var(--bg-card); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 2rem; text-align: center;">
-                    <div style="font-size: 3rem; margin-bottom: 1rem;">📱</div>
-                    <h3 style="font-size: 1.25rem; margin-bottom: 0.5rem;">HD Quality</h3>
-                    <p style="color: var(--text-secondary);">Download in the highest quality available</p>
-                </div>
-                <div class="feature-card"
-                    style="background: var(--bg-card); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 2rem; text-align: center;">
-                    <div style="font-size: 3rem; margin-bottom: 1rem;">🔒</div>
-                    <h3 style="font-size: 1.25rem; margin-bottom: 0.5rem;">100% Free</h3>
-                    <p style="color: var(--text-secondary);">No registration, no fees, completely free forever</p>
-                </div>
-            </div>
-        </section>
-        <!-- Old platforms section content to be deleted -->
-        <div style="display:none;">
+        <!-- Supported Platforms Section (with Search) -->
+        <section class="platforms-section">
+            <h2 class="section-title">Supported Platforms</h2>
 
             <!-- Search & Filter -->
             <div class="platform-search-container">
@@ -313,8 +284,14 @@
                 <p>No platforms found matching your search.</p>
             </div>
 
-        </div>
-        <!-- End of hidden old content -->
+            <!-- View All Button -->
+            <div class="view-all-container">
+                <a href="platforms.html" class="view-all-btn">
+                    View All 20+ Platforms →
+                </a>
+            </div>
+        </section>
+
         <!-- Content Ad (hidden when empty) -->
         <div class="ad-section ad-hidden" id="adContentSection">
             <div id="ad-content" class="ad-container ad-content">

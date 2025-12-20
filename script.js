@@ -205,8 +205,17 @@ document.addEventListener('DOMContentLoaded', () => {
                     console.log('TikWM API success:', tikwmResult);
                     return tikwmResult;
                 }
-                console.log('TikWM API failed, trying fallback...');
+                console.log('TikWM API failed, trying Cobalt...');
             }
+
+            // 全プラットフォームでCobalt APIを試す
+            console.log('Trying Cobalt API...');
+            const cobaltResult = await tryCobaltApi(url);
+            if (cobaltResult.success) {
+                console.log('Cobalt API success:', cobaltResult);
+                return cobaltResult;
+            }
+            console.log('Cobalt API failed, trying platform-specific APIs...');
 
             // Instagram
             if (url.includes('instagram.com')) {
@@ -240,7 +249,7 @@ document.addEventListener('DOMContentLoaded', () => {
             console.log('Using external fallback service...');
             return {
                 success: true,
-                externalRedirect: `https://en.savefrom.net/?url=${encodeURIComponent(url)}`,
+                externalRedirect: `https://9xbuddy.com/process?url=${encodeURIComponent(url)}`,
                 message: 'Click below to download via external service.'
             };
 
@@ -248,7 +257,7 @@ document.addEventListener('DOMContentLoaded', () => {
             console.error('Download error:', error);
             return {
                 success: true,
-                externalRedirect: `https://en.savefrom.net/?url=${encodeURIComponent(url)}`,
+                externalRedirect: `https://9xbuddy.com/process?url=${encodeURIComponent(url)}`,
                 message: 'Click below to download via external service.'
             };
         }
@@ -292,6 +301,49 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         } catch (e) {
             console.error('TikWM API エラー:', e);
+        }
+        return { success: false };
+    }
+
+    // ========================================
+    // Cobalt API (Universal downloader)
+    // ========================================
+    async function tryCobaltApi(url) {
+        try {
+            const apiUrl = 'https://cobalt-backend.canine.tools/';
+            const response = await fetch(apiUrl, {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    url: url,
+                    videoQuality: '1080',
+                    audioFormat: 'mp3'
+                })
+            });
+
+            const data = await response.json();
+            console.log('Cobalt API Response:', data);
+
+            if (data.status === 'tunnel' || data.status === 'redirect') {
+                return {
+                    success: true,
+                    downloadUrl: data.url,
+                    filename: data.filename || 'video.mp4'
+                };
+            } else if (data.status === 'picker' && data.picker && data.picker.length > 0) {
+                // Multiple items available, use the first one
+                return {
+                    success: true,
+                    downloadUrl: data.picker[0].url,
+                    isMultiple: true,
+                    picker: data.picker
+                };
+            }
+        } catch (e) {
+            console.error('Cobalt API エラー:', e);
         }
         return { success: false };
     }
@@ -363,7 +415,7 @@ document.addEventListener('DOMContentLoaded', () => {
         try {
             return {
                 success: true,
-                externalRedirect: `https://en.savefrom.net/?url=${encodeURIComponent(url)}`,
+                externalRedirect: `https://9xbuddy.com/process?url=${encodeURIComponent(url)}`,
                 message: 'YouTube videos require external service. Click below to proceed.'
             };
         } catch (e) {
@@ -506,18 +558,18 @@ document.addEventListener('DOMContentLoaded', () => {
         const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) ||
             (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
 
-        // iOS Safari cannot download blobs directly - open in new tab with instructions
+        // iOS Safari cannot download blobs directly - show message
         if (isIOS) {
-            window.open(videoUrl, '_blank');
             if (statusEl) {
                 statusEl.innerHTML = `
-                    <div style="text-align: left; padding: 1rem; background: rgba(0,245,255,0.1); border-radius: 12px; margin-top: 1rem;">
-                        <p style="font-weight: 600; margin-bottom: 0.5rem;">📱 iPhoneでの保存方法：</p>
-                        <ol style="margin: 0; padding-left: 1.2rem; line-height: 1.8;">
-                            <li>開いた動画を<strong>長押し</strong></li>
-                            <li>「<strong>写真に保存</strong>」をタップ</li>
-                        </ol>
-                        <p style="margin-top: 0.5rem; font-size: 0.9rem; color: var(--text-secondary);">※ 保存されない場合は「ファイル」アプリに保存されます</p>
+                    <div style="text-align: left; padding: 1rem; background: rgba(255,100,100,0.1); border: 1px solid rgba(255,100,100,0.3); border-radius: 12px; margin-top: 1rem;">
+                        <p style="font-weight: 600; margin-bottom: 0.5rem;">⚠️ iPhoneでは直接ダウンロードできません</p>
+                        <p style="margin-bottom: 0.75rem; color: var(--text-secondary);">Appleの制限により、iPhoneのブラウザから動画を直接保存することができません。</p>
+                        <p style="font-weight: 500; margin-bottom: 0.5rem;">💡 代替方法：</p>
+                        <ul style="margin: 0; padding-left: 1.2rem; line-height: 1.8; color: var(--text-secondary);">
+                            <li><strong>PCでダウンロード</strong> - 同じURLをPCのブラウザで開く</li>
+                            <li><strong>ショートカットアプリ</strong> - iOS標準のショートカットを使用</li>
+                        </ul>
                     </div>
                 `;
             }
