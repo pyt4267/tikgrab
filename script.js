@@ -1,9 +1,9 @@
 // ========================================
-// TikGrab - JavaScript (実機能版)
+// TikGrab - JavaScript (Functional Version)
 // ========================================
 
 document.addEventListener('DOMContentLoaded', () => {
-    // 要素取得
+    // Element Selection
     const urlInput = document.getElementById('urlInput');
     const pasteBtn = document.getElementById('pasteBtn');
     const downloadBtn = document.getElementById('downloadBtn');
@@ -24,10 +24,10 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 500);
     }
 
-    // 現在のモード
+    // Current Mode
     let currentMode = 'video';
 
-    // Cobalt API エンドポイント (公開インスタンス)
+    // Cobalt API Endpoint (Public Instance)
     const COBALT_API = 'https://api.cobalt.tools';
 
     // Video Proxy (Netlify Function)
@@ -94,7 +94,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ========================================
-    // ペーストボタン
+    // Paste Button
     // ========================================
     if (pasteBtn) {
         pasteBtn.addEventListener('click', async () => {
@@ -534,12 +534,12 @@ document.addEventListener('DOMContentLoaded', () => {
             if (statusEl) {
                 statusEl.innerHTML = `
                     <div style="text-align: left; padding: 1rem; background: rgba(255,100,100,0.1); border: 1px solid rgba(255,100,100,0.3); border-radius: 12px; margin-top: 1rem;">
-                        <p style="font-weight: 600; margin-bottom: 0.5rem;">⚠️ iPhoneでは直接ダウンロードできません</p>
-                        <p style="margin-bottom: 0.75rem; color: var(--text-secondary);">Appleの制限により、iPhoneのブラウザから動画を直接保存することができません。</p>
-                        <p style="font-weight: 500; margin-bottom: 0.5rem;">💡 代替方法：</p>
+                        <p style="font-weight: 600; margin-bottom: 0.5rem;">⚠️ Direct Download Not Supported on iPhone</p>
+                        <p style="margin-bottom: 0.75rem; color: var(--text-secondary);">Due to Apple's restrictions, you cannot save videos directly from the browser on iOS.</p>
+                        <p style="font-weight: 500; margin-bottom: 0.5rem;">💡 Alternatives:</p>
                         <ul style="margin: 0; padding-left: 1.2rem; line-height: 1.8; color: var(--text-secondary);">
-                            <li><strong>PCでダウンロード</strong> - 同じURLをPCのブラウザで開く</li>
-                            <li><strong>ショートカットアプリ</strong> - iOS標準のショートカットを使用</li>
+                            <li><strong>"Documents by Readdle"</strong> - Use this app's built-in browser</li>
+                            <li><strong>PC</strong> - Use a computer to download</li>
                         </ul>
                     </div>
                 `;
@@ -889,11 +889,11 @@ document.addEventListener('DOMContentLoaded', () => {
             tab.classList.add('active');
             currentMode = tab.dataset.mode;
 
-            // プレースホルダーを更新
+            // Update placeholders
             const placeholders = {
-                video: 'TikTokの動画URLをここに貼り付け...',
-                audio: 'TikTokのURLをここに貼り付け (MP3抽出)...',
-                slide: 'TikTokのスライドショーURLをここに貼り付け...'
+                video: 'Paste TikTok video URL here...',
+                audio: 'Paste TikTok URL here (MP3 Extraction)...',
+                slide: 'Paste TikTok slideshow URL here...'
             };
             urlInput.placeholder = placeholders[currentMode] || placeholders.video;
 
