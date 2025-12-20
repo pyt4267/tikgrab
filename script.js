@@ -359,16 +359,13 @@ document.addEventListener('DOMContentLoaded', () => {
     // YouTube API (external service)
     async function tryYouTubeApi(url) {
         // YouTube requires server-side processing due to CORS
-        // Redirect to external service
+        // Redirect to 9xbuddy (more reliable than Y2Mate)
         try {
-            const videoId = extractYouTubeId(url);
-            if (videoId) {
-                return {
-                    success: true,
-                    externalRedirect: `https://www.y2mate.com/youtube/${videoId}`,
-                    message: 'YouTube videos require external service. Click below to proceed.'
-                };
-            }
+            return {
+                success: true,
+                externalRedirect: `https://9xbuddy.com/process?url=${encodeURIComponent(url)}`,
+                message: 'YouTube videos require external service. Click below to proceed.'
+            };
         } catch (e) {
             console.error('YouTube API エラー:', e);
         }
