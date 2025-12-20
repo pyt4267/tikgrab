@@ -483,46 +483,69 @@ document.addEventListener('DOMContentLoaded', () => {
     // ========================================
     // Download with Proxy (Global Function)
     // ========================================
-    window.downloadWithProxy = function (videoUrl, filename) {
+    window.downloadWithProxy = async function (videoUrl, filename) {
         const statusEl = document.getElementById('downloadStatus');
 
         if (statusEl) {
-            statusEl.innerHTML = '<p>⏳ Starting download...</p>';
+            statusEl.innerHTML = '<p>⏳ Downloading... Please wait.</p>';
         }
 
-        // Try using Netlify proxy first for proper download
-        const proxyUrl = `/.netlify/functions/download?url=${encodeURIComponent(videoUrl)}&filename=${encodeURIComponent(filename)}`;
+        try {
+            // Method 1: Try fetch with blob (works for CORS-enabled servers like TikWM)
+            const response = await fetch(videoUrl, {
+                mode: 'cors',
+                credentials: 'omit'
+            });
 
-        // Create a hidden iframe to trigger download
-        const iframe = document.createElement('iframe');
-        iframe.style.display = 'none';
-        iframe.src = proxyUrl;
-        document.body.appendChild(iframe);
+            if (response.ok) {
+                const blob = await response.blob();
+                const blobUrl = URL.createObjectURL(blob);
+                
+                const a = document.createElement('a');
+                a.href = blobUrl;
+                a.download = filename;
+                a.style.display = 'none';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                
+                // Cleanup blob URL after delay
+                setTimeout(() => URL.revokeObjectURL(blobUrl), 10000);
 
-        // Also try direct link as backup
-        setTimeout(() => {
+                if (statusEl) {
+                    statusEl.innerHTML = '<p>✅ Download complete! Check your Downloads folder.</p>';
+                }
+                return;
+            }
+        } catch (e) {
+            console.log('Direct fetch failed, trying alternative methods...', e);
+        }
+
+        // Method 2: Fallback - Open video URL directly (triggers browser download dialog for some CDNs)
+        try {
             const a = document.createElement('a');
             a.href = videoUrl;
             a.download = filename;
             a.target = '_blank';
             a.rel = 'noopener noreferrer';
-
-            // For TikWM URLs, they usually allow direct download
-            if (videoUrl.includes('tikwm.com') || videoUrl.includes('tikcdn')) {
-                a.click();
-            }
+            a.style.display = 'none';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
 
             if (statusEl) {
                 statusEl.innerHTML = `
-                    <p>✅ Download started! If not, <a href="${videoUrl}" download="${filename}" target="_blank" style="color: var(--neon-cyan);">click here</a></p>
+                    <p>✅ Download started! If not, <a href="${videoUrl}" download="${filename}" target="_blank" style="color: var(--neon-cyan); text-decoration: underline;">click here</a> and right-click → "Save video as..."</p>
                 `;
             }
-
-            // Cleanup iframe after 5 seconds
-            setTimeout(() => {
-                document.body.removeChild(iframe);
-            }, 5000);
-        }, 1000);
+        } catch (error) {
+            console.error('Download failed:', error);
+            if (statusEl) {
+                statusEl.innerHTML = `
+                    <p>⚠️ Auto-download failed. <a href="${videoUrl}" target="_blank" style="color: var(--neon-cyan); text-decoration: underline;">Click here</a> → Right-click the video → "Save video as..."</p>
+                `;
+            }
+        }
     };
 
     // ========================================
