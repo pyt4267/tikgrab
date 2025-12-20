@@ -259,16 +259,31 @@ document.addEventListener('DOMContentLoaded', () => {
     // ========================================
     async function tryTikWMApi(url) {
         try {
-            const apiUrl = `https://www.tikwm.com/api/?url=${encodeURIComponent(url)}`;
+            // Use &hd=1 to get HD quality video
+            const apiUrl = `https://www.tikwm.com/api/?url=${encodeURIComponent(url)}&hd=1`;
             const response = await fetch(apiUrl);
             const data = await response.json();
 
+            console.log('TikWM API Response:', data);
+
             if (data.code === 0 && data.data) {
                 const videoData = data.data;
+
+                // TikWM URL priority (NO watermark):
+                // - play: Standard quality, NO watermark ✅
+                // - hdplay: HD quality, NO watermark (requires &hd=1) ✅
+                // - wmplay: With watermark (avoid this!) ❌
+
+                // Use play for standard download (no watermark)
+                const downloadUrl = videoData.play;
+
+                // Use hdplay for HD download (no watermark, requires &hd=1)
+                const hdUrl = videoData.hdplay || null;
+
                 return {
                     success: true,
-                    downloadUrl: videoData.play || videoData.hdplay || videoData.wmplay,
-                    hdUrl: videoData.hdplay,
+                    downloadUrl: downloadUrl,
+                    hdUrl: hdUrl,
                     audioUrl: videoData.music,
                     thumbnail: videoData.cover,
                     title: videoData.title,
@@ -490,6 +505,15 @@ document.addEventListener('DOMContentLoaded', () => {
             statusEl.innerHTML = '<p>⏳ Downloading... Please wait.</p>';
         }
 
+        // Determine file type from filename argument
+        const isAudio = filename.includes('.mp3') || filename.includes('audio');
+        const ext = isAudio ? 'mp3' : 'mp4';
+        const mimeType = isAudio ? 'audio/mpeg' : 'video/mp4';
+
+        // Generate timestamp-based filename with correct extension
+        const timestamp = new Date().toISOString().replace(/[:.]/g, '-').slice(0, 19);
+        const safeFilename = `tiktok_${timestamp}.${ext}`;
+
         try {
             // Method 1: Try fetch with blob (works for CORS-enabled servers like TikWM)
             const response = await fetch(videoUrl, {
@@ -498,22 +522,35 @@ document.addEventListener('DOMContentLoaded', () => {
             });
 
             if (response.ok) {
-                const blob = await response.blob();
-                const blobUrl = URL.createObjectURL(blob);
-                
+                const originalBlob = await response.blob();
+
+                // Create a new blob with correct MIME type
+                const downloadBlob = new Blob([originalBlob], { type: mimeType });
+                const blobUrl = URL.createObjectURL(downloadBlob);
+
+                // Create download link with proper attributes
                 const a = document.createElement('a');
                 a.href = blobUrl;
-                a.download = filename;
+                a.download = safeFilename;
+                a.type = mimeType;
                 a.style.display = 'none';
                 document.body.appendChild(a);
-                a.click();
+
+                // Use MouseEvent for more reliable download trigger
+                const clickEvent = new MouseEvent('click', {
+                    view: window,
+                    bubbles: true,
+                    cancelable: false
+                });
+                a.dispatchEvent(clickEvent);
+
                 document.body.removeChild(a);
-                
+
                 // Cleanup blob URL after delay
-                setTimeout(() => URL.revokeObjectURL(blobUrl), 10000);
+                setTimeout(() => URL.revokeObjectURL(blobUrl), 30000);
 
                 if (statusEl) {
-                    statusEl.innerHTML = '<p>✅ Download complete! Check your Downloads folder.</p>';
+                    statusEl.innerHTML = `<p>✅ Downloaded as <strong>${safeFilename}</strong></p>`;
                 }
                 return;
             }

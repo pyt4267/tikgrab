@@ -1412,7 +1412,7 @@ body.light-mode .view-all-platforms-btn:hover {
 
 .view-all-container {
     text-align: center;
-    margin-top: 2rem;
+    margin-top: -1rem;
 }
 
 .view-all-btn {
@@ -1693,6 +1693,7 @@ body.light-mode .ad-label {
     padding: 4rem 1.5rem;
     max-width: 1200px;
     margin: 0 auto;
+    text-align: center;
 }
 
 .reviews-grid {
