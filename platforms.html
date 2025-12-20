@@ -2,390 +2,290 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description"
-        content="TikGrab supports 100+ platforms. Download videos from TikTok, YouTube, Instagram, Twitter, Facebook, and many more.">
-    <meta name="keywords"
-        content="video downloader, TikTok, YouTube, Instagram, Twitter, Facebook, Vimeo, all platforms">
-    <meta name="author" content="TikGrab">
-    <meta property="og:title" content="All Supported Platforms | TikGrab">
-    <meta property="og:description"
-        content="Download videos from 100+ platforms including TikTok, YouTube, Instagram, and more.">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://tikgrab.net/platforms.html">
-    <link rel="canonical" href="https://tikgrab.net/platforms.html">
-    <title>All Supported Platforms - 100+ Video Sites | TikGrab</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="pages.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <style>
-        .platforms-page {
-            padding: calc(80px + 2rem) 1.5rem 3rem;
-        }
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description"
+                content="TikGrab supports 20+ platforms. Download videos from TikTok, YouTube, Instagram, Twitter, Facebook, and more.">
+        <meta name="keywords"
+                content="video downloader, TikTok, YouTube, Instagram, Twitter, Facebook, Vimeo, all platforms">
+        <meta name="author" content="TikGrab">
+        <meta property="og:title" content="All Supported Platforms | TikGrab">
+        <meta property="og:description"
+                content="Download videos from 20+ platforms including TikTok, YouTube, Instagram, and more.">
+        <meta property="og:type" content="website">
+        <meta property="og:url" content="https://tikgrab.net/platforms.html">
+        <link rel="canonical" href="https://tikgrab.net/platforms.html">
+        <title>All Supported Platforms - 20+ Video Sites | TikGrab</title>
+        <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="pages.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap"
+                rel="stylesheet">
+        <style>
+                .platforms-page {
+                        padding: calc(80px + 2rem) 1.5rem 3rem;
+                }
 
-        .platforms-container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
+                .platforms-container {
+                        max-width: 1200px;
+                        margin: 0 auto;
+                }
 
-        .platforms-header {
-            text-align: center;
-            margin-bottom: 3rem;
-        }
+                .platforms-header {
+                        text-align: center;
+                        margin-bottom: 3rem;
+                }
 
-        .platforms-header h1 {
-            font-size: clamp(2rem, 5vw, 3rem);
-            font-weight: 800;
-            margin-bottom: 1rem;
-            background: linear-gradient(135deg, var(--neon-cyan), var(--neon-magenta));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
+                .platforms-header h1 {
+                        font-size: clamp(2rem, 5vw, 3rem);
+                        font-weight: 800;
+                        margin-bottom: 1rem;
+                        background: linear-gradient(135deg, var(--neon-cyan), var(--neon-magenta));
+                        -webkit-background-clip: text;
+                        -webkit-text-fill-color: transparent;
+                        background-clip: text;
+                }
 
-        .platforms-header p {
-            color: var(--text-secondary);
-            font-size: 1.1rem;
-            max-width: 600px;
-            margin: 0 auto;
-        }
+                .platforms-header p {
+                        color: var(--text-secondary);
+                        font-size: 1.1rem;
+                        max-width: 600px;
+                        margin: 0 auto;
+                }
 
-        .platform-category {
-            margin-bottom: 3rem;
-        }
+                .platform-category {
+                        margin-bottom: 3rem;
+                }
 
-        .platform-category h2 {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--text-primary);
-            margin-bottom: 1.5rem;
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-        }
+                .platform-category h2 {
+                        font-size: 1.5rem;
+                        font-weight: 700;
+                        color: var(--text-primary);
+                        margin-bottom: 1.5rem;
+                        display: flex;
+                        align-items: center;
+                        gap: 0.75rem;
+                }
 
-        .platform-category h2::before {
-            content: "";
-            width: 4px;
-            height: 1.5rem;
-            background: linear-gradient(to bottom, var(--neon-cyan), var(--neon-magenta));
-            border-radius: 2px;
-        }
+                .platform-category h2::before {
+                        content: "";
+                        width: 4px;
+                        height: 1.5rem;
+                        background: linear-gradient(to bottom, var(--neon-cyan), var(--neon-magenta));
+                        border-radius: 2px;
+                }
 
-        .platforms-list {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-            gap: 1rem;
-        }
+                .platforms-list {
+                        display: grid;
+                        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+                        gap: 1rem;
+                }
 
-        .platform-item {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            padding: 1rem 1.25rem;
-            background: var(--bg-card);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: var(--radius-md);
-            text-decoration: none;
-            color: var(--text-primary);
-            transition: all var(--transition-fast);
-        }
+                .platform-item {
+                        display: flex;
+                        align-items: center;
+                        gap: 0.75rem;
+                        padding: 1rem 1.25rem;
+                        background: var(--bg-card);
+                        border: 1px solid rgba(255, 255, 255, 0.1);
+                        border-radius: var(--radius-md);
+                        text-decoration: none;
+                        color: var(--text-primary);
+                        transition: all var(--transition-fast);
+                }
 
-        .platform-item:hover {
-            border-color: var(--neon-cyan);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 20px rgba(0, 245, 255, 0.2);
-        }
+                .platform-item:hover {
+                        border-color: var(--neon-cyan);
+                        transform: translateY(-2px);
+                        box-shadow: 0 4px 20px rgba(0, 245, 255, 0.2);
+                }
 
-        .platform-item .icon {
-            font-size: 1.5rem;
-        }
+                .platform-item .icon {
+                        font-size: 1.5rem;
+                }
 
-        .platform-item .name {
-            font-weight: 500;
-        }
+                .platform-item .name {
+                        font-weight: 500;
+                }
 
-        .back-home {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            margin-top: 2rem;
-            padding: 1rem 2rem;
-            background: linear-gradient(135deg, var(--neon-cyan), var(--neon-magenta));
-            border-radius: var(--radius-full);
-            color: white;
-            font-weight: 600;
-            text-decoration: none;
-            transition: all var(--transition-normal);
-        }
+                .back-home {
+                        display: inline-flex;
+                        align-items: center;
+                        gap: 0.5rem;
+                        margin-top: 2rem;
+                        padding: 1rem 2rem;
+                        background: linear-gradient(135deg, var(--neon-cyan), var(--neon-magenta));
+                        border-radius: var(--radius-full);
+                        color: white;
+                        font-weight: 600;
+                        text-decoration: none;
+                        transition: all var(--transition-normal);
+                }
 
-        .back-home:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 30px rgba(0, 245, 255, 0.4);
-        }
-    </style>
-    <link rel="icon" type="image/svg+xml" href="favicon.svg">
-    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+                .back-home:hover {
+                        transform: translateY(-2px);
+                        box-shadow: 0 8px 30px rgba(0, 245, 255, 0.4);
+                }
+        </style>
+        <link rel="icon" type="image/svg+xml" href="favicon.svg">
+        <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
 </head>
 
 <body>
-    <header class="header">
-        <div class="header-container">
-            <a href="index.html" class="logo">
-                <span class="logo-icon">⚡</span>
-                <span class="logo-text">Tik<span class="logo-accent">Grab</span></span>
-            </a>
-            <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Menu">
-                <span class="hamburger-line"></span>
-                <span class="hamburger-line"></span>
-                <span class="hamburger-line"></span>
-            </button>
-            <nav class="nav" id="mainNav">
-                <a href="index.html" class="nav-link">Home</a>
-                <a href="how-to-download.html" class="nav-link">How to</a>
-                <a href="faq.html" class="nav-link">FAQ</a>
-            </nav>
-        </div>
-    </header>
-
-    <main class="platforms-page">
-        <div class="platforms-container">
-            <div class="platforms-header">
-                <h1>All Supported Platforms</h1>
-                <p>Download videos from 100+ platforms. Just paste the URL and we'll handle the rest.</p>
-            </div>
-
-            <!-- Social Media -->
-            <div class="platform-category">
-                <h2>📱 Social Media</h2>
-                <div class="platforms-list">
-                    <a href="download-tiktok-videos.html" class="platform-item"><span class="icon">🎵</span><span
-                            class="name">TikTok</span></a>
-                    <a href="download-instagram-videos.html" class="platform-item"><span class="icon">📷</span><span
-                            class="name">Instagram</span></a>
-                    <a href="download-twitter-videos.html" class="platform-item"><span class="icon">🐦</span><span
-                            class="name">Twitter / X</span></a>
-                    <a href="download-facebook-videos.html" class="platform-item"><span class="icon">👤</span><span
-                            class="name">Facebook</span></a>
-                    <a href="download-pinterest-videos.html" class="platform-item"><span class="icon">📌</span><span
-                            class="name">Pinterest</span></a>
-                    <a href="download-reddit-videos.html" class="platform-item"><span class="icon">🔴</span><span
-                            class="name">Reddit</span></a>
-                    <a href="download-tumblr-videos.html" class="platform-item"><span class="icon">📝</span><span
-                            class="name">Tumblr</span></a>
-                    <a href="download-snapchat-videos.html" class="platform-item"><span class="icon">👻</span><span
-                            class="name">Snapchat</span></a>
-                    <a href="download-threads-videos.html" class="platform-item"><span class="icon">🧵</span><span
-                            class="name">Threads</span></a>
-                    <a href="download-bluesky-videos.html" class="platform-item"><span class="icon">🦋</span><span
-                            class="name">Bluesky</span></a>
-                    <a href="download-linkedin-videos.html" class="platform-item"><span class="icon">💼</span><span
-                            class="name">LinkedIn</span></a>
-                    <a href="download-telegram-videos.html" class="platform-item"><span class="icon">✈️</span><span
-                            class="name">Telegram</span></a>
-                    <a href="download-mastodon-videos.html" class="platform-item"><span class="icon">🐘</span><span
-                            class="name">Mastodon</span></a>
+        <header class="header">
+                <div class="header-container">
+                        <a href="index.html" class="logo">
+                                <span class="logo-icon">⚡</span>
+                                <span class="logo-text">Tik<span class="logo-accent">Grab</span></span>
+                        </a>
+                        <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Menu">
+                                <span class="hamburger-line"></span>
+                                <span class="hamburger-line"></span>
+                                <span class="hamburger-line"></span>
+                        </button>
+                        <nav class="nav" id="mainNav">
+                                <a href="index.html" class="nav-link">Home</a>
+                                <a href="how-to-download.html" class="nav-link">How to</a>
+                                <a href="faq.html" class="nav-link">FAQ</a>
+                        </nav>
                 </div>
-            </div>
+        </header>
 
-            <!-- Video Platforms -->
-            <div class="platform-category">
-                <h2>🎬 Video Platforms</h2>
-                <div class="platforms-list">
-                    <a href="download-youtube-videos.html" class="platform-item"><span class="icon">▶️</span><span
-                            class="name">YouTube</span></a>
-                    <a href="download-vimeo-videos.html" class="platform-item"><span class="icon">🎬</span><span
-                            class="name">Vimeo</span></a>
-                    <a href="download-twitch-videos.html" class="platform-item"><span class="icon">🎮</span><span
-                            class="name">Twitch</span></a>
-                    <a href="download-dailymotion-videos.html" class="platform-item"><span class="icon">🎥</span><span
-                            class="name">Dailymotion</span></a>
-                    <a href="download-rumble-videos.html" class="platform-item"><span class="icon">📢</span><span
-                            class="name">Rumble</span></a>
-                    <a href="download-kick-videos.html" class="platform-item"><span class="icon">🟢</span><span
-                            class="name">Kick</span></a>
-                    <a href="download-streamable-videos.html" class="platform-item"><span class="icon">⚡</span><span
-                            class="name">Streamable</span></a>
-                    <a href="download-ted-videos.html" class="platform-item"><span class="icon">💡</span><span
-                            class="name">TED</span></a>
-                    <a href="download-coub-videos.html" class="platform-item"><span class="icon">🔄</span><span
-                            class="name">Coub</span></a>
-                    <a href="download-odysee-videos.html" class="platform-item"><span class="icon">🌐</span><span
-                            class="name">Odysee</span></a>
-                    <a href="download-bitchute-videos.html" class="platform-item"><span class="icon">📹</span><span
-                            class="name">BitChute</span></a>
-                    <a href="download-peertube-videos.html" class="platform-item"><span class="icon">🔗</span><span
-                            class="name">PeerTube</span></a>
-                    <a href="download-veoh-videos.html" class="platform-item"><span class="icon">📺</span><span
-                            class="name">Veoh</span></a>
-                    <a href="download-metacafe-videos.html" class="platform-item"><span class="icon">🎞️</span><span
-                            class="name">Metacafe</span></a>
-                    <a href="download-nebula-videos.html" class="platform-item"><span class="icon">✨</span><span
-                            class="name">Nebula</span></a>
-                    <a href="download-curiositystream-videos.html" class="platform-item"><span
-                            class="icon">🔬</span><span class="name">CuriosityStream</span></a>
-                    <a href="download-floatplane-videos.html" class="platform-item"><span class="icon">✈️</span><span
-                            class="name">Floatplane</span></a>
-                    <a href="download-patreon-videos.html" class="platform-item"><span class="icon">🎁</span><span
-                            class="name">Patreon</span></a>
-                    <a href="download-liveleak-videos.html" class="platform-item"><span class="icon">📰</span><span
-                            class="name">LiveLeak</span></a>
+        <main class="platforms-page">
+                <div class="platforms-container">
+                        <div class="platforms-header">
+                                <h1>All Supported Platforms</h1>
+                                <p>Download videos from 20+ platforms. Just paste the URL and we'll handle the rest.</p>
+                        </div>
+
+                        <!-- Social Media -->
+                        <div class="platform-category">
+                                <h2>📱 Social Media</h2>
+                                <div class="platforms-list">
+                                        <a href="download-tiktok-videos.html" class="platform-item"><span
+                                                        class="icon">🎵</span><span class="name">TikTok</span></a>
+                                        <a href="download-instagram-videos.html" class="platform-item"><span
+                                                        class="icon">📷</span><span class="name">Instagram</span></a>
+                                        <a href="download-twitter-videos.html" class="platform-item"><span
+                                                        class="icon">🐦</span><span class="name">Twitter / X</span></a>
+                                        <a href="download-facebook-videos.html" class="platform-item"><span
+                                                        class="icon">👤</span><span class="name">Facebook</span></a>
+                                        <a href="download-pinterest-videos.html" class="platform-item"><span
+                                                        class="icon">📌</span><span class="name">Pinterest</span></a>
+                                        <a href="download-reddit-videos.html" class="platform-item"><span
+                                                        class="icon">🔴</span><span class="name">Reddit</span></a>
+                                        <a href="download-tumblr-videos.html" class="platform-item"><span
+                                                        class="icon">📝</span><span class="name">Tumblr</span></a>
+                                        <a href="download-snapchat-videos.html" class="platform-item"><span
+                                                        class="icon">👻</span><span class="name">Snapchat</span></a>
+                                        <a href="download-threads-videos.html" class="platform-item"><span
+                                                        class="icon">🧵</span><span class="name">Threads</span></a>
+                                        <a href="download-bluesky-videos.html" class="platform-item"><span
+                                                        class="icon">🦋</span><span class="name">Bluesky</span></a>
+                                        <a href="download-linkedin-videos.html" class="platform-item"><span
+                                                        class="icon">💼</span><span class="name">LinkedIn</span></a>
+                                        <a href="download-telegram-videos.html" class="platform-item"><span
+                                                        class="icon">✈️</span><span class="name">Telegram</span></a>
+                                </div>
+                        </div>
+
+                        <!-- Video Platforms -->
+                        <div class="platform-category">
+                                <h2>🎬 Video Platforms</h2>
+                                <div class="platforms-list">
+                                        <a href="download-youtube-videos.html" class="platform-item"><span
+                                                        class="icon">▶️</span><span class="name">YouTube</span></a>
+                                        <a href="download-vimeo-videos.html" class="platform-item"><span
+                                                        class="icon">🎬</span><span class="name">Vimeo</span></a>
+                                        <a href="download-twitch-videos.html" class="platform-item"><span
+                                                        class="icon">🎮</span><span class="name">Twitch</span></a>
+                                        <a href="download-dailymotion-videos.html" class="platform-item"><span
+                                                        class="icon">🎥</span><span class="name">Dailymotion</span></a>
+                                        <a href="download-ted-videos.html" class="platform-item"><span
+                                                        class="icon">💡</span><span class="name">TED</span></a>
+                                        <a href="download-bilibili-videos.html" class="platform-item"><span
+                                                        class="icon">📺</span><span class="name">Bilibili</span></a>
+                                </div>
+                        </div>
+
+                        <!-- Regional Platforms -->
+                        <div class="platform-category">
+                                <h2>🌏 Regional Platforms</h2>
+                                <div class="platforms-list">
+                                        <a href="download-vk-videos.html" class="platform-item"><span
+                                                        class="icon">💙</span><span class="name">VK</span></a>
+                                </div>
+                        </div>
+
+                        <!-- Audio Platforms -->
+                        <div class="platform-category">
+                                <h2>🎧 Audio & Music</h2>
+                                <div class="platforms-list">
+                                        <a href="download-soundcloud-music.html" class="platform-item"><span
+                                                        class="icon">🎧</span><span class="name">SoundCloud</span></a>
+                                </div>
+                        </div>
+
+                        <div style="text-align: center;">
+                                <a href="index.html" class="back-home">← Back to Home</a>
+                        </div>
                 </div>
-            </div>
+        </main>
 
-            <!-- Anime Platforms -->
-            <div class="platform-category">
-                <h2>🎌 Anime</h2>
-                <div class="platforms-list">
-                    <a href="download-crunchyroll-videos.html" class="platform-item"><span class="icon">🍥</span><span
-                            class="name">Crunchyroll</span></a>
-                    <a href="download-funimation-videos.html" class="platform-item"><span class="icon">🎌</span><span
-                            class="name">Funimation</span></a>
-                    <a href="download-9anime-videos.html" class="platform-item"><span class="icon">9️⃣</span><span
-                            class="name">9Anime</span></a>
-                    <a href="download-gogoanime-videos.html" class="platform-item"><span class="icon">🐉</span><span
-                            class="name">GogoAnime</span></a>
-                    <a href="download-animepahe-videos.html" class="platform-item"><span class="icon">🌸</span><span
-                            class="name">AnimePahe</span></a>
-                    <a href="download-kissanime-videos.html" class="platform-item"><span class="icon">💋</span><span
-                            class="name">KissAnime</span></a>
-                    <a href="download-zoro-videos.html" class="platform-item"><span class="icon">⚔️</span><span
-                            class="name">Zoro.to</span></a>
-                    <a href="download-aniwatch-videos.html" class="platform-item"><span class="icon">👁️</span><span
-                            class="name">AniWatch</span></a>
+        <footer class="footer">
+                <div class="footer-content">
+                        <div class="footer-logo">
+                                <span class="logo-icon">⚡</span>
+                                <span>TikGrab</span>
+                        </div>
+                        <p class="footer-text">© 2025 TikGrab. All rights reserved.</p>
+                        <div class="footer-links">
+                                <a href="privacy.html">Privacy Policy</a>
+                                <a href="terms.html">Terms of Service</a>
+                                <a href="dmca.html">DMCA</a>
+                                <a href="contact.html">Contact</a>
+                        </div>
                 </div>
-            </div>
+        </footer>
 
-            <!-- K-Drama / Asian Content -->
-            <div class="platform-category">
-                <h2>🎭 Drama & Asian Content</h2>
-                <div class="platforms-list">
-                    <a href="download-viki-videos.html" class="platform-item"><span class="icon">🎬</span><span
-                            class="name">Viki</span></a>
-                    <a href="download-dramacool-videos.html" class="platform-item"><span class="icon">🎭</span><span
-                            class="name">DramaCool</span></a>
-                </div>
-            </div>
+        <script>
+                // Mobile Menu Toggle
+                document.addEventListener('DOMContentLoaded', function () {
+                        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+                        const mainNav = document.getElementById('mainNav');
 
-            <!-- Audio Platforms -->
-            <div class="platform-category">
-                <h2>🎧 Audio & Music</h2>
-                <div class="platforms-list">
-                    <a href="download-soundcloud-music.html" class="platform-item"><span class="icon">🎧</span><span
-                            class="name">SoundCloud</span></a>
-                    <a href="download-bandcamp-music.html" class="platform-item"><span class="icon">🎸</span><span
-                            class="name">Bandcamp</span></a>
-                    <a href="download-mixcloud-music.html" class="platform-item"><span class="icon">🎛️</span><span
-                            class="name">Mixcloud</span></a>
-                    <a href="download-spotify-podcasts.html" class="platform-item"><span class="icon">🎵</span><span
-                            class="name">Spotify Podcasts</span></a>
-                </div>
-            </div>
+                        if (mobileMenuBtn && mainNav) {
+                                mobileMenuBtn.addEventListener('click', function () {
+                                        mobileMenuBtn.classList.toggle('active');
+                                        mainNav.classList.toggle('active');
+                                });
 
-            <!-- Regional Platforms -->
-            <div class="platform-category">
-                <h2>🌏 Regional Platforms</h2>
-                <div class="platforms-list">
-                    <a href="download-bilibili-videos.html" class="platform-item"><span class="icon">📺</span><span
-                            class="name">Bilibili</span></a>
-                    <a href="download-douyin-videos.html" class="platform-item"><span class="icon">🎵</span><span
-                            class="name">Douyin</span></a>
-                    <a href="download-weibo-videos.html" class="platform-item"><span class="icon">🌐</span><span
-                            class="name">Weibo</span></a>
-                    <a href="download-xiaohongshu-videos.html" class="platform-item"><span class="icon">📕</span><span
-                            class="name">Xiaohongshu</span></a>
-                    <a href="download-niconico-videos.html" class="platform-item"><span class="icon">📺</span><span
-                            class="name">Niconico</span></a>
-                    <a href="download-vk-videos.html" class="platform-item"><span class="icon">💙</span><span
-                            class="name">VK</span></a>
-                    <a href="download-okru-videos.html" class="platform-item"><span class="icon">🟠</span><span
-                            class="name">OK.ru</span></a>
-                    <a href="download-rutube-videos.html" class="platform-item"><span class="icon">🎬</span><span
-                            class="name">Rutube</span></a>
-                </div>
-            </div>
+                                // Close menu when clicking a link
+                                mainNav.querySelectorAll('.nav-link').forEach(link => {
+                                        link.addEventListener('click', function () {
+                                                mobileMenuBtn.classList.remove('active');
+                                                mainNav.classList.remove('active');
+                                        });
+                                });
 
-            <!-- Other Platforms -->
-            <div class="platform-category">
-                <h2>📲 Other Platforms</h2>
-                <div class="platforms-list">
-                    <a href="download-imgur-videos.html" class="platform-item"><span class="icon">📸</span><span
-                            class="name">Imgur</span></a>
-                    <a href="download-gfycat-videos.html" class="platform-item"><span class="icon">🎞️</span><span
-                            class="name">Gfycat</span></a>
-                    <a href="download-9gag-videos.html" class="platform-item"><span class="icon">😂</span><span
-                            class="name">9GAG</span></a>
-                    <a href="download-likee-videos.html" class="platform-item"><span class="icon">❤️</span><span
-                            class="name">Likee</span></a>
-                    <a href="download-kwai-videos.html" class="platform-item"><span class="icon">🎥</span><span
-                            class="name">Kwai</span></a>
-                    <a href="download-triller-videos.html" class="platform-item"><span class="icon">🎤</span><span
-                            class="name">Triller</span></a>
-                </div>
-            </div>
-
-            <div style="text-align: center;">
-                <a href="index.html" class="back-home">← Back to Home</a>
-            </div>
-        </div>
-    </main>
-
-    <footer class="footer">
-        <div class="footer-content">
-            <div class="footer-logo">
-                <span class="logo-icon">⚡</span>
-                <span>TikGrab</span>
-            </div>
-            <p class="footer-text">© 2025 TikGrab. All rights reserved.</p>
-            <div class="footer-links">
-                <a href="privacy.html">Privacy Policy</a>
-                <a href="terms.html">Terms of Service</a>
-                <a href="dmca.html">DMCA</a>
-                <a href="contact.html">Contact</a>
-            </div>
-        </div>
-    </footer>
-
-    <script>
-        // Mobile Menu Toggle
-        document.addEventListener('DOMContentLoaded', function() {
-            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-            const mainNav = document.getElementById('mainNav');
-            
-            if (mobileMenuBtn && mainNav) {
-                mobileMenuBtn.addEventListener('click', function() {
-                    mobileMenuBtn.classList.toggle('active');
-                    mainNav.classList.toggle('active');
+                                // Close menu when clicking outside
+                                document.addEventListener('click', function (e) {
+                                        if (!mainNav.contains(e.target) && !mobileMenuBtn.contains(e.target)) {
+                                                mobileMenuBtn.classList.remove('active');
+                                                mainNav.classList.remove('active');
+                                        }
+                                });
+                        }
                 });
-                
-                // Close menu when clicking a link
-                mainNav.querySelectorAll('.nav-link').forEach(link => {
-                    link.addEventListener('click', function() {
-                        mobileMenuBtn.classList.remove('active');
-                        mainNav.classList.remove('active');
-                    });
-                });
-                
-                // Close menu when clicking outside
-                document.addEventListener('click', function(e) {
-                    if (!mainNav.contains(e.target) && !mobileMenuBtn.contains(e.target)) {
-                        mobileMenuBtn.classList.remove('active');
-                        mainNav.classList.remove('active');
-                    }
-                });
-            }
-        });
-    </script>
-    <script src="theme.js"></script>
-    <script src="ads.js"></script>
+        </script>
+        <script src="theme.js"></script>
+        <script src="ads.js"></script>
 
-    
-    <!-- PropellerAds Multitag -->
-    <script src="https://quge5.com/88/tag.min.js" data-zone="194556" async data-cfasync="false"></script>
+
+        <!-- PropellerAds Multitag -->
+        <script src="https://quge5.com/88/tag.min.js" data-zone="194556" async data-cfasync="false"></script>
 </body>
 
 </html>
