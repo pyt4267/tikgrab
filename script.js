@@ -30,8 +30,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // Cobalt API Endpoint (Public Instance)
     const COBALT_API = 'https://api.cobalt.tools';
 
-    // Video Proxy (Netlify Function)
-    const PROXY_URL = '/.netlify/functions/download';
+    // Video Proxy (Cloudflare Pages Function)
+    const PROXY_URL = '/functions/download';
 
     // Supported platforms (Cobalt API + additional services)
     const SUPPORTED_PLATFORMS = {
