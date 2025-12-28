@@ -4,6 +4,36 @@
 User-agent: *
 Allow: /
 
+# Block Python scripts (not needed for crawling)
+Disallow: /*.py$
+
+# Sitemap
 Sitemap: https://tikgrab.net/sitemap.xml
 
+# Google specific - Priority crawler
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 0
+
+# Google Image Bot
+User-agent: Googlebot-Image
+Allow: /
+
+# Bing
+User-agent: Bingbot
+Allow: /
 Crawl-delay: 1
+
+# Yandex
+User-agent: Yandex
+Allow: /
+Crawl-delay: 2
+
+# Baidu
+User-agent: Baiduspider
+Allow: /
+Crawl-delay: 2
+
+# DuckDuckGo
+User-agent: DuckDuckBot
+Allow: /
